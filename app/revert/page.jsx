@@ -1,7 +1,47 @@
-import React from 'react';
-import { Users, Hand, Book, Smartphone, ArrowDown } from 'lucide-react';
+'use client';
+
+import React, { useState } from 'react';
+import { Users, Hand, Book, Smartphone, ArrowDown, ChevronDown, ExternalLink } from 'lucide-react';
+import { revertResources } from '../data/revertResources';
+
+// Component to render a resource link
+const ResourceLink = ({ resource }) => {
+  if (resource.url) {
+    return (
+      <a 
+        href={resource.url} 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
+      >
+        <ExternalLink className="w-4 h-4" />
+        <span className="text-sm">{resource.title}</span>
+      </a>
+    );
+  }
+  return <p className="text-sm text-foreground/80">{resource.title}</p>;
+};
+
+// Component to render a list of resources
+const ResourceList = ({ resources }) => (
+  <ul className="space-y-2 ml-4">
+    {resources.map((resource, index) => (
+      <li key={index} className="flex flex-col gap-1">
+        <ResourceLink resource={resource} />
+        {resource.author && <p className="text-xs text-foreground/60 ml-6">By: {resource.author}</p>}
+        {resource.description && <p className="text-xs text-foreground/60 ml-6">{resource.description}</p>}
+        {resource.source && <p className="text-xs text-foreground/60 ml-6">Source: {resource.source}</p>}
+      </li>
+    ))}
+  </ul>
+);
 
 export default function NewRevertsPage() {
+  const [expandedSection, setExpandedSection] = useState(null);
+
+  const toggleSection = (sectionIndex) => {
+    setExpandedSection(expandedSection === sectionIndex ? null : sectionIndex);
+  };
   return (
     <div className="mt-42 min-h-screen bg-background text-white">
       {/* Hero Section */}
@@ -26,7 +66,43 @@ export default function NewRevertsPage() {
             <div className="w-24 h-1 bg-[#c4b5a0] mx-auto"></div>
           </div>
           
-          {/* Learning Path Cards */}
+          {/* Detailed Resources Section */}
+          <div className="max-w-5xl mx-auto space-y-4 mb-12">
+            {revertResources.starterPackage.sections.map((section, sectionIndex) => (
+              <div key={sectionIndex} className="bg-foreground/5 rounded-lg overflow-hidden border border-foreground/10">
+                <button
+                  onClick={() => toggleSection(sectionIndex)}
+                  className="w-full px-6 py-5 flex items-start justify-between hover:bg-foreground/10 transition-all duration-300 text-left"
+                >
+                  <h3 className="text-lg sm:text-xl font-semibold text-foreground pr-4">
+                    {section.title}
+                  </h3>
+                  <ChevronDown
+                    className={`w-6 h-6 text-foreground flex-shrink-0 transition-transform duration-300 mt-1 ${
+                      expandedSection === sectionIndex ? 'rotate-180' : ''
+                    }`}
+                  />
+                </button>
+                {expandedSection === sectionIndex && (
+                  <div className="px-6 py-5 bg-foreground/5 border-t border-foreground/10">
+                    {section.resources && <ResourceList resources={section.resources} />}
+                    {section.categories && (
+                      <div className="space-y-4">
+                        {section.categories.map((category, catIndex) => (
+                          <div key={catIndex}>
+                            <h4 className="font-semibold text-foreground mb-2">{category.title}</h4>
+                            <ResourceList resources={category.resources} />
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Quick Reference Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             {/* Foundation of Tawhid */}
             <div className="group">

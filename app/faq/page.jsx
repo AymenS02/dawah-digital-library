@@ -1,84 +1,38 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, ExternalLink } from 'lucide-react';
+import { faqData, commonTopics, dawahResources } from '../data/faqData';
 
 export default function FAQPage() {
   const [selectedCategory, setSelectedCategory] = useState('MUSLIMS');
   const [openFAQ, setOpenFAQ] = useState(null);
+  const [expandedDawahSection, setExpandedDawahSection] = useState(null);
   const [formData, setFormData] = useState({ name: '', email: '', comment: '' });
-
-  const faqData = {
-    'NON-MUSLIMS': [
-      {
-        question: 'What is Islam?',
-        answer: 'Islam is a monotheistic Abrahamic religion that teaches that Muhammad is a messenger of God. It is the world\'s second-largest religion with over 1.8 billion followers.',
-        links: ['Here is a link to a resource.', 'Here is a link to a resource.']
-      },
-      {
-        question: 'Who is Allah?',
-        answer: 'Allah is the Arabic word for God in Abrahamic religions. In Islam, Allah is the eternal, omniscient, and omnipotent creator of the universe.',
-        links: ['Here is a link to a resource.']
-      },
-      {
-        question: 'What is the Quran?',
-        answer: 'The Quran is the central religious text of Islam, believed by Muslims to be a revelation from God. It is widely regarded as the finest work in classical Arabic literature.',
-        links: ['Here is a link to a resource.', 'Here is a link to a resource.']
-      }
-    ],
-    'MUSLIMS': [
-      {
-        question: 'When is socializing too much for a student of knowledge?',
-        answer: 'Hello, here is an answer. Hello, here is an answer. Hello, here is an answer. Hello, here is an answer. Hello, here is an answer. Hello, here is an answer. Hello, here is an answer. Hello, here is an answer.',
-        links: ['Here is a link to a resource.', 'Here is a link to a resource.']
-      },
-      {
-        question: 'Raising righteous children: Practical Guidance for Today\'s Parents',
-        answer: 'Comprehensive guidance on raising children with Islamic values in the modern world.',
-        links: []
-      },
-      {
-        question: 'Can Muslims stand united despite differences in Creed?',
-        answer: 'Understanding unity and diversity within the Muslim community.',
-        links: []
-      },
-      {
-        question: 'Risalah Fi Usul Al-Tafsir by Imam al-Suyuti',
-        answer: 'Classical text on the principles of Quranic interpretation.',
-        links: []
-      },
-      {
-        question: 'Attack on Islam in Europe',
-        answer: 'Addressing contemporary challenges facing Muslims in Europe.',
-        links: []
-      }
-    ],
-    'NEW REVERTS': [
-      {
-        question: 'How do I pray Salah?',
-        answer: 'Salah is the Islamic prayer performed five times a day. It involves specific physical movements and recitations.',
-        links: ['Here is a link to a resource.', 'Here is a link to a resource.']
-      },
-      {
-        question: 'What are the Five Pillars of Islam?',
-        answer: 'The Five Pillars are the foundation of Muslim life: Shahada (faith), Salah (prayer), Zakat (charity), Sawm (fasting), and Hajj (pilgrimage).',
-        links: ['Here is a link to a resource.']
-      },
-      {
-        question: 'How do I find a local mosque?',
-        answer: 'You can find local mosques through online directories, community centers, or by asking other Muslims in your area.',
-        links: ['Here is a link to a resource.']
-      }
-    ]
-  };
 
   const toggleFAQ = (index) => {
     setOpenFAQ(openFAQ === index ? null : index);
   };
 
+  const toggleDawahSection = (section) => {
+    setExpandedDawahSection(expandedDawahSection === section ? null : section);
+  };
+
   const handleSubmit = () => {
     console.log('Form submitted:', formData);
     setFormData({ name: '', email: '', comment: '' });
+  };
+
+  // Get the correct FAQ data based on selected category
+  const getCurrentFAQData = () => {
+    switch(selectedCategory) {
+      case 'NON-MUSLIMS':
+        return faqData.nonMuslims;
+      case 'NEW REVERTS':
+        return faqData.newReverts;
+      default:
+        return faqData.muslims;
+    }
   };
 
   return (
@@ -137,7 +91,7 @@ export default function FAQPage() {
           
           {/* FAQ Accordions */}
           <div className="space-y-4">
-            {faqData[selectedCategory].map((faq, index) => (
+            {getCurrentFAQData().map((faq, index) => (
               <div key={index} className="bg-foreground/5 rounded-lg overflow-hidden border border-foreground/10">
                 <button
                   onClick={() => toggleFAQ(index)}
@@ -155,15 +109,18 @@ export default function FAQPage() {
                 {openFAQ === index && (
                   <div className="px-6 py-5 bg-foreground/5 border-t border-foreground/10">
                     <p className="text-foreground/80 mb-4">{faq.answer}</p>
-                    {faq.links.length > 0 && (
+                    {faq.links && faq.links.length > 0 && (
                       <div className="space-y-2">
                         {faq.links.map((link, linkIndex) => (
                           <a
                             key={linkIndex}
-                            href="#"
-                            className="block text-primary hover:text-primary/80 underline transition-colors duration-300"
+                            href={link.url || "#"}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 text-primary hover:text-primary/80 underline transition-colors duration-300"
                           >
-                            {link}
+                            <ExternalLink className="w-4 h-4" />
+                            <span>{link.title}</span>
                           </a>
                         ))}
                       </div>
@@ -172,6 +129,136 @@ export default function FAQPage() {
                 )}
               </div>
             ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Common Topics Section */}
+      <div className="relative py-16 px-4 mt-12 bg-foreground/5">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-light mb-8 text-foreground">
+            {commonTopics.title}
+          </h2>
+          <p className="text-lg text-foreground/80 mb-6">{commonTopics.intro}</p>
+          
+          <div className="space-y-6">
+            {commonTopics.categories.map((category, index) => (
+              <div key={index} className="bg-background rounded-lg p-6 border border-foreground/10">
+                <h3 className="text-xl font-bold text-foreground mb-3">{category.title}</h3>
+                <p className="text-foreground/80 whitespace-pre-line">{category.content}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Da'wah Section */}
+      <div className="relative py-16 px-4 mt-12">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-light mb-8 text-foreground">
+            {dawahResources.title}
+          </h2>
+          
+          {/* Main Da'wah Resources */}
+          <div className="mb-8">
+            <h3 className="text-2xl font-bold text-foreground mb-4">Main Resources</h3>
+            <ul className="space-y-2">
+              {dawahResources.mainResources.map((resource, index) => (
+                <li key={index} className="flex flex-col gap-1 ml-4">
+                  <p className="text-foreground">• {resource.title}</p>
+                  {resource.author && <p className="text-sm text-foreground/60 ml-4">By: {resource.author}</p>}
+                  {resource.source && <p className="text-sm text-foreground/60 ml-4">{resource.source}</p>}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Da'wah Methodology */}
+          <div className="bg-foreground/5 rounded-lg overflow-hidden border border-foreground/10 mb-4">
+            <button
+              onClick={() => toggleDawahSection('methodology')}
+              className="w-full px-6 py-5 flex items-start justify-between hover:bg-foreground/10 transition-all duration-300 text-left"
+            >
+              <h3 className="text-lg sm:text-xl font-semibold text-foreground pr-4">
+                {dawahResources.methodology.title}
+              </h3>
+              <ChevronDown
+                className={`w-6 h-6 text-foreground flex-shrink-0 transition-transform duration-300 mt-1 ${
+                  expandedDawahSection === 'methodology' ? 'rotate-180' : ''
+                }`}
+              />
+            </button>
+            {expandedDawahSection === 'methodology' && (
+              <div className="px-6 py-5 bg-foreground/5 border-t border-foreground/10">
+                <ul className="space-y-2">
+                  {dawahResources.methodology.resources.map((resource, index) => (
+                    <li key={index} className="flex flex-col gap-1 ml-4">
+                      <p className="text-foreground">• {resource.title}</p>
+                      {resource.author && <p className="text-sm text-foreground/60 ml-4">By: {resource.author}</p>}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+
+          {/* Dua'at (Callers) */}
+          <div className="bg-foreground/5 rounded-lg overflow-hidden border border-foreground/10 mb-4">
+            <button
+              onClick={() => toggleDawahSection('callers')}
+              className="w-full px-6 py-5 flex items-start justify-between hover:bg-foreground/10 transition-all duration-300 text-left"
+            >
+              <h3 className="text-lg sm:text-xl font-semibold text-foreground pr-4">
+                {dawahResources.callers.title}
+              </h3>
+              <ChevronDown
+                className={`w-6 h-6 text-foreground flex-shrink-0 transition-transform duration-300 mt-1 ${
+                  expandedDawahSection === 'callers' ? 'rotate-180' : ''
+                }`}
+              />
+            </button>
+            {expandedDawahSection === 'callers' && (
+              <div className="px-6 py-5 bg-foreground/5 border-t border-foreground/10 max-h-[500px] overflow-y-auto">
+                <ul className="space-y-2">
+                  {dawahResources.callers.resources.map((resource, index) => (
+                    <li key={index} className="flex flex-col gap-1 ml-4">
+                      <p className="text-foreground">• {resource.title}</p>
+                      {resource.author && <p className="text-sm text-foreground/60 ml-4">By: {resource.author}</p>}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+
+          {/* Others */}
+          <div className="bg-foreground/5 rounded-lg overflow-hidden border border-foreground/10">
+            <button
+              onClick={() => toggleDawahSection('others')}
+              className="w-full px-6 py-5 flex items-start justify-between hover:bg-foreground/10 transition-all duration-300 text-left"
+            >
+              <h3 className="text-lg sm:text-xl font-semibold text-foreground pr-4">
+                {dawahResources.others.title}
+              </h3>
+              <ChevronDown
+                className={`w-6 h-6 text-foreground flex-shrink-0 transition-transform duration-300 mt-1 ${
+                  expandedDawahSection === 'others' ? 'rotate-180' : ''
+                }`}
+              />
+            </button>
+            {expandedDawahSection === 'others' && (
+              <div className="px-6 py-5 bg-foreground/5 border-t border-foreground/10">
+                <ul className="space-y-2">
+                  {dawahResources.others.resources.map((resource, index) => (
+                    <li key={index} className="flex flex-col gap-1 ml-4">
+                      <p className="text-foreground">• {resource.title}</p>
+                      {resource.author && <p className="text-sm text-foreground/60 ml-4">By: {resource.author}</p>}
+                      {resource.note && <p className="text-sm text-foreground/60 ml-4">{resource.note}</p>}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         </div>
       </div>
