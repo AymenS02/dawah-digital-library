@@ -1,7 +1,53 @@
-import React from 'react';
-import { Users, BookOpen, ArrowDown } from 'lucide-react';
+'use client';
+
+import React, { useState } from 'react';
+import { Users, BookOpen, ArrowDown, ChevronDown, ExternalLink } from 'lucide-react';
+import { nonMuslimResources } from '../data/nonMuslimResources';
+
+// Component to render a resource link
+const ResourceLink = ({ resource }) => {
+  if (resource.url) {
+    return (
+      <a 
+        href={resource.url} 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
+      >
+        <ExternalLink className="w-4 h-4" />
+        <span className="text-sm">{resource.title}</span>
+      </a>
+    );
+  }
+  return <p className="text-sm text-foreground/80">{resource.title}</p>;
+};
+
+// Component to render a list of resources
+const ResourceList = ({ resources }) => (
+  <ul className="space-y-2 ml-4">
+    {resources.map((resource, index) => (
+      <li key={index} className="flex flex-col gap-1">
+        <ResourceLink resource={resource} />
+        {resource.author && <p className="text-xs text-foreground/60 ml-6">By: {resource.author}</p>}
+        {resource.description && <p className="text-xs text-foreground/60 ml-6">{resource.description}</p>}
+        {resource.source && <p className="text-xs text-foreground/60 ml-6">Source: {resource.source}</p>}
+      </li>
+    ))}
+  </ul>
+);
 
 export default function NonMuslimsPage() {
+  const [expandedCategory, setExpandedCategory] = useState(null);
+  const [expandedSection, setExpandedSection] = useState(null);
+
+  const toggleCategory = (category) => {
+    setExpandedCategory(expandedCategory === category ? null : category);
+    setExpandedSection(null);
+  };
+
+  const toggleSection = (sectionIndex) => {
+    setExpandedSection(expandedSection === sectionIndex ? null : sectionIndex);
+  };
   return (
     <div className="mt-42 min-h-screen bg-background text-foreground">
       {/* Hero Section */}
@@ -23,7 +69,181 @@ export default function NonMuslimsPage() {
             <div className="w-24 h-1 bg-[#c4b5a0] mx-auto mb-12"></div>
           </div>
           
-          {/* Topic Categories */}
+          {/* Main Category Dropdowns */}
+          <div className="max-w-5xl mx-auto space-y-4 mb-12">
+            {/* Islam Section */}
+            <div className="bg-foreground/5 rounded-lg overflow-hidden border border-foreground/10">
+              <button
+                onClick={() => toggleCategory('islam')}
+                className="w-full px-6 py-5 flex items-start justify-between hover:bg-foreground/10 transition-all duration-300 text-left"
+              >
+                <h3 className="text-lg sm:text-xl font-semibold text-foreground pr-4">
+                  {nonMuslimResources.islam.title}
+                </h3>
+                <ChevronDown
+                  className={`w-6 h-6 text-foreground flex-shrink-0 transition-transform duration-300 mt-1 ${
+                    expandedCategory === 'islam' ? 'rotate-180' : ''
+                  }`}
+                />
+              </button>
+              {expandedCategory === 'islam' && (
+                <div className="px-6 py-5 bg-foreground/5 border-t border-foreground/10 max-h-[600px] overflow-y-auto">
+                  {nonMuslimResources.islam.sections.map((section, sectionIndex) => (
+                    <div key={sectionIndex} className="mb-6">
+                      <h4 className="font-semibold text-foreground mb-2">{section.title}</h4>
+                      {section.resources.length > 0 && <ResourceList resources={section.resources} />}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Christianity Section */}
+            <div className="bg-foreground/5 rounded-lg overflow-hidden border border-foreground/10">
+              <button
+                onClick={() => toggleCategory('christianity')}
+                className="w-full px-6 py-5 flex items-start justify-between hover:bg-foreground/10 transition-all duration-300 text-left"
+              >
+                <h3 className="text-lg sm:text-xl font-semibold text-foreground pr-4">
+                  {nonMuslimResources.christianity.title}
+                </h3>
+                <ChevronDown
+                  className={`w-6 h-6 text-foreground flex-shrink-0 transition-transform duration-300 mt-1 ${
+                    expandedCategory === 'christianity' ? 'rotate-180' : ''
+                  }`}
+                />
+              </button>
+              {expandedCategory === 'christianity' && (
+                <div className="px-6 py-5 bg-foreground/5 border-t border-foreground/10">
+                  {nonMuslimResources.christianity.sections.map((section, sectionIndex) => (
+                    <div key={sectionIndex} className="mb-6">
+                      <h4 className="font-semibold text-foreground mb-2">{section.title}</h4>
+                      <ResourceList resources={section.resources} />
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Atheism/Agnosticism Section */}
+            <div className="bg-foreground/5 rounded-lg overflow-hidden border border-foreground/10">
+              <button
+                onClick={() => toggleCategory('atheism')}
+                className="w-full px-6 py-5 flex items-start justify-between hover:bg-foreground/10 transition-all duration-300 text-left"
+              >
+                <h3 className="text-lg sm:text-xl font-semibold text-foreground pr-4">
+                  {nonMuslimResources.atheismAgnosticism.title}
+                </h3>
+                <ChevronDown
+                  className={`w-6 h-6 text-foreground flex-shrink-0 transition-transform duration-300 mt-1 ${
+                    expandedCategory === 'atheism' ? 'rotate-180' : ''
+                  }`}
+                />
+              </button>
+              {expandedCategory === 'atheism' && (
+                <div className="px-6 py-5 bg-foreground/5 border-t border-foreground/10 max-h-[600px] overflow-y-auto">
+                  {nonMuslimResources.atheismAgnosticism.sections.map((section, sectionIndex) => (
+                    <div key={sectionIndex} className="mb-6">
+                      <h4 className="font-semibold text-foreground mb-2">{section.title}</h4>
+                      {section.resources.length > 0 && <ResourceList resources={section.resources} />}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Popular Misconceptions Section */}
+            <div className="bg-foreground/5 rounded-lg overflow-hidden border border-foreground/10">
+              <button
+                onClick={() => toggleCategory('misconceptions')}
+                className="w-full px-6 py-5 flex items-start justify-between hover:bg-foreground/10 transition-all duration-300 text-left"
+              >
+                <h3 className="text-lg sm:text-xl font-semibold text-foreground pr-4">
+                  {nonMuslimResources.misconceptions.title}
+                </h3>
+                <ChevronDown
+                  className={`w-6 h-6 text-foreground flex-shrink-0 transition-transform duration-300 mt-1 ${
+                    expandedCategory === 'misconceptions' ? 'rotate-180' : ''
+                  }`}
+                />
+              </button>
+              {expandedCategory === 'misconceptions' && (
+                <div className="px-6 py-5 bg-foreground/5 border-t border-foreground/10 max-h-[600px] overflow-y-auto">
+                  {nonMuslimResources.misconceptions.sections.map((section, sectionIndex) => (
+                    <div key={sectionIndex} className="mb-6">
+                      <h4 className="font-semibold text-foreground mb-2">{section.title}</h4>
+                      {section.resources.length > 0 && <ResourceList resources={section.resources} />}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Other Religions Section */}
+            <div className="bg-foreground/5 rounded-lg overflow-hidden border border-foreground/10">
+              <button
+                onClick={() => toggleCategory('otherReligions')}
+                className="w-full px-6 py-5 flex items-start justify-between hover:bg-foreground/10 transition-all duration-300 text-left"
+              >
+                <h3 className="text-lg sm:text-xl font-semibold text-foreground pr-4">
+                  Other Religions
+                </h3>
+                <ChevronDown
+                  className={`w-6 h-6 text-foreground flex-shrink-0 transition-transform duration-300 mt-1 ${
+                    expandedCategory === 'otherReligions' ? 'rotate-180' : ''
+                  }`}
+                />
+              </button>
+              {expandedCategory === 'otherReligions' && (
+                <div className="px-6 py-5 bg-foreground/5 border-t border-foreground/10">
+                  <div className="space-y-4">
+                    <div>
+                      <h4 className="font-semibold text-foreground mb-2">{nonMuslimResources.otherReligions.hinduism.title}</h4>
+                      <p className="text-sm text-foreground/60 ml-4">Resources coming soon</p>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-foreground mb-2">{nonMuslimResources.otherReligions.judaism.title}</h4>
+                      <p className="text-sm text-foreground/60 ml-4">Resources coming soon</p>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-foreground mb-2">{nonMuslimResources.otherReligions.spirituality.title}</h4>
+                      <p className="text-sm text-foreground/60 ml-4">Resources coming soon</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Desires/Ideologies Section */}
+            <div className="bg-foreground/5 rounded-lg overflow-hidden border border-foreground/10">
+              <button
+                onClick={() => toggleCategory('ideologies')}
+                className="w-full px-6 py-5 flex items-start justify-between hover:bg-foreground/10 transition-all duration-300 text-left"
+              >
+                <h3 className="text-lg sm:text-xl font-semibold text-foreground pr-4">
+                  {nonMuslimResources.desiresIdeologies.title}
+                </h3>
+                <ChevronDown
+                  className={`w-6 h-6 text-foreground flex-shrink-0 transition-transform duration-300 mt-1 ${
+                    expandedCategory === 'ideologies' ? 'rotate-180' : ''
+                  }`}
+                />
+              </button>
+              {expandedCategory === 'ideologies' && (
+                <div className="px-6 py-5 bg-foreground/5 border-t border-foreground/10">
+                  {nonMuslimResources.desiresIdeologies.topics.map((topic, topicIndex) => (
+                    <div key={topicIndex} className="mb-4">
+                      <h4 className="font-semibold text-foreground mb-2">{topic.title}</h4>
+                      {topic.resources.length === 0 && <p className="text-sm text-foreground/60 ml-4">Resources coming soon</p>}
+                      {topic.resources.length > 0 && <ResourceList resources={topic.resources} />}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Quick Topic Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             {/* Islam */}
             <div className="space-y-3">
