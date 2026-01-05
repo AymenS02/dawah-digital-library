@@ -191,7 +191,7 @@ export default function NewRevertsPage() {
               <div className="bg-[#c4b5a0]/20 p-6 rounded-full mb-6 group-hover:bg-[#c4b5a0]/30 transition-all duration-300">
                 <Hand className="w-16 h-16 text-[#c4b5a0] group-hover:scale-110 transition-transform duration-300" />
               </div>
-              <h3 className="text-xl text-background font-bold mb-2">Simple Du'a Collection</h3>
+              <h3 className="text-xl text-background font-bold mb-2">Simple Du&apos;a Collection</h3>
               <p className="text-sm text-background">Daily supplications to memorize</p>
             </div>
 
