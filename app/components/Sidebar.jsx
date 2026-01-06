@@ -55,6 +55,11 @@ const Sidebar = ({ isOpen, onClose }) => {
             <div className='border-t border-foreground/20 pt-6 mt-4'>
               {user ? (
                 <>
+                  {user.role === 'ADMIN' && (
+                    <a href="/admin/dashboard" onClick={onClose} className='text-lg hover:text-primary transition-colors duration-300 block mb-4'>
+                      Admin Dashboard
+                    </a>
+                  )}
                   <a href="/settings" onClick={onClose} className='flex items-center gap-2 text-lg hover:text-primary transition-colors duration-300'>
                     <User className='w-5 h-5' />
                     <span>{user.firstName}</span>
