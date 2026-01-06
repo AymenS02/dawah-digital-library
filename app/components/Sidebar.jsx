@@ -1,8 +1,17 @@
 'use client'
-import React, { useState } from 'react'
-import { X } from 'lucide-react'
+import React, { useState, useEffect } from 'react'
+import { X, User } from 'lucide-react'
 
 const Sidebar = ({ isOpen, onClose }) => {
+  const [user, setUser] = useState(null)
+
+  useEffect(() => {
+    // Check if user is logged in
+    const storedUser = localStorage.getItem('user')
+    if (storedUser) {
+      setUser(JSON.parse(storedUser))
+    }
+  }, [])
   return (
     <>
       {/* Overlay */}
@@ -23,21 +32,45 @@ const Sidebar = ({ isOpen, onClose }) => {
 
           {/* Navigation links */}
           <nav className='flex flex-col gap-6'>
-            <a href="#browse" onClick={onClose} className='text-lg hover:text-primary transition-colors duration-300'>
+            <a href="/browse" onClick={onClose} className='text-lg hover:text-primary transition-colors duration-300'>
               Browse
             </a>
-            <a href="#quiz" onClick={onClose} className='text-lg hover:text-primary transition-colors duration-300'>
+            <a href="/resources" onClick={onClose} className='text-lg hover:text-primary transition-colors duration-300'>
+              Resources
+            </a>
+            <a href="/quiz" onClick={onClose} className='text-lg hover:text-primary transition-colors duration-300'>
               Quiz
             </a>
-            <a href="#about" onClick={onClose} className='text-lg hover:text-primary transition-colors duration-300'>
+            <a href="/about" onClick={onClose} className='text-lg hover:text-primary transition-colors duration-300'>
               About
             </a>
-            <a href="#faq" onClick={onClose} className='text-lg hover:text-primary transition-colors duration-300'>
+            <a href="/faq" onClick={onClose} className='text-lg hover:text-primary transition-colors duration-300'>
               FAQ
             </a>
-            <a href="#contact" onClick={onClose} className='bg-primary text-primary-foreground px-6 py-3 rounded-lg hover:scale-105 transition-transform duration-300 text-center mt-4'>
+            <a href="/contact" onClick={onClose} className='bg-primary text-primary-foreground px-6 py-3 rounded-lg hover:scale-105 transition-transform duration-300 text-center mt-4'>
               Contact
             </a>
+            
+            {/* Auth Section */}
+            <div className='border-t border-foreground/20 pt-6 mt-4'>
+              {user ? (
+                <>
+                  <a href="/settings" onClick={onClose} className='flex items-center gap-2 text-lg hover:text-primary transition-colors duration-300'>
+                    <User className='w-5 h-5' />
+                    <span>{user.firstName}</span>
+                  </a>
+                </>
+              ) : (
+                <div className='flex flex-col gap-4'>
+                  <a href="/login" onClick={onClose} className='text-lg hover:text-primary transition-colors duration-300'>
+                    Login
+                  </a>
+                  <a href="/register" onClick={onClose} className='bg-primary/20 text-primary px-6 py-3 rounded-lg hover:scale-105 transition-transform duration-300 text-center'>
+                    Sign Up
+                  </a>
+                </div>
+              )}
+            </div>
           </nav>
         </div>
       </div>
