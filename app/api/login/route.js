@@ -40,7 +40,8 @@ export async function POST(request) {
         firstName: user.firstName,
         lastName: user.lastName,
         role: user.role,
-        gender: user.gender
+        gender: user.gender,
+        hasStudentKnowledgeAccess: user.hasStudentKnowledgeAccess
       }
     });
 
