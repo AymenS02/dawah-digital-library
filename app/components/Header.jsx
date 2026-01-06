@@ -1,11 +1,20 @@
 'use client'
-import React, { useState } from 'react'
-import { Menu } from 'lucide-react'
+import React, { useState, useEffect } from 'react'
+import { Menu, User } from 'lucide-react'
 import Image from 'next/image'
 import Sidebar from './Sidebar' // adjust path as needed
 
 const Header = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+  const [user, setUser] = useState(null)
+
+  useEffect(() => {
+    // Check if user is logged in
+    const storedUser = localStorage.getItem('user')
+    if (storedUser) {
+      setUser(JSON.parse(storedUser))
+    }
+  }, [])
 
   return (
     <>
@@ -41,6 +50,25 @@ const Header = () => {
             <a href="/contact" className='bg-primary text-primary-foreground px-6 py-2 rounded-lg hover:scale-105 transition-transform duration-300'>
               Contact
             </a>
+            
+            {/* Auth Section */}
+            {user ? (
+              <div className='flex items-center gap-4'>
+                <a href="/settings" className='flex items-center gap-2 hover:text-primary transition-colors duration-300'>
+                  <User className='w-5 h-5' />
+                  <span>{user.firstName}</span>
+                </a>
+              </div>
+            ) : (
+              <div className='flex items-center gap-4'>
+                <a href="/login" className='hover:text-primary transition-colors duration-300'>
+                  Login
+                </a>
+                <a href="/register" className='bg-primary/20 text-primary px-4 py-2 rounded-lg hover:scale-105 transition-transform duration-300'>
+                  Sign Up
+                </a>
+              </div>
+            )}
           </nav>
 
           {/* Mobile Menu Button */}
