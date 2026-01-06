@@ -67,7 +67,7 @@ export default function Home() {
             </div>
 
             <div className="flex flex-col items-center w-full gap-4">
-              <MapPin onClick={() => window.location.href = '/muslims'} className="cursor-pointer w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 text-primary transition-transform hover:scale-150 duration-500 hover:-translate-y-10" />
+              <MapPin onClick={() => window.location.href = '/muslim'} className="cursor-pointer w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 text-primary transition-transform hover:scale-150 duration-500 hover:-translate-y-10" />
               <hr className="border-foreground mb-2 border-2 w-full" />
               <h3 className="text-xl sm:text-2xl text-foreground">Muslims</h3>
             </div>
