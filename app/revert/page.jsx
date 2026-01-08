@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Users, Hand, Book, Smartphone, ArrowDown, ChevronDown, ExternalLink } from 'lucide-react';
 import { revertResources } from '../data/revertResources';
+import Image from 'next/image';
 
 // Component to render a resource link
 const ResourceLink = ({ resource }) => {
@@ -43,12 +44,24 @@ export default function NewRevertsPage() {
     setExpandedSection(expandedSection === sectionIndex ? null : sectionIndex);
   };
   return (
-    <div className="mt-42 min-h-screen bg-background text-white">
+    <div className="font-palanquin mt-42 min-h-screen text-white">
+          {/* Background calligraphy image */}
+          <div className="absolute top-3/4 left-1/2 -translate-y-[60%] pointer-events-none opacity-10 z-[-10]">
+            <Image src="/homepage/cali-bg.svg" alt="Decorative calligraphy" width={800} height={800} className="object-contain" />
+          </div>
       {/* Hero Section */}
       <div className="relative py-16 md:py-24 px-4">
         <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight">
-            NEW REVERTS
+          <h1 className="relative text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight">
+            <span className="absolute inset-0 translate-x-1 translate-y-1 text-gray-200/40">
+              NEW REVERTS
+            </span>
+            <span className="absolute inset-0 translate-x-2 translate-y-2 text-gray-200/10">
+              NEW REVERTS
+            </span>
+            <span className="relative">
+              NEW REVERTS
+            </span>
           </h1>
           <p className="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto mb-12">
             Begin your journey with foundational knowledge and practical guidance
@@ -156,7 +169,7 @@ export default function NewRevertsPage() {
           {/* CTA Section */}
           <div className="text-center py-8">
             <ArrowDown className="w-8 h-8 mx-auto mb-4 animate-bounce text-[#c4b5a0]" />
-            <h3 className="text-2xl sm:text-3xl font-light mb-6">
+            <h3 className="font-palanquin font-bold text-2xl sm:text-3xl mb-6">
               EXPLORE ALL TOPICS IN DETAIL
             </h3>
             <button className="bg-primary hover:bg-primary/90 text-foreground px-16 py-5 rounded-full text-lg font-bold transition-all duration-300 hover:scale-110 shadow-xl hover:shadow-2xl">

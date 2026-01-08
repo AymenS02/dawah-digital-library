@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Users, BookOpen, ArrowDown, ChevronDown, ExternalLink } from 'lucide-react';
 import { nonMuslimResources } from '../data/nonMuslimResources';
+import Image from 'next/image';
 
 // Component to render a resource link
 const ResourceLink = ({ resource }) => {
@@ -49,12 +50,24 @@ export default function NonMuslimsPage() {
     setExpandedSection(expandedSection === sectionIndex ? null : sectionIndex);
   };
   return (
-    <div className="mt-42 min-h-screen bg-background text-foreground">
+    <div className="mt-42 min-h-screen text-foreground">
+          {/* Background calligraphy image */}
+          <div className="absolute top-3/4 left-1/2 -translate-y-[60%] pointer-events-none opacity-10 z-[-10]">
+            <Image src="/homepage/cali-bg.svg" alt="Decorative calligraphy" width={800} height={800} className="object-contain" />
+          </div>
       {/* Hero Section */}
       <div className="relative py-16 md:py-24 px-4">
         <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight text-foreground">
-            NON-MUSLIMS
+          <h1 className="relative font-palanquin text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight text-foreground">
+            <span className="absolute inset-0 translate-x-1 translate-y-1 text-gray-200/40">
+              NON-MUSLIMS
+            </span>
+            <span className="absolute inset-0 translate-x-2 translate-y-2 text-gray-200/10">
+              NON-MUSLIMS
+            </span>
+            <span className="relative">
+              NON-MUSLIMS
+            </span>
           </h1>
         </div>
       </div>
@@ -63,7 +76,7 @@ export default function NonMuslimsPage() {
       <div className="relative py-12 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-light mb-8 tracking-wide text-foreground">
+            <h2 className="font-palanquin text-3xl sm:text-4xl md:text-5xl font-bold mb-8 tracking-wide text-primary">
               SECTION OVERVIEW
             </h2>
             <div className="w-24 h-1 bg-[#c4b5a0] mx-auto mb-12"></div>
@@ -341,7 +354,7 @@ export default function NonMuslimsPage() {
       <div className="relative py-16 px-4 mt-12 bg-background">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-light mb-4 tracking-wide text-foreground">
+            <h2 className="font-proxima text-3xl sm:text-4xl md:text-5xl font-light mb-4 tracking-wide text-foreground">
               ADDITIONAL RESOURCES
             </h2>
             <div className="w-24 h-1 bg-[#c4b5a0] mx-auto"></div>

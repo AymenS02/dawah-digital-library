@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronDown, ExternalLink, Lock, AlertCircle } from 'lucide-react';
 import { muslimResources } from '../data/muslimResources';
+import Image from 'next/image';
 
 // Component to render a resource link
 const ResourceLink = ({ resource }) => {
@@ -77,7 +78,7 @@ const AccessRequestForm = ({ onSuccess }) => {
   };
 
   return (
-    <div className="bg-primary/10 rounded-lg p-6">
+    <div className="rounded-lg p-6">
       <div className="flex items-center gap-2 mb-4">
         <Lock className="w-5 h-5 text-primary" />
         <h4 className="font-bold text-foreground">Request Access to Students of Knowledge Resources</h4>
@@ -186,13 +187,17 @@ export default function MuslimsPage() {
   };
 
   return (
-    <div className="mt-42 min-h-screen bg-background text-foreground">
+    <div className="mt-42 min-h-screen text-foreground">
+      {/* Background calligraphy image */}
+      <div className="absolute top-3/4 left-1/2 -translate-y-[60%] pointer-events-none opacity-10 z-[-10]">
+        <Image src="/homepage/cali-bg.svg" alt="Decorative calligraphy" width={800} height={800} className="object-contain" />
+      </div>
       {/* Hero Section */}
       <div className="relative py-16 md:py-24 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left Side - Dropdowns */}
-            <div className="space-y-6">
+            <div className="space-y-6 font-palanquin mx-4">
               {/* General Level */}
               <div className="bg-foreground backdrop-blur-sm rounded-2xl overflow-hidden shadow-xl">
                 <button
@@ -200,7 +205,7 @@ export default function MuslimsPage() {
                   className="w-full px-8 py-6 flex items-center justify-between hover:bg-foreground/90 transition-colors duration-300"
                 >
                   <div className="flex items-center gap-3">
-                    <span className="text-xl font-bold text-background">General Level</span>
+                    <span className="text-lg md:text-3xl font-bold text-background">General Level</span>
                     <ChevronDown 
                       className={`w-5 h-5 text-background transition-transform duration-300 ${
                         openDropdown === 'general' ? 'rotate-180' : ''
@@ -284,7 +289,7 @@ export default function MuslimsPage() {
                   className="w-full px-8 py-6 flex items-center justify-between hover:bg-foreground/90 transition-colors duration-300"
                 >
                   <div className="flex items-center gap-3">
-                    <span className="text-xl font-bold text-background">Students of Knowledge</span>
+                    <span className="text-lg md:text-2xl font-bold text-background">Students of Knowledge</span>
                     {!user && <Lock className="w-5 h-5 text-background" />}
                     {user && !accessStatus.hasAccess && <Lock className="w-5 h-5 text-background" />}
                     <ChevronDown 
@@ -421,7 +426,7 @@ export default function MuslimsPage() {
                   className="w-full px-8 py-6 flex items-center justify-between hover:bg-foreground/90 transition-colors duration-300"
                 >
                   <div className="flex items-center gap-3">
-                    <span className="text-xl font-bold text-background">Struggling with Faith?</span>
+                    <span className="text-lg md:text-2xl font-bold text-background">Struggling with Faith?</span>
                     <ChevronDown 
                       className={`w-5 h-5 text-background transition-transform duration-300 ${
                         openDropdown === 'struggling' ? 'rotate-180' : ''
@@ -451,9 +456,18 @@ export default function MuslimsPage() {
 
             {/* Right Side - Title */}
             <div className="text-center lg:text-right">
-              <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tight text-foreground">
+              <h1 className="relative font-proxima text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tight text-foreground">
+              <span className="absolute inset-0 translate-x-1 translate-y-1 text-gray-200/40">
                 MUSLIMS
+              </span>
+              <span className="absolute inset-0 translate-x-2 translate-y-2 text-gray-200/10">
+                MUSLIMS
+              </span>
+              <span className="relative">
+                MUSLIMS
+              </span>
               </h1>
+
             </div>
           </div>
         </div>
@@ -463,15 +477,15 @@ export default function MuslimsPage() {
       <div className="relative py-16 px-4 mt-12">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-light mb-6 tracking-wide text-foreground">
+            <h2 className="font-proxima text-3xl sm:text-4xl md:text-5xl font-light mb-6 tracking-wide text-foreground">
               STRUCTURE OVERVIEW
             </h2>
-            <h3 className="text-2xl sm:text-3xl text-foreground/80 mb-8">GENERAL LEVEL</h3>
+            <h3 className="font-proxima text-primary text-2xl sm:text-3xl mb-8">GENERAL LEVEL</h3>
             <div className="w-24 h-1 bg-[#c4b5a0] mx-auto"></div>
           </div>
 
           {/* Three Pathways */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 font-palanquin">
             {/* Aqidah Pathway */}
             <div className="space-y-4">
               <div className="bg-foreground backdrop-blur-sm p-8 rounded-2xl border border-gray-500/30 hover:shadow-2xl transition-all duration-500">
@@ -538,7 +552,7 @@ export default function MuslimsPage() {
 
           {/* CTA Button */}
           <div className="text-center pt-8">
-            <button className="bg-primary hover:bg-primary/90 text-foreground px-16 py-5 rounded-full text-lg font-bold transition-all duration-300 hover:scale-110 shadow-xl hover:shadow-2xl">
+            <button onClick={() => window.location.href = '/browse'} className="font-palanquin bg-primary hover:bg-primary/90 text-foreground px-16 py-5 rounded-full text-lg font-bold transition-all duration-300 hover:scale-110 shadow-xl hover:shadow-2xl">
               DIGITAL LIBRARY
             </button>
           </div>

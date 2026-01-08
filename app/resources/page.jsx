@@ -75,8 +75,16 @@ export default function ResourcesPage() {
       {/* Hero Section */}
       <div className="relative py-12 md:py-16 px-4">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-12 tracking-tight text-foreground">
-            RESOURCES
+          <h1 className="relative font-proxima text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-foreground">
+            <span className="absolute inset-0 translate-x-1 translate-y-1 text-gray-200/40">
+              RESOURCES
+            </span>
+            <span className="absolute inset-0 translate-x-2 translate-y-2 text-gray-200/10">
+              RESOURCES
+            </span>
+            <span className="relative">
+              RESOURCES
+            </span>
           </h1>
         </div>
       </div>
@@ -84,8 +92,8 @@ export default function ResourcesPage() {
       {/* Contact Us Section */}
       <div className="max-w-7xl mx-auto px-4 mb-12">
         <div className="bg-foreground/10 backdrop-blur-sm rounded-2xl p-8 md:p-12">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-foreground">CONTACT US</h2>
-          <div className="space-y-3 text-foreground/80">
+          <h2 className="text-3xl sm:text-4xl mb-6 font-barlow text-primary">CONTACT US</h2>
+          <div className="space-y-3 text-foreground/80 font-palanquin">
             <p className="text-lg">
               <span className="font-semibold">E-Mail:</span> contact@example.com
             </p>
@@ -103,7 +111,7 @@ export default function ResourcesPage() {
       </div>
 
       {/* Resources Grid */}
-      <div className="max-w-7xl mx-auto px-4 pb-16">
+      <div className="max-w-7xl mx-auto px-4 pb-16 font-palanquin">
         <div className="bg-foreground/10 backdrop-blur-sm rounded-2xl p-8 md:p-12">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {resourceData[selectedCategory].resources.map((resource, index) => (
