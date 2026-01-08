@@ -66,8 +66,9 @@ export async function POST(request) {
       hasStudentKnowledgeAccess: false
     });
 
+    const actionMessage = action === 'suspended' ? 'suspended' : 'deleted';
     return NextResponse.json({
-      message: `Access request ${action === 'suspended' ? 'suspended' : 'revoked'} successfully`,
+      message: `Access request ${actionMessage} and user access revoked successfully`,
       request: accessRequest
     });
 

@@ -104,7 +104,8 @@ export default function AdminDashboard() {
       if (response.ok) {
         // Refresh the list
         fetchRequests();
-        alert(`Request ${action} successfully`);
+        const actionMessage = action === 'suspended' ? 'suspended' : 'deleted';
+        alert(`Access request ${actionMessage} and user access revoked successfully`);
       } else {
         const data = await response.json();
         alert(data.message || 'Failed to revoke request');
