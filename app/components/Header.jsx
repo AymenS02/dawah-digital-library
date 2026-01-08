@@ -10,7 +10,7 @@ const Header = () => {
 
   useEffect(() => {
     // Check if user is logged in
-    const storedUser = localStorage.getItem('user')
+    const storedUser = localStorage. getItem('user')
     if (storedUser) {
       setUser(JSON.parse(storedUser))
     }
@@ -44,7 +44,7 @@ const Header = () => {
             <a href="/about" className='hover:text-primary transition-colors duration-300'>
               About
             </a>
-            <a href="/faq" className='hover:text-primary transition-colors duration-300'>
+            <a href="/faq" className='hover: text-primary transition-colors duration-300'>
               FAQ
             </a>
             <a href="/contact" className='bg-primary text-primary-foreground px-6 py-2 rounded-lg hover:scale-105 transition-transform duration-300'>
@@ -54,8 +54,8 @@ const Header = () => {
             {/* Auth Section */}
             {user ? (
               <div className='flex items-center gap-4'>
-                {user.role === 'ADMIN' && (
-                  <a href="/admin/dashboard" className='hover:text-primary transition-colors duration-300'>
+                {user. role === 'ADMIN' && (
+                  <a href="/admin/dashboard" className='hover: text-primary transition-colors duration-300'>
                     Admin Dashboard
                   </a>
                 )}
@@ -87,7 +87,7 @@ const Header = () => {
       </div>
 
       {/* Sidebar for mobile */}
-      <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
+      <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} user={user} />
     </>
   )
 }
