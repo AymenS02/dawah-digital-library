@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { CheckCircle, XCircle, Clock, ChevronDown, ChevronUp } from 'lucide-react';
+import { CheckCircle, XCircle, Clock, ChevronDown, ChevronUp, Ban } from 'lucide-react';
 
 export default function AdminDashboard() {
   const router = useRouter();
@@ -83,6 +83,40 @@ export default function AdminDashboard() {
     }
   };
 
+  const handleRevoke = async (requestId, action) => {
+    const actionText = action === 'suspended' ? 'suspend' : 'delete';
+    if (!confirm(`Are you sure you want to ${actionText} this approved request? The user will lose their access.`)) {
+      return;
+    }
+
+    try {
+      setResponding(requestId);
+      const token = localStorage.getItem('token');
+      const response = await fetch('/api/access-request/revoke', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ requestId, action })
+      });
+
+      if (response.ok) {
+        // Refresh the list
+        fetchRequests();
+        alert(`Request ${action} successfully`);
+      } else {
+        const data = await response.json();
+        alert(data.message || 'Failed to revoke request');
+      }
+    } catch (error) {
+      console.error('Error revoking request:', error);
+      alert('Failed to revoke request');
+    } finally {
+      setResponding(null);
+    }
+  };
+
   if (!user) {
     return null;
   }
@@ -124,6 +158,16 @@ export default function AdminDashboard() {
           >
             Denied
           </button>
+          <button
+            onClick={() => setFilter('suspended')}
+            className={`px-6 py-3 rounded-lg font-semibold transition-all ${
+              filter === 'suspended' 
+                ? 'bg-primary text-foreground' 
+                : 'bg-foreground/10 hover:bg-foreground/20'
+            }`}
+          >
+            Suspended
+          </button>
         </div>
 
         {/* Requests List */}
@@ -145,6 +189,7 @@ export default function AdminDashboard() {
                       {request.status === 'pending' && <Clock className="w-5 h-5 text-yellow-500" />}
                       {request.status === 'approved' && <CheckCircle className="w-5 h-5 text-green-500" />}
                       {request.status === 'denied' && <XCircle className="w-5 h-5 text-red-500" />}
+                      {request.status === 'suspended' && <Ban className="w-5 h-5 text-orange-500" />}
                       <h3 className="font-bold text-lg">{request.subject}</h3>
                     </div>
                     <p className="text-sm text-foreground/70 mb-2">
@@ -194,6 +239,25 @@ export default function AdminDashboard() {
                         className="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-semibold transition-colors disabled:opacity-50"
                       >
                         Deny
+                      </button>
+                    </div>
+                  )}
+
+                  {request.status === 'approved' && (
+                    <div className="flex gap-2 ml-4">
+                      <button
+                        onClick={() => handleRevoke(request._id, 'suspended')}
+                        disabled={responding === request._id}
+                        className="px-6 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-lg font-semibold transition-colors disabled:opacity-50"
+                      >
+                        Suspend
+                      </button>
+                      <button
+                        onClick={() => handleRevoke(request._id, 'denied')}
+                        disabled={responding === request._id}
+                        className="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-semibold transition-colors disabled:opacity-50"
+                      >
+                        Delete
                       </button>
                     </div>
                   )}
