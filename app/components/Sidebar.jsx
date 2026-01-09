@@ -35,9 +35,9 @@ const Sidebar = ({ isOpen, onClose, user }) => {
             <a href="/about" onClick={onClose} className='text-lg hover:text-primary transition-colors duration-300'>
               About
             </a>
-            <a href="/faq" onClick={onClose} className='text-lg hover:text-primary transition-colors duration-300'>
+            {/* <a href="/faq" onClick={onClose} className='text-lg hover:text-primary transition-colors duration-300'>
               FAQ
-            </a>
+            </a> */}
             <a href="/contact" onClick={onClose} className='bg-primary text-primary-foreground px-6 py-3 rounded-lg hover: scale-105 transition-transform duration-300 text-center mt-4'>
               Contact
             </a>

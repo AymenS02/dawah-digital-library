@@ -21,12 +21,22 @@ const Header = () => {
       <div className='fixed top-0 left-0 right-0 bg-background/80 backdrop-blur-sm text-foreground p-4 z-50'>
         <div className='max-w-7xl mx-auto flex items-center justify-between'>
           {/* Logo/Brand */}
-          <div onClick={() => window.location.href = '/'} className='text-xl sm:text-2xl font-bold hover:scale-110 transition-transform duration-300 cursor-pointer'>
+          <div className='text-xl sm:text-2xl font-bold flex items-center gap-2'>
             <Image
               src="/homepage/cali-bg.svg"
               alt="Da'wah Digital Library Logo"
               width={28}
               height={28}
+              onClick={() => window.location.href = '/'}
+              className='hover:scale-110 transition-transform duration-300 cursor-pointer'
+            />
+            <Image
+              src="/homepage/mac.png"
+              alt="Da'wah Digital Library Logo"
+              width={75}
+              height={75}
+              onClick={() => window.location.href = 'https://macmsa.com/'}
+              className='hover:scale-110 transition-transform duration-300 cursor-pointer'
             />
           </div>
 
@@ -44,9 +54,9 @@ const Header = () => {
             <a href="/about" className='hover:text-primary transition-colors duration-300'>
               About
             </a>
-            <a href="/faq" className='hover: text-primary transition-colors duration-300'>
+            {/* <a href="/faq" className='hover: text-primary transition-colors duration-300'>
               FAQ
-            </a>
+            </a> */}
             <a href="/contact" className='bg-primary text-primary-foreground px-6 py-2 rounded-lg hover:scale-105 transition-transform duration-300'>
               Contact
             </a>
