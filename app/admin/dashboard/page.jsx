@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { CheckCircle, XCircle, Clock, ChevronDown, ChevronUp, Ban } from 'lucide-react';
+import { CheckCircle, XCircle, Clock, ChevronDown, ChevronUp, Ban, ClipboardList } from 'lucide-react';
 
 export default function AdminDashboard() {
   const router = useRouter();
@@ -12,6 +12,10 @@ export default function AdminDashboard() {
   const [filter, setFilter] = useState('pending');
   const [expandedRequest, setExpandedRequest] = useState(null);
   const [responding, setResponding] = useState(null);
+  const [view, setView] = useState('requests'); // 'requests' or 'quiz'
+  const [quizResponses, setQuizResponses] = useState([]);
+  const [quizLoading, setQuizLoading] = useState(false);
+  const [expandedQuiz, setExpandedQuiz] = useState(null);
 
   useEffect(() => {
     // Check if user is logged in and is admin
@@ -29,6 +33,7 @@ export default function AdminDashboard() {
 
     setUser(userData);
     fetchRequests();
+    fetchQuizResponses();
   }, [filter]);
 
   const fetchRequests = async () => {
@@ -51,6 +56,29 @@ export default function AdminDashboard() {
       console.error('Error fetching requests:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchQuizResponses = async () => {
+    try {
+      setQuizLoading(true);
+      const token = localStorage.getItem('token');
+      const response = await fetch('/api/quiz/anonymous', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setQuizResponses(data.responses);
+      } else {
+        console.error('Failed to fetch quiz responses');
+      }
+    } catch (error) {
+      console.error('Error fetching quiz responses:', error);
+    } finally {
+      setQuizLoading(false);
     }
   };
 
@@ -127,145 +155,245 @@ export default function AdminDashboard() {
       <div className="max-w-7xl mx-auto">
         <h1 className="text-4xl md:text-5xl font-bold mb-8">Admin Dashboard</h1>
         
-        {/* Filter Tabs */}
+        {/* View Tabs */}
         <div className="flex gap-4 mb-8">
           <button
-            onClick={() => setFilter('pending')}
+            onClick={() => setView('requests')}
             className={`px-6 py-3 rounded-lg font-semibold transition-all ${
-              filter === 'pending' 
+              view === 'requests' 
                 ? 'bg-primary text-foreground' 
                 : 'bg-foreground/10 hover:bg-foreground/20'
             }`}
           >
-            Pending
+            Access Requests
           </button>
           <button
-            onClick={() => setFilter('approved')}
-            className={`px-6 py-3 rounded-lg font-semibold transition-all ${
-              filter === 'approved' 
+            onClick={() => setView('quiz')}
+            className={`px-6 py-3 rounded-lg font-semibold transition-all flex items-center gap-2 ${
+              view === 'quiz' 
                 ? 'bg-primary text-foreground' 
                 : 'bg-foreground/10 hover:bg-foreground/20'
             }`}
           >
-            Approved
-          </button>
-          <button
-            onClick={() => setFilter('denied')}
-            className={`px-6 py-3 rounded-lg font-semibold transition-all ${
-              filter === 'denied' 
-                ? 'bg-primary text-foreground' 
-                : 'bg-foreground/10 hover:bg-foreground/20'
-            }`}
-          >
-            Denied
-          </button>
-          <button
-            onClick={() => setFilter('suspended')}
-            className={`px-6 py-3 rounded-lg font-semibold transition-all ${
-              filter === 'suspended' 
-                ? 'bg-primary text-foreground' 
-                : 'bg-foreground/10 hover:bg-foreground/20'
-            }`}
-          >
-            Suspended
+            <ClipboardList className="w-5 h-5" />
+            Anonymous Quiz Responses
           </button>
         </div>
 
-        {/* Requests List */}
-        {loading ? (
-          <div className="text-center py-12">
-            <p className="text-foreground/70">Loading requests...</p>
-          </div>
-        ) : requests.length === 0 ? (
-          <div className="text-center py-12">
-            <p className="text-foreground/70">No {filter} requests found</p>
-          </div>
-        ) : (
-          <div className="space-y-4">
-            {requests.map((request) => (
-              <div key={request._id} className="bg-foreground/5 rounded-lg p-6">
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2">
-                      {request.status === 'pending' && <Clock className="w-5 h-5 text-yellow-500" />}
-                      {request.status === 'approved' && <CheckCircle className="w-5 h-5 text-green-500" />}
-                      {request.status === 'denied' && <XCircle className="w-5 h-5 text-red-500" />}
-                      {request.status === 'suspended' && <Ban className="w-5 h-5 text-orange-500" />}
-                      <h3 className="font-bold text-lg">{request.subject}</h3>
-                    </div>
-                    <p className="text-sm text-foreground/70 mb-2">
-                      From: {request.user.firstName} {request.user.lastName} ({request.user.email})
-                    </p>
-                    <p className="text-sm text-foreground/70 mb-3">
-                      Submitted: {new Date(request.createdAt).toLocaleDateString()}
-                    </p>
-                    
-                    <button
-                      onClick={() => setExpandedRequest(expandedRequest === request._id ? null : request._id)}
-                      className="flex items-center gap-2 text-primary hover:underline"
-                    >
-                      {expandedRequest === request._id ? (
-                        <>
-                          <ChevronUp className="w-4 h-4" />
-                          Hide Details
-                        </>
-                      ) : (
-                        <>
-                          <ChevronDown className="w-4 h-4" />
-                          View Details
-                        </>
-                      )}
-                    </button>
-                    
-                    {expandedRequest === request._id && (
-                      <div className="mt-4 p-4 bg-background/50 rounded-lg">
-                        <h4 className="font-semibold mb-2">Reason:</h4>
-                        <p className="text-foreground/80 whitespace-pre-wrap">{request.reason}</p>
-                      </div>
-                    )}
-                  </div>
+        {view === 'requests' ? (
+          <>
+            {/* Filter Tabs */}
+            <div className="flex gap-4 mb-8">
+              <button
+                onClick={() => setFilter('pending')}
+                className={`px-6 py-3 rounded-lg font-semibold transition-all ${
+                  filter === 'pending' 
+                    ? 'bg-primary text-foreground' 
+                    : 'bg-foreground/10 hover:bg-foreground/20'
+                }`}
+              >
+                Pending
+              </button>
+              <button
+                onClick={() => setFilter('approved')}
+                className={`px-6 py-3 rounded-lg font-semibold transition-all ${
+                  filter === 'approved' 
+                    ? 'bg-primary text-foreground' 
+                    : 'bg-foreground/10 hover:bg-foreground/20'
+                }`}
+              >
+                Approved
+              </button>
+              <button
+                onClick={() => setFilter('denied')}
+                className={`px-6 py-3 rounded-lg font-semibold transition-all ${
+                  filter === 'denied' 
+                    ? 'bg-primary text-foreground' 
+                    : 'bg-foreground/10 hover:bg-foreground/20'
+                }`}
+              >
+                Denied
+              </button>
+              <button
+                onClick={() => setFilter('suspended')}
+                className={`px-6 py-3 rounded-lg font-semibold transition-all ${
+                  filter === 'suspended' 
+                    ? 'bg-primary text-foreground' 
+                    : 'bg-foreground/10 hover:bg-foreground/20'
+                }`}
+              >
+                Suspended
+              </button>
+            </div>
 
-                  {request.status === 'pending' && (
-                    <div className="flex gap-2 ml-4">
-                      <button
-                        onClick={() => handleRespond(request._id, 'approved')}
-                        disabled={responding === request._id}
-                        className="px-6 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold transition-colors disabled:opacity-50"
-                      >
-                        Approve
-                      </button>
-                      <button
-                        onClick={() => handleRespond(request._id, 'denied')}
-                        disabled={responding === request._id}
-                        className="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-semibold transition-colors disabled:opacity-50"
-                      >
-                        Deny
-                      </button>
-                    </div>
-                  )}
-
-                  {request.status === 'approved' && (
-                    <div className="flex gap-2 ml-4">
-                      <button
-                        onClick={() => handleRevoke(request._id, 'suspended')}
-                        disabled={responding === request._id}
-                        className="px-6 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-lg font-semibold transition-colors disabled:opacity-50"
-                      >
-                        Suspend
-                      </button>
-                      <button
-                        onClick={() => handleRevoke(request._id, 'denied')}
-                        disabled={responding === request._id}
-                        className="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-semibold transition-colors disabled:opacity-50"
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  )}
-                </div>
+            {/* Requests List */}
+            {loading ? (
+              <div className="text-center py-12">
+                <p className="text-foreground/70">Loading requests...</p>
               </div>
-            ))}
-          </div>
+            ) : requests.length === 0 ? (
+              <div className="text-center py-12">
+                <p className="text-foreground/70">No {filter} requests found</p>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {requests.map((request) => (
+                  <div key={request._id} className="bg-foreground/5 rounded-lg p-6">
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-2">
+                          {request.status === 'pending' && <Clock className="w-5 h-5 text-yellow-500" />}
+                          {request.status === 'approved' && <CheckCircle className="w-5 h-5 text-green-500" />}
+                          {request.status === 'denied' && <XCircle className="w-5 h-5 text-red-500" />}
+                          {request.status === 'suspended' && <Ban className="w-5 h-5 text-orange-500" />}
+                          <h3 className="font-bold text-lg">{request.subject}</h3>
+                        </div>
+                        <p className="text-sm text-foreground/70 mb-2">
+                          From: {request.user.firstName} {request.user.lastName} ({request.user.email})
+                        </p>
+                        <p className="text-sm text-foreground/70 mb-3">
+                          Submitted: {new Date(request.createdAt).toLocaleDateString()}
+                        </p>
+                        
+                        <button
+                          onClick={() => setExpandedRequest(expandedRequest === request._id ? null : request._id)}
+                          className="flex items-center gap-2 text-primary hover:underline"
+                        >
+                          {expandedRequest === request._id ? (
+                            <>
+                              <ChevronUp className="w-4 h-4" />
+                              Hide Details
+                            </>
+                          ) : (
+                            <>
+                              <ChevronDown className="w-4 h-4" />
+                              View Details
+                            </>
+                          )}
+                        </button>
+                        
+                        {expandedRequest === request._id && (
+                          <div className="mt-4 p-4 bg-background/50 rounded-lg">
+                            <h4 className="font-semibold mb-2">Reason:</h4>
+                            <p className="text-foreground/80 whitespace-pre-wrap">{request.reason}</p>
+                          </div>
+                        )}
+                      </div>
+
+                      {request.status === 'pending' && (
+                        <div className="flex gap-2 ml-4">
+                          <button
+                            onClick={() => handleRespond(request._id, 'approved')}
+                            disabled={responding === request._id}
+                            className="px-6 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold transition-colors disabled:opacity-50"
+                          >
+                            Approve
+                          </button>
+                          <button
+                            onClick={() => handleRespond(request._id, 'denied')}
+                            disabled={responding === request._id}
+                            className="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-semibold transition-colors disabled:opacity-50"
+                          >
+                            Deny
+                          </button>
+                        </div>
+                      )}
+
+                      {request.status === 'approved' && (
+                        <div className="flex gap-2 ml-4">
+                          <button
+                            onClick={() => handleRevoke(request._id, 'suspended')}
+                            disabled={responding === request._id}
+                            className="px-6 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-lg font-semibold transition-colors disabled:opacity-50"
+                          >
+                            Suspend
+                          </button>
+                          <button
+                            onClick={() => handleRevoke(request._id, 'denied')}
+                            disabled={responding === request._id}
+                            className="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-semibold transition-colors disabled:opacity-50"
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </>
+        ) : (
+          <>
+            {/* Quiz Responses View */}
+            {quizLoading ? (
+              <div className="text-center py-12">
+                <p className="text-foreground/70">Loading quiz responses...</p>
+              </div>
+            ) : quizResponses.length === 0 ? (
+              <div className="text-center py-12">
+                <p className="text-foreground/70">No anonymous quiz responses found</p>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <p className="text-foreground/70 mb-4">Total anonymous responses: {quizResponses.length}</p>
+                {quizResponses.map((response) => (
+                  <div key={response._id} className="bg-foreground/5 rounded-lg p-6">
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-4 mb-3">
+                          <div className="flex items-center gap-2">
+                            <span className="text-2xl font-bold text-primary">{response.score}%</span>
+                          </div>
+                          <div className="px-3 py-1 bg-primary/20 rounded-full">
+                            <span className="text-sm font-semibold capitalize">{response.category}</span>
+                          </div>
+                        </div>
+                        <p className="text-sm text-foreground/70 mb-3">
+                          Submitted: {new Date(response.createdAt).toLocaleDateString()} at {new Date(response.createdAt).toLocaleTimeString()}
+                        </p>
+                        
+                        <button
+                          onClick={() => setExpandedQuiz(expandedQuiz === response._id ? null : response._id)}
+                          className="flex items-center gap-2 text-primary hover:underline"
+                        >
+                          {expandedQuiz === response._id ? (
+                            <>
+                              <ChevronUp className="w-4 h-4" />
+                              Hide Answers
+                            </>
+                          ) : (
+                            <>
+                              <ChevronDown className="w-4 h-4" />
+                              View Answers
+                            </>
+                          )}
+                        </button>
+                        
+                        {expandedQuiz === response._id && (
+                          <div className="mt-4 p-4 bg-background/50 rounded-lg">
+                            <h4 className="font-semibold mb-3">Quiz Answers:</h4>
+                            <div className="space-y-2 text-sm">
+                              <p><strong>Q1:</strong> {response.answers.q1}</p>
+                              <p><strong>Q2:</strong> {response.answers.q2}</p>
+                              <p><strong>Q3:</strong> {response.answers.q3}</p>
+                              <p><strong>Q4:</strong> {response.answers.q4}</p>
+                              <p><strong>Q5:</strong> {response.answers.q5}</p>
+                              <p><strong>Q6:</strong> {Array.isArray(response.answers.q6) ? response.answers.q6.join(', ') : response.answers.q6}</p>
+                              <p><strong>Q7:</strong> {response.answers.q7}</p>
+                              <p><strong>Q8:</strong> {response.answers.q8}</p>
+                              <p><strong>Q9:</strong> {response.answers.q9}</p>
+                              {response.answers.q10 && <p><strong>Q10:</strong> {response.answers.q10}</p>}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>

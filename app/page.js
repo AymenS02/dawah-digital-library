@@ -108,7 +108,7 @@ export default function Home() {
               <p className="text-background text-lg text-center font-palanquin font-bold">
                 Find out your knowledge level, goals, and preferred learning style to be directed to the most effective resources for you!
               </p>
-              <button className="font-palanquin mt-4 bg-background mx-auto text-foreground px-4 py-2 rounded-lg hover:scale-105 transition-transform duration-300 block">
+              <button className="font-palanquin mt-4 bg-background mx-auto text-foreground px-4 py-2 rounded-lg hover:scale-105 transition-transform duration-300 block" onClick={() => window.location.href = '/quiz'}>
                 START HERE
               </button>
             </div>
