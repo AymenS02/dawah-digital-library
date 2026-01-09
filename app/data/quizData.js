@@ -131,8 +131,11 @@ export function calculateQuizScore(answers) {
             const option = question.options.find(opt => opt.value === value);
             return option ? option.score : 0;
           });
-          const avgScore = scores.reduce((sum, s) => sum + s, 0) / scores.length;
-          totalScore += avgScore * question.weight;
+          // Only calculate average if we have valid scores
+          if (scores.length > 0) {
+            const avgScore = scores.reduce((sum, s) => sum + s, 0) / scores.length;
+            totalScore += avgScore * question.weight;
+          }
         }
         maxPossibleScore += 10 * question.weight;
       } else {

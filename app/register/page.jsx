@@ -17,6 +17,7 @@ export default function RegisterPage() {
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [quizSaveWarning, setQuizSaveWarning] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -64,6 +65,38 @@ export default function RegisterPage() {
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.user));
 
+      // Check if there are pending quiz results to save
+      const pendingQuizResults = sessionStorage.getItem('pendingQuizResults');
+      if (pendingQuizResults) {
+        try {
+          const quizData = JSON.parse(pendingQuizResults);
+          // Save quiz results with the new user's token
+          const quizResponse = await fetch('/api/quiz/submit', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${data.token}`
+            },
+            body: JSON.stringify({
+              ...quizData,
+              isAnonymous: false // Now it's linked to the user
+            })
+          });
+          
+          if (!quizResponse.ok) {
+            setQuizSaveWarning(true);
+            console.error('Failed to save quiz results');
+          }
+          
+          // Clear the pending results
+          sessionStorage.removeItem('pendingQuizResults');
+        } catch (quizError) {
+          console.error('Error saving quiz results:', quizError);
+          setQuizSaveWarning(true);
+          // Don't block registration if quiz save fails
+        }
+      }
+
       // Redirect to home page
       router.push('/');
     } catch (err) {
@@ -90,6 +123,13 @@ export default function RegisterPage() {
             <div className="mb-6 p-4 bg-red-500/10 border border-red-500/50 rounded-lg flex items-center gap-2 text-red-500">
               <AlertCircle className="w-5 h-5" />
               <span>{error}</span>
+            </div>
+          )}
+
+          {quizSaveWarning && (
+            <div className="mb-6 p-4 bg-yellow-500/10 border border-yellow-500/50 rounded-lg flex items-center gap-2 text-yellow-600">
+              <AlertCircle className="w-5 h-5" />
+              <span>Account created successfully, but there was an issue saving your quiz results. You can retake the quiz anytime.</span>
             </div>
           )}
 

@@ -13,6 +13,7 @@ export default function QuizPage() {
   const [results, setResults] = useState(null);
   const [saving, setSaving] = useState(false);
   const [showAccountPrompt, setShowAccountPrompt] = useState(false);
+  const [saveMessage, setSaveMessage] = useState({ type: '', text: '' });
 
   const currentQuestion = quizQuestions[currentStep];
   const isLastQuestion = currentStep === quizQuestions.length - 1;
@@ -70,6 +71,7 @@ export default function QuizPage() {
 
   const saveQuizResults = async (withAccount = false) => {
     setSaving(true);
+    setSaveMessage({ type: '', text: '' });
     try {
       const token = localStorage.getItem('token');
       const isAuthenticated = !!token;
@@ -99,15 +101,15 @@ export default function QuizPage() {
           router.push('/register?from=quiz');
         } else {
           // Show success message
-          alert('Quiz results saved successfully!');
+          setSaveMessage({ type: 'success', text: 'Quiz results saved successfully!' });
           setShowAccountPrompt(false);
         }
       } else {
-        alert('Failed to save quiz results');
+        setSaveMessage({ type: 'error', text: 'Failed to save quiz results. Please try again.' });
       }
     } catch (error) {
       console.error('Error saving quiz results:', error);
-      alert('An error occurred while saving your results');
+      setSaveMessage({ type: 'error', text: 'An error occurred while saving your results.' });
     } finally {
       setSaving(false);
     }
@@ -147,6 +149,16 @@ export default function QuizPage() {
                 <p className="text-foreground/80 text-center">{results.description}</p>
               </div>
             </div>
+
+            {saveMessage.text && (
+              <div className={`rounded-xl p-4 mb-8 ${
+                saveMessage.type === 'success' 
+                  ? 'bg-green-500/10 border border-green-500/50 text-green-500' 
+                  : 'bg-red-500/10 border border-red-500/50 text-red-500'
+              }`}>
+                <p className="text-center font-semibold">{saveMessage.text}</p>
+              </div>
+            )}
 
             {showAccountPrompt && (
               <div className="bg-foreground/5 rounded-xl p-6 mb-8">

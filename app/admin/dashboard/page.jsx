@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { CheckCircle, XCircle, Clock, ChevronDown, ChevronUp, Ban, ClipboardList } from 'lucide-react';
+import { quizQuestions } from '../../data/quizData';
 
 export default function AdminDashboard() {
   const router = useRouter();
@@ -373,17 +374,20 @@ export default function AdminDashboard() {
                         {expandedQuiz === response._id && (
                           <div className="mt-4 p-4 bg-background/50 rounded-lg">
                             <h4 className="font-semibold mb-3">Quiz Answers:</h4>
-                            <div className="space-y-2 text-sm">
-                              <p><strong>Q1:</strong> {response.answers.q1}</p>
-                              <p><strong>Q2:</strong> {response.answers.q2}</p>
-                              <p><strong>Q3:</strong> {response.answers.q3}</p>
-                              <p><strong>Q4:</strong> {response.answers.q4}</p>
-                              <p><strong>Q5:</strong> {response.answers.q5}</p>
-                              <p><strong>Q6:</strong> {Array.isArray(response.answers.q6) ? response.answers.q6.join(', ') : response.answers.q6}</p>
-                              <p><strong>Q7:</strong> {response.answers.q7}</p>
-                              <p><strong>Q8:</strong> {response.answers.q8}</p>
-                              <p><strong>Q9:</strong> {response.answers.q9}</p>
-                              {response.answers.q10 && <p><strong>Q10:</strong> {response.answers.q10}</p>}
+                            <div className="space-y-3 text-sm">
+                              {quizQuestions.map((question, index) => {
+                                const answer = response.answers[question.id];
+                                if (!answer || (Array.isArray(answer) && answer.length === 0)) return null;
+                                
+                                return (
+                                  <div key={question.id} className="border-b border-foreground/10 pb-2">
+                                    <p className="font-semibold text-foreground/90 mb-1">{question.question}</p>
+                                    <p className="text-foreground/70 ml-2">
+                                      {Array.isArray(answer) ? answer.join(', ') : answer}
+                                    </p>
+                                  </div>
+                                );
+                              })}
                             </div>
                           </div>
                         )}
