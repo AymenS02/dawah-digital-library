@@ -420,7 +420,7 @@ export const muslimResources = {
             {
               name: "Hanbali",
               texts: [
-                "Matan Zad Al Mustaqni (Exp Sh. Fawzan Zad al Mustaqni)",
+                "Matan Zad Al Mustaqni (Explanation by Sheikh Fawzan Zad al Mustaqni)",
                 "Umdat Al Fiqh",
                 "Akhsar Al Mukhtasarat",
                 "Bidayat Al-Abid",
@@ -479,7 +479,8 @@ export const muslimResources = {
             },
             {
               title: "IslamQA",
-              description: "A trustworthy website for quick search"
+              description: "A trustworthy website for quick search",
+              url: "https://islamqa.org"
             }
           ]
         },

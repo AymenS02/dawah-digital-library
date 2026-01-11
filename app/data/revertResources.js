@@ -85,7 +85,7 @@ export const revertResources = {
             title: "The Nullifiers of Islam Ep. No. 6"
           },
           {
-            title: "Q&A: Regarding The Nullifers of One's Islam"
+            title: "Q&A: Regarding The Nullifiers of One's Islam"
           },
           {
             title: "Nawaqid Al-Islaam(Nullifiers of Islam)"
@@ -231,7 +231,7 @@ export const revertResources = {
         title: "Simple Du'a Collection",
         resources: [
           {
-            title: "جوامع الدعاء (1)",
+            title: "جوامع الدعاء (1) - Comprehensive Supplications",
             description: "Very simple dua collection compiled by a friend of mine, it's only in Arabic right now but I will translate it into English inshAllah"
           },
           {
