@@ -17,7 +17,7 @@ export const nonMuslimResources = {
         ]
       },
       {
-        title: "Why Islam is true?",
+        title: "Why Islam is True?",
         resources: [
           {
             title: "This is Islam!"
@@ -43,7 +43,7 @@ export const nonMuslimResources = {
         resources: [
           {
             title: "Concepts of the Quran - a topical reading",
-            author: "Fathi Osman"
+            author: "Written by Fathi Osman"
           }
         ]
       },
@@ -58,7 +58,7 @@ export const nonMuslimResources = {
         ]
       },
       {
-        title: "Prophet Muhammad (saw's) biography (concise, balanced)",
+        title: "Prophet Muhammad (saw's) Biography (concise, balanced)",
         resources: [
           {
             title: "Mini Seerah - Introduction to Prophet Mohammed"
@@ -112,7 +112,7 @@ export const nonMuslimResources = {
         ]
       },
       {
-        title: "War, peace, and Islamic law",
+        title: "War, Peace, and Islamic Law",
         resources: [
           {
             title: "Al Waraqat"
@@ -124,7 +124,7 @@ export const nonMuslimResources = {
         ]
       },
       {
-        title: "Arabs and Islam/ How did Islam begin",
+        title: "Arabs and Islam/ How did Islam Begin",
         resources: [
           {
             title: "Arabia Before Islam: Religion, Society, Culture DOCUMENTARY"
@@ -187,7 +187,7 @@ export const nonMuslimResources = {
         ]
       },
       {
-        title: "Morality, justice, afterlife",
+        title: "Morality, Justice, Afterlife",
         resources: []
       },
       {
@@ -195,7 +195,7 @@ export const nonMuslimResources = {
         resources: []
       },
       {
-        title: "Science, reason, revelation",
+        title: "Science, Reason, Revelation",
         resources: [
           {
             title: "Science & Islam (Full)",
@@ -220,12 +220,10 @@ export const nonMuslimResources = {
             author: "Subboor Ahmad"
           },
           {
-            title: "Darwinism Deselected - Part 4: Idol of Randomness",
-            author: "Subboor Ahmad"
+            title: "Darwinism Deselected - Part 4: Idol of Randomness"
           },
           {
-            title: "Darwinism Deselected - Part 5: The Myth of Junk DNA",
-            author: "Subboor Ahmad"
+            title: "Darwinism Deselected - Part 5: The Myth of Junk DNA"
           },
           {
             title: "Islam and Evolution: Al-Ghazali and the Modern Evolutionary Paradigm",
@@ -265,7 +263,7 @@ export const nonMuslimResources = {
     ]
   },
   misconceptions: {
-    title: "Addressing popular misconceptions",
+    title: "Addressing Popular Misconceptions",
     sections: [
       {
         title: "Problem of Evil",
@@ -313,11 +311,11 @@ export const nonMuslimResources = {
         ]
       },
       {
-        title: "Comparative religion basics",
+        title: "Comparative Religion Basics",
         resources: [
           {
-            title: "The Islamic Dilemma Debunked / Part 1",
-            author: "Fadel Soliman"
+            title: "𝑻𝒉𝒆 𝑰𝒔𝒍𝒂𝒎𝒊𝒄 𝑫𝒊𝒍𝒆𝒎𝒎�� 𝑫𝒆𝒃𝒖𝒏𝒌𝒆𝒅 / 𝑷𝒂𝒓𝒕 1",
+            author: "𝒃𝒚 𝑭𝒂𝒅𝒆𝒍 𝑺𝒐𝒍𝒊𝒎𝒂𝒏"
           }
         ]
       },
@@ -348,15 +346,64 @@ export const nonMuslimResources = {
   otherReligions: {
     hinduism: {
       title: "Hinduism/Buddhism",
-      resources: []
+      resources: [
+        {
+          title: "Hinduism Video 1",
+          url: "https://youtu.be/Hn9PlzwmD8U?si=Ds6f-lfYEjZXLVRj"
+        },
+        {
+          title: "Hinduism Video 2",
+          url: "https://www.youtube.com/watch?v=nfHDmMiHCmA"
+        },
+        {
+          title: "Hinduism Article",
+          url: "https://islamhouse.com/en/articles/428545"
+        },
+        {
+          title: "Hinduism in the Balance of Its Original Teachings, Reason, and Sound Natural Disposition",
+          url: "https://islamhouse.com/en/articles/428545"
+        },
+        {
+          title: "Buddhism Article",
+          url: "https://islamhouse.com/en/articles/428547"
+        },
+        {
+          title: "Buddhism Video",
+          url: "https://islamhouse.com/en/videos/322138"
+        },
+        {
+          title: "Buddhism Discussion",
+          url: "https://youtu.be/R24vSuvkiiM?si=ORAoH7C0Hb-wI_3i"
+        }
+      ]
     },
     judaism: {
       title: "Judaism",
-      resources: []
+      resources: [
+        {
+          title: "Dawah To Jews",
+          description: "PDF | Book Of Deuteronomy | Prophet"
+        },
+        {
+          title: "Frequently asked questions (FAQ) in dawah - Judaism"
+        },
+        {
+          title: "Judaism Discussion",
+          url: "https://www.youtube.com/watch?v=ntDTynWNoAw"
+        }
+      ]
     },
     spirituality: {
       title: "Spirituality",
-      resources: []
+      resources: [
+        {
+          title: "What Is The Role of SPIRITUALITY In Islam?",
+          author: "Imam Tom Facchine"
+        },
+        {
+          title: "Spirituality From Al Ghazali's Works"
+        }
+      ]
     }
   },
   desiresIdeologies: {
@@ -364,15 +411,49 @@ export const nonMuslimResources = {
     topics: [
       {
         title: "Individualism",
-        resources: []
+        resources: [
+          {
+            title: "The Secret Cost of Individualism",
+            author: "Imam Tom Weekly"
+          }
+        ]
       },
       {
         title: "Feminism",
-        resources: []
+        resources: [
+          {
+            title: "Feminism Video 1",
+            url: "https://youtu.be/Au0bSj21VyU?si=n-6pkdts90h2YkbK"
+          },
+          {
+            title: "Abu Taymiyyah | Feminism & Modern Women | Part 1"
+          },
+          {
+            title: "Feminism Discussion 2",
+            url: "https://youtu.be/Qdloo4fe9CU?si=RNVMbVrGkCkZivGe"
+          },
+          {
+            title: "Feminism Discussion 3",
+            url: "https://www.youtube.com/live/SVGReCg-ot8?si=50I0eYZRG5VTf51h"
+          },
+          {
+            title: "Feminism Discussion 4",
+            url: "https://youtu.be/ElIXuq7uzWs?si=TtU_Ucr5OfF6-Ht5"
+          },
+          {
+            title: "We Used to Have No Regard for Women: Gender Equity & the Advent of Islam",
+            url: "https://yaqeeninstitute.ca/read/paper/we-used-to-have-no-regard-for-women-gender-equity-the-advent-of-islam"
+          }
+        ]
       },
       {
         title: "Secularism",
-        resources: []
+        resources: [
+          {
+            title: "The Dark Truth About Secularism",
+            author: "Focal Point | Imam Tom Facchine"
+          }
+        ]
       },
       {
         title: "Scientism/Naturalism",
@@ -388,15 +469,14 @@ export const nonMuslimResources = {
     title: "Additional Resources",
     items: [
       {
-        title: "Invitation to ask questions privately"
+        title: "Invitation to Ask Questions Privately"
       },
       {
-        title: "Guided reading list for seekers"
+        title: "Guided Reading List for Seekers"
       },
       {
-        title: "The Divine Reality",
-        author: "Hamza Andreas Tzortzis",
-        description: "A rational argumentation for Islam and against Atheism"
+        title: "The Divine Reality God, Islam & The Mirage of Atheism",
+        author: "By Hamza Andreas Tzortzis"
       }
     ]
   }

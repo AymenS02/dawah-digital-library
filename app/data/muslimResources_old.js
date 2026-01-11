@@ -8,6 +8,10 @@ export const muslimResources = {
         title: "Fiqh Pathway",
         resources: [
           {
+            title: "Majmoo'al-Fatawa of late Scholar Ibn Bazz",
+            type: "book"
+          },
+          {
             title: "Fiqh Made Easy",
             type: "book"
           },
@@ -65,7 +69,7 @@ export const muslimResources = {
             ]
           },
           {
-            title: "Attachment to Dunya",
+            title: "Attachment to dunya",
             resources: [
               {
                 title: "How the True Believers Deal with the Dunya",
@@ -78,7 +82,7 @@ export const muslimResources = {
             ]
           },
           {
-            title: "Increasing Khushu'",
+            title: "Increasing khushu'",
             resources: [
               {
                 title: "The Beginning of Guidance",
@@ -88,7 +92,7 @@ export const muslimResources = {
             ]
           },
           {
-            title: "Developing Ikhlas",
+            title: "Developing ikhlas",
             resources: [
               {
                 title: "Ep 5: Sincerity | How To Soften Your Heart Series",
@@ -110,7 +114,7 @@ export const muslimResources = {
             ]
           },
           {
-            title: "Recommended Adhkar Routines",
+            title: "Recommended adhkar routines",
             resources: [
               {
                 title: "Dhikr & Dua App",
@@ -130,7 +134,7 @@ export const muslimResources = {
             ]
           },
           {
-            title: "Modern Programs Rooted in Classical Tazkiyah",
+            title: "Modern programs rooted in classical tazkiyah",
             resources: [
               {
                 title: "Patience and Gratitude",
@@ -168,9 +172,6 @@ export const muslimResources = {
               },
               {
                 title: "The 99 Names of Allah"
-              },
-              {
-                title: 'Lecture | "Blessed is the one who knows his lord"'
               }
             ]
           },
@@ -179,8 +180,7 @@ export const muslimResources = {
             resources: [
               {
                 title: '"Why me?" - a series on qadr',
-                author: "Dr. Omar Suleiman",
-                url: "https://www.youtube.com"
+                author: "Dr. Omar Suleiman"
               },
               {
                 title: "Understanding Qadr (Divine Decree)",
@@ -206,7 +206,7 @@ export const muslimResources = {
             ]
           },
           {
-            title: "Problem of Evil",
+            title: "Problem of evil",
             resources: [
               {
                 title: "Why Does Allah Let Bad Things Happen? Finding Peace in a World of Pain"
@@ -214,7 +214,7 @@ export const muslimResources = {
             ]
           },
           {
-            title: "Why Islam is Theologically Coherent",
+            title: "Why Islam is theologically coherent",
             resources: [
               {
                 title: "Dardir's Kharida al-Bahiyya",
@@ -224,7 +224,7 @@ export const muslimResources = {
             ]
           },
           {
-            title: "Epistemology: How Muslims Know What is True",
+            title: "Epistemology: how Muslims know what is true",
             resources: [
               {
                 title: "Epistemology Video",
@@ -233,7 +233,7 @@ export const muslimResources = {
             ]
           },
           {
-            title: "Doubt Management Resources",
+            title: "Doubt management resources",
             resources: [
               {
                 title: "How Do I Deal With Doubts | A Qur'anic View",
@@ -264,7 +264,7 @@ export const muslimResources = {
     subtitle: "People Seeking Serious Islamic Studies",
     components: [
       {
-        title: "The Importance of Seeking Knowledge",
+        title: "The importance of seeking knowledge",
         resources: [
           {
             title: "Why Should You Seek Islamic Knowledge?",
@@ -289,12 +289,11 @@ export const muslimResources = {
         ]
       },
       {
-        title: "Etiquettes of Talab al-'Ilm",
+        title: "Etiquettes of talab al-'ilm",
         resources: [
           {
             title: "The Etiquette of Seeking Knowledge",
-            author: "Sh. Bakr Aboo Zayd",
-            description: "DM for access to a private playlist"
+            author: "Sh. Bakr Aboo Zayd"
           },
           {
             title: "Etiquette Video",
@@ -317,8 +316,8 @@ export const muslimResources = {
         ]
       },
       {
-        title: "Avoiding Burnout, Confusion, Extremism, or Sectarianism",
-        subtitle: "Struggles of Seeking Knowledge",
+        title: "Avoiding burnout, confusion, extremism, or sectarianism",
+        subtitle: "Struggles of seeking knowledge",
         resources: [
           {
             title: "Are You Struggling to Seek Knowledge?",
@@ -335,7 +334,7 @@ export const muslimResources = {
         ]
       },
       {
-        title: "Clear Roadmap for New Students",
+        title: "Clear roadmap for new students",
         resources: [
           {
             title: "A Daily Routine for The Seeker of Knowledge"
@@ -346,13 +345,12 @@ export const muslimResources = {
           },
           {
             title: "Stages of Seeking Knowledge Every Muslim Must Know",
-            description: "Beginner → Intermediate → Advanced learning tracks",
-            author: "AMAU"
+            description: "Beginner → Intermediate → Advanced learning tracks"
           }
         ]
       },
       {
-        title: "Arabic Pathways (Structured Curriculum Options)",
+        title: "Arabic pathways (structured curriculum options)",
         resources: [
           {
             title: "Quranic Grammar"
@@ -379,30 +377,12 @@ export const muslimResources = {
       {
         title: "Fiqh Pathway",
         subtitle: "Move Muslims from 'fatwa shopping' to structured learning",
-        usulPathways: {
-          title: "Usul Pathways, Hadith Sciences Intro, Tafsir Methodology",
-          items: [
-            {
-              title: "Mukhtasar fi Usul al-Fiqh",
-              url: "https://taymiyyah.institute/ebooks/mukhtasar-fi-usul-al-fiqh"
-            },
-            {
-              title: "NEW COURSE || Usul al-Fiqh Made SUPER EASY",
-              description: "منظومة ابن أبي قفة في أصول الفقه"
-            },
-            {
-              title: "Matn Usool min ilm al Usool",
-              author: "Sheikh ibn Uthaymin"
-            }
-          ]
-        },
         madhahib: {
-          title: "Introduction to Hanafi, Shafi'i, Maliki, Hanbali Methodologies",
+          title: "Introduction to madhahib methodologies",
           schools: [
             {
               name: "Shafi'i fiqh",
-              url: "https://academy.seekersguidance.org/enrol/index.php?id=971",
-              texts: ["Safinat al-naja"]
+              url: "https://academy.seekersguidance.org/enrol/index.php?id=971"
             },
             {
               name: "Hanafi fiqh",
@@ -410,35 +390,46 @@ export const muslimResources = {
             },
             {
               name: "Maliki",
-              texts: [
-                "risala_ibn_abi_zayd.pdf",
-                "akhdari english saidy.pdf",
-                "Al_murshid_Al_muin",
-                "matn_al-ashmawiyyah_en.pdf"
-              ]
+              texts: ["risala_ibn_abi_zayd.pdf", "akhdari english saidy.pdf", "Al_murshid_Al_muin", "matn_al-ashmawiyyah_en.pdf"]
             },
             {
               name: "Hanbali",
-              texts: [
-                "Matan Zad Al Mustaqni (Exp Sh. Fawzan Zad al Mustaqni)",
-                "Umdat Al Fiqh",
-                "Akhsar Al Mukhtasarat",
-                "Bidayat Al-Abid",
-                "How to Pray (as per Hanbali madhab)"
-              ],
-              resources: [
-                {
-                  title: "Mastering an online lecture series",
-                  author: "shaikh Nu'man",
-                  url: "https://www.youtube.com/watch?v=_G7fzkk0J1s&list=PLgwmGI6JwutobV23GrPyXCrT_blvn_ni9&index=1&t=3890s"
-                }
-              ]
+              texts: ["Matan Zad Al Mustaqni", "Umdat Al Fiqh", "Akhsar Al Mukhtasarat", "Bidayat Al-Abid"]
             }
           ]
         },
-        commonQuestions: {
-          title: "Common Questions/Mistakes/Rulings",
+        usulResources: {
+          title: "Introductory usul al-fiqh resources",
           items: [
+            {
+              title: "Matn Usool min ilm al Usool",
+              author: "Sheikh ibn Uthaymin"
+            },
+            {
+              title: "Usul al-Fiqh Made SUPER EASY",
+              author: "Shaikh Abu Taymiyyah"
+            },
+            {
+              title: "Mukhtasar fi Usul al-Fiqh",
+              url: "https://taymiyyah.institute/ebooks/mukhtasar-fi-usul-al-fiqh"
+            }
+          ]
+        },
+        practicalFiqh: {
+          title: "Practical fiqh issues (purification, prayer, fasting...)",
+          items: [
+            {
+              title: "Fiqh of marriage series",
+              author: "Shaikh Mustafa al Shaybani",
+              url: "https://www.youtube.com/live/1LAFkzAdlDY?si=5YYXdjvh0PPbMmRB"
+            },
+            {
+              title: "IslamQA",
+              description: "A trustworthy website for quick search",
+              url: "https://islamqa.org"
+            }
+          ],
+          commonQuestions: [
             {
               title: "Can You Combine Maghrib & Isha in the Summer Months?"
             },
@@ -456,35 +447,8 @@ export const muslimResources = {
             }
           ]
         },
-        usulResources: {
-          title: "Introductory Usul al-Fiqh Resources",
-          items: [
-            {
-              title: "Matn Usool min ilm al Usool",
-              author: "Sheikh ibn Uthaymin"
-            },
-            {
-              title: "Usul al-Fiqh Made SUPER EASY",
-              author: "Shaikh Abu Taymiyyah"
-            }
-          ]
-        },
-        practicalFiqh: {
-          title: "Practical Fiqh Issues (purification, prayer, fasting...)",
-          items: [
-            {
-              title: "Fiqh of marriage series",
-              author: "Shaikh Mustafa al Shaybani",
-              url: "https://www.youtube.com/live/1LAFkzAdlDY?si=5YYXdjvh0PPbMmRB"
-            },
-            {
-              title: "IslamQA",
-              description: "A trustworthy website for quick search"
-            }
-          ]
-        },
         differenceOfOpinion: {
-          title: "How to Approach Difference of Opinion",
+          title: "How to approach difference of opinion",
           items: [
             {
               title: "When is Ikhtilaf Regarded as Good and Acceptable?",
@@ -498,11 +462,11 @@ export const muslimResources = {
         }
       },
       {
-        title: "Reliable Institutions and Trustworthy Teachers in the West",
+        title: "Reliable institutions and trustworthy teachers in the west",
         institutions: ["AMAU", "Taymiyyah Institute", "Zidni Institute"]
       },
       {
-        title: "Guidance on Specialization and Long-term Development",
+        title: "Guidance on specialization and long-term development",
         resources: [
           {
             title: "15 Points on How To Become A Solid Student of Knowledge",
@@ -531,11 +495,6 @@ export const muslimResources = {
             author: "Imam al-Suyuti",
             description: "AMAU Classic with Summarised Notes",
             url: "https://library.amauacademy.com/videos/risalah-fi-usul-al-tafsir/"
-          },
-          {
-            title: "Attack on Islam in Europe",
-            description: "The Growing Challenges for Muslims in Europe Podcast",
-            author: "Ust. Abu Taymiyyah"
           }
         ]
       }
@@ -548,7 +507,7 @@ export const muslimResources = {
         title: "Societal & Environmental Pressure",
         topics: [
           {
-            title: "Non-religious Families",
+            title: "Non-religious families",
             resources: [
               {
                 title: "How to deal with Non Practicing friends and family after becoming practicing"
@@ -560,7 +519,7 @@ export const muslimResources = {
             ]
           },
           {
-            title: "Peer Influence",
+            title: "Peer influence",
             resources: []
           },
           {
@@ -577,10 +536,10 @@ export const muslimResources = {
             ]
           },
           {
-            title: "Fear of Practicing Publicly",
+            title: "Fear of practicing publicly",
             resources: [
               {
-                title: "New Series | Grounded: Being Muslim In A Godless World - Part 1",
+                title: "Grounded: Being Muslim In A Godless World - Part 1",
                 author: "Imran Hussein"
               },
               {
@@ -602,7 +561,7 @@ export const muslimResources = {
             ]
           },
           {
-            title: "Identity Crisis in Western/European Environment",
+            title: "Identity crisis in Western environment",
             resources: [
               {
                 title: "Identity Crisis Video",
@@ -610,11 +569,7 @@ export const muslimResources = {
               },
               {
                 title: "Islam and the West, are they compatible?",
-                author: "Muslim Lantern, MA | EINDHOVEN"
-              },
-              {
-                title: "The Growing Challenges for Muslims in Europe Podcast",
-                author: "Ust. Abu Taymiyyah"
+                author: "Muslim Lantern"
               }
             ]
           }
@@ -624,40 +579,11 @@ export const muslimResources = {
         title: "Desires, Addictions, Discipline Issues",
         topics: [
           {
-            title: "Lust and Pornography Addiction",
-            resources: [
-              {
-                title: "IlmNafe Resources",
-                url: "https://ilmnafe.com/en/articles/"
-              },
-              {
-                title: "A book for Muslim men to help them lower gaze",
-                url: "https://www.scribd.com/document/744705449/A-book-for-Muslim-men-to-help-them-lower-gaze"
-              },
-              {
-                title: "How to stop looking at porn",
-                url: "https://islamqa.info/en/answers/22917/how-to-stop-looking-at-porn"
-              },
-              {
-                title: "Lowering the Gaze",
-                author: "Shaykh 'Abdurrazzāq al-Badr"
-              },
-              {
-                title: "Forbidden Lust & Lowering the Gaze",
-                author: "Umar Quinn"
-              },
-              {
-                title: "Questioner Asks How I Can Overcome Pornography",
-                author: "Ust Abu Taymiyyah"
-              },
-              {
-                title: "Important advice for those who suffer from bad thoughts and waswas",
-                author: "Sheikh Aziz"
-              }
-            ]
+            title: "Lust and pornography addiction",
+            resources: []
           },
           {
-            title: "Abandoning Salah/Increasing Khushu'",
+            title: "Abandoning salah/Increasing khush'",
             resources: [
               {
                 title: "Making Up TEN YEARS Of Prayers?",
@@ -670,70 +596,36 @@ export const muslimResources = {
               {
                 title: "Ep 1 - Setting The Scene | Enjoy Your Prayer Series",
                 author: "Ali Hammuda"
-              },
-              {
-                title: "The Night Prayer | A Productive Ramadan",
-                author: "Sheikh Mustafa Al-Sheibani"
               }
             ]
           },
           {
-            title: "Attention-seeking & Tabarruj",
+            title: "Attention-seeking & tabarruj",
             resources: [
               {
-                title: "Guidance for believing women about wanton display and unveiling",
-                description: "Download book pdf - Noor Library"
+                title: "Guidance for believing women about wanton display and unveiling"
               },
               {
                 title: "The dangers of women uncovering (at-tabarruj)",
-                author: "Ḥasan as-Ṣomali",
                 url: "https://www.salafisounds.com/the-dangers-of-women-uncovering-at-tabarruj-by-%E1%B8%A5asan-as-%E1%B9%A3omali/"
               }
             ]
           },
           {
-            title: "Aimlessness and Lack of Purpose",
-            resources: [
-              {
-                title: "Aimlessness Video",
-                url: "https://youtu.be/oqX9jVDOk_I?si=FmtvCR7qHO_OcUrf"
-              },
-              {
-                title: "Al-FAWAID",
-                url: "https://www.kalamullah.com/Books/Al-FAWAID.pdf"
-              },
-              {
-                title: "Tubeek Resources",
-                url: "https://www.tubeek.com/videos/category/3?page_id=1"
-              },
-              {
-                title: "One Hundred Pieces of Advice",
-                author: "Imam Ibn Qayyim",
-                url: "https://www.emaanlibrary.com/book/one-hundred-pieces-of-advice-imam-ibn-qayyim/"
-              }
-            ]
-          },
-          {
-            title: "Loneliness",
-            resources: [
-              {
-                title: "Do Not Be Sad || A Lesson On Overcoming Sadness & Tawheed",
-                author: "Ust Abu Taymiyyah"
-              }
-            ]
-          },
-          {
-            title: "Structured Discipline Programs",
+            title: "Hedonistic habits",
             resources: []
           },
           {
-            title: "Islamic + Psychology Integrated Approaches",
-            resources: [
-              {
-                title: "Timeless Seeds of Advice",
-                url: "https://kalamullah.com/Books/Timeless%20Seeds%20of%20Advice.pdf"
-              }
-            ]
+            title: "Aimlessness and lack of purpose",
+            resources: []
+          },
+          {
+            title: "Structured discipline programs",
+            resources: []
+          },
+          {
+            title: "Islamic + psychology integrated approaches",
+            resources: []
           }
         ]
       },
@@ -741,51 +633,23 @@ export const muslimResources = {
         title: "Companionship & Community",
         topics: [
           {
-            title: "How to Find Righteous Company",
-            resources: [
-              {
-                title: "What are the qualities of a friend?",
-                url: "https://seekersguidance.org/answers/general-counsel/what-are-the-qualities-of-a-friend/"
-              },
-              {
-                title: "How can I make friends or find a husband to solve my loneliness?",
-                url: "https://seekersguidance.org/answers/general-answers-feeds/how-can-i-make-friends-or-find-a-husband-to-solve-my-loneliness/"
-              }
-            ]
-          },
-          {
-            title: "Breaking from Toxic Circles",
-            resources: [
-              {
-                title: "Friends That Hold You Back",
-                author: "Dr. Omar Suleiman",
-                description: "Khutbah"
-              },
-              {
-                title: "How to Leave Bad Company for the Sake of Allah",
-                author: "Shaykh Abdul-Rahim Reasat"
-              }
-            ]
-          },
-          {
-            title: "Connecting with Masjid Programs",
-            resources: [
-              {
-                title: "MAC (Muslim Association of Canada)",
-                url: "https://www.mahcanada.com/"
-              },
-              {
-                title: "ISNA Canada",
-                url: "https://www.isnacanada.com/"
-              }
-            ]
-          },
-          {
-            title: "Existing Community Groups, Sisters' Circles, Youth Nights",
+            title: "How to find righteous company",
             resources: []
           },
           {
-            title: "Mentorship Programs (anonymous option included)",
+            title: "Breaking from toxic circles",
+            resources: []
+          },
+          {
+            title: "Connecting with masjid programs",
+            resources: []
+          },
+          {
+            title: "Existing community groups, sisters' circles, youth nights",
+            resources: []
+          },
+          {
+            title: "Mentorship programs (anonymous option included)",
             resources: []
           }
         ]
