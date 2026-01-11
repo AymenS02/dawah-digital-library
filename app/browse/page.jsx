@@ -2,44 +2,89 @@
 
 import React, { useState } from 'react';
 import { Search, ChevronRight } from 'lucide-react';
+import { muslimResources } from '../data/muslimResources';
+import { nonMuslimResources } from '../data/nonMuslimResources';
+import { revertResources } from '../data/revertResources';
 
 export default function BrowsePage() {
   const [selectedCategory, setSelectedCategory] = useState('MUSLIMS');
   const [selectedSidebarItem, setSelectedSidebarItem] = useState(null);
 
+  // Build category data from the resource files
   const categoryData = {
     'NON-MUSLIMS': {
       sidebar: [
-        { name: 'Islam', subtopics: ['Why is Islam true?', 'Concepts of the Quran', 'Women in Islam', 'Islamic Law'] },
-        { name: 'Christianity', subtopics: ['Jesus in Islam', 'Trinity'] },
-        { name: 'Atheism', subtopics: ['Morality', 'Epistemology', 'Science and revelation', 'Evolution'] },
-        { name: 'Popular Misconceptions', subtopics: ['Problem of Evil', 'Jihad', 'Slavery', 'Hadith'] }
+        { 
+          name: 'Islam', 
+          subtopics: nonMuslimResources.islam.sections.map(s => s.title) 
+        },
+        { 
+          name: 'Christianity', 
+          subtopics: nonMuslimResources.christianity.sections.map(s => s.title) 
+        },
+        { 
+          name: 'Atheism/Agnosticism', 
+          subtopics: nonMuslimResources.atheismAgnosticism.sections.map(s => s.title) 
+        },
+        { 
+          name: 'Popular Misconceptions', 
+          subtopics: nonMuslimResources.misconceptions.sections.map(s => s.title) 
+        },
+        { 
+          name: 'Hinduism/Buddhism', 
+          subtopics: [] 
+        },
+        { 
+          name: 'Judaism', 
+          subtopics: [] 
+        },
+        { 
+          name: 'Spirituality', 
+          subtopics: [] 
+        },
+        { 
+          name: 'Desires/Isms', 
+          subtopics: nonMuslimResources.desiresIdeologies.topics.map(t => t.title) 
+        }
       ]
     },
     'MUSLIMS': {
       sidebar: [
-        { name: 'Fiqh', subtopics: [] },
-        { name: 'Madhahib', subtopics: [] },
-        { name: 'Tazkiyah', subtopics: ['Subtopic 1', 'Subtopic 2'] },
-        { name: 'Taqwa', subtopics: [] },
-        { name: '\'Aqidah', subtopics: ['Subtopic 1'] },
-        { name: 'Tawhid', subtopics: [] },
-        { name: 'Fiqh', subtopics: ['Subtopic 1'] },
-        { name: 'Madhahib', subtopics: [] },
-        { name: 'Tazkiyah', subtopics: [] },
-        { name: 'Taqwa', subtopics: [] },
-        { name: 'Taqwa', subtopics: [] },
-        { name: '\'Aqidah', subtopics: [] }
+        { 
+          name: 'General Muslims - Fiqh Pathway', 
+          subtopics: [] 
+        },
+        { 
+          name: 'General Muslims - Tazkiyah Pathway', 
+          subtopics: muslimResources.generalMuslims.pathways.tazkiyah.topics.map(t => t.title) 
+        },
+        { 
+          name: 'General Muslims - \'Aqidah Pathway', 
+          subtopics: muslimResources.generalMuslims.pathways.aqidah.topics.map(t => t.title) 
+        },
+        { 
+          name: 'Students of Knowledge', 
+          subtopics: muslimResources.studentsOfKnowledge.components.map(c => c.title) 
+        },
+        { 
+          name: 'Struggling with Faith - Societal Pressure', 
+          subtopics: muslimResources.strugglingWithFaith.sections[0].topics.map(t => t.title) 
+        },
+        { 
+          name: 'Struggling with Faith - Desires & Addictions', 
+          subtopics: muslimResources.strugglingWithFaith.sections[1].topics.map(t => t.title) 
+        },
+        { 
+          name: 'Struggling with Faith - Community', 
+          subtopics: muslimResources.strugglingWithFaith.sections[2].topics.map(t => t.title) 
+        }
       ]
     },
     'NEW REVERTS': {
-      sidebar: [
-        { name: 'Foundations of Tawhid', subtopics: [] },
-        { name: 'Fiqh Basics', subtopics: [] },
-        { name: 'Learning Salah', subtopics: ['For Men', 'For Women'] },
-        { name: 'Prophetic Character', subtopics: [] },
-        { name: 'Community Resources', subtopics: ['Finding Muslim Friends', 'Local Mosques'] }
-      ]
+      sidebar: revertResources.starterPackage.sections.map(section => ({
+        name: section.title,
+        subtopics: section.categories ? section.categories.map(c => c.title) : []
+      }))
     }
   };
 
