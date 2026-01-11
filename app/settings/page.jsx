@@ -141,7 +141,7 @@ export default function SettingsPage() {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-background text-foreground flex items-center justify-center">
+      <div className="min-h-screen bg-background text-foreground flex items-center justify-center mt-42">
         <div className="text-center">
           <p className="text-xl">Loading...</p>
         </div>
@@ -150,7 +150,7 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground py-12 px-4">
+    <div className="min-h-screen bg-background text-foreground py-12 px-4 mt-42">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
