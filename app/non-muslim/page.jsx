@@ -212,15 +212,18 @@ export default function NonMuslimsPage() {
                   <div className="space-y-4">
                     <div>
                       <h4 className="font-semibold text-foreground mb-2">{nonMuslimResources.otherReligions.hinduism.title}</h4>
-                      <p className="text-sm text-foreground/60 ml-4">Resources coming soon</p>
+                      {nonMuslimResources.otherReligions.hinduism.resources.length > 0 && <ResourceList resources={nonMuslimResources.otherReligions.hinduism.resources} />}
+                      {nonMuslimResources.otherReligions.hinduism.resources.length === 0 && <p className="text-sm text-foreground/60 ml-4">Resources coming soon</p>}
                     </div>
                     <div>
                       <h4 className="font-semibold text-foreground mb-2">{nonMuslimResources.otherReligions.judaism.title}</h4>
-                      <p className="text-sm text-foreground/60 ml-4">Resources coming soon</p>
+                      {nonMuslimResources.otherReligions.judaism.resources.length > 0 && <ResourceList resources={nonMuslimResources.otherReligions.judaism.resources} />}
+                      {nonMuslimResources.otherReligions.judaism.resources.length === 0 && <p className="text-sm text-foreground/60 ml-4">Resources coming soon</p>}
                     </div>
                     <div>
                       <h4 className="font-semibold text-foreground mb-2">{nonMuslimResources.otherReligions.spirituality.title}</h4>
-                      <p className="text-sm text-foreground/60 ml-4">Resources coming soon</p>
+                      {nonMuslimResources.otherReligions.spirituality.resources.length > 0 && <ResourceList resources={nonMuslimResources.otherReligions.spirituality.resources} />}
+                      {nonMuslimResources.otherReligions.spirituality.resources.length === 0 && <p className="text-sm text-foreground/60 ml-4">Resources coming soon</p>}
                     </div>
                   </div>
                 </div>

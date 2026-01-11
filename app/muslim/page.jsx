@@ -348,6 +348,12 @@ export default function MuslimsPage() {
                                 ))}
                               </ul>
                             )}
+                            {component.usulPathways && (
+                              <div className="ml-2">
+                                <h5 className="font-semibold text-sm mb-2">{component.usulPathways.title}</h5>
+                                <ResourceList resources={component.usulPathways.items} />
+                              </div>
+                            )}
                             {component.madhahib && (
                               <div className="ml-2">
                                 <h5 className="font-semibold text-sm mb-2">{component.madhahib.title}</h5>
@@ -360,8 +366,15 @@ export default function MuslimsPage() {
                                         {school.texts.map((text, j) => <li key={j}>• {text}</li>)}
                                       </ul>
                                     )}
+                                    {school.resources && <ResourceList resources={school.resources} />}
                                   </div>
                                 ))}
+                              </div>
+                            )}
+                            {component.commonQuestions && (
+                              <div className="ml-2">
+                                <h5 className="font-semibold text-sm mb-2">{component.commonQuestions.title}</h5>
+                                <ResourceList resources={component.commonQuestions.items} />
                               </div>
                             )}
                             {component.usulResources && (
