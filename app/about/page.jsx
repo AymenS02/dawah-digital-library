@@ -14,6 +14,10 @@ export default function AboutPage() {
   const valuesRef = useRef(null);
   const statsRef = useRef(null);
   const teamRef = useRef(null);
+  const stat1Ref = useRef(null);
+  const stat2Ref = useRef(null);
+  const stat3Ref = useRef(null);
+  const stat4Ref = useRef(null);
 
   useEffect(() => {
     // Hero section animations
@@ -66,24 +70,31 @@ export default function AboutPage() {
       ease: 'power3.out',
     });
 
-    // Stats counter animation
-    const stats = document.querySelectorAll('.stat-number');
-    stats.forEach((stat) => {
-      const target = parseInt(stat.getAttribute('data-target'));
-      gsap.from(stat, {
-        scrollTrigger: {
-          trigger: statsRef.current,
-          start: 'top 80%',
-          toggleActions: 'play none none none',
-        },
-        textContent: 0,
-        duration: 2,
-        ease: 'power1.out',
-        snap: { textContent: 1 },
-        onUpdate: function() {
-          stat.textContent = Math.ceil(this.targets()[0].textContent);
-        },
-      });
+    // Stats counter animation using refs
+    const statsRefs = [
+      { ref: stat1Ref, target: 1000 },
+      { ref: stat2Ref, target: 500 },
+      { ref: stat3Ref, target: 50 },
+      { ref: stat4Ref, target: 24 },
+    ];
+
+    statsRefs.forEach(({ ref, target }) => {
+      if (ref.current) {
+        gsap.from(ref.current, {
+          scrollTrigger: {
+            trigger: statsRef.current,
+            start: 'top 80%',
+            toggleActions: 'play none none none',
+          },
+          textContent: 0,
+          duration: 2,
+          ease: 'power1.out',
+          snap: { textContent: 1 },
+          onUpdate: function() {
+            ref.current.textContent = Math.ceil(this.targets()[0].textContent);
+          },
+        });
+      }
     });
 
     // Team section animations
@@ -276,25 +287,25 @@ export default function AboutPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="text-center p-8 bg-background rounded-2xl border border-foreground/10">
-              <div className="stat-number font-barlow text-5xl md:text-6xl font-bold text-primary mb-2" data-target="1000">
+              <div ref={stat1Ref} className="font-barlow text-5xl md:text-6xl font-bold text-primary mb-2">
                 0
               </div>
               <p className="font-palanquin text-lg text-foreground/70">Resources Available</p>
             </div>
             <div className="text-center p-8 bg-background rounded-2xl border border-foreground/10">
-              <div className="stat-number font-barlow text-5xl md:text-6xl font-bold text-primary mb-2" data-target="500">
+              <div ref={stat2Ref} className="font-barlow text-5xl md:text-6xl font-bold text-primary mb-2">
                 0
               </div>
               <p className="font-palanquin text-lg text-foreground/70">Topics Covered</p>
             </div>
             <div className="text-center p-8 bg-background rounded-2xl border border-foreground/10">
-              <div className="stat-number font-barlow text-5xl md:text-6xl font-bold text-primary mb-2" data-target="50">
+              <div ref={stat3Ref} className="font-barlow text-5xl md:text-6xl font-bold text-primary mb-2">
                 0
               </div>
               <p className="font-palanquin text-lg text-foreground/70">Languages Supported</p>
             </div>
             <div className="text-center p-8 bg-background rounded-2xl border border-foreground/10">
-              <div className="stat-number font-barlow text-5xl md:text-6xl font-bold text-primary mb-2" data-target="24">
+              <div ref={stat4Ref} className="font-barlow text-5xl md:text-6xl font-bold text-primary mb-2">
                 0
               </div>
               <p className="font-palanquin text-lg text-foreground/70">Hours Available</p>
