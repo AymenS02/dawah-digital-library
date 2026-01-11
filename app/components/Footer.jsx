@@ -20,23 +20,23 @@ const Footer = () => {
             <h3 className='text-xl font-bold mb-4'>Quick Links</h3>
             <ul className='space-y-2'>
               <li>
-                <a href="#browse" className='text-sm opacity-80 hover:opacity-100 transition-opacity duration-300'>
+                <a href="/browse" className='text-sm opacity-80 hover:opacity-100 transition-opacity duration-300'>
                   Browse Resources
                 </a>
               </li>
               <li>
-                <a href="#quiz" className='text-sm opacity-80 hover:opacity-100 transition-opacity duration-300'>
+                <a href="/quiz" className='text-sm opacity-80 hover:opacity-100 transition-opacity duration-300'>
                   Take the Quiz
                 </a>
               </li>
               <li>
-                <a href="#about" className='text-sm opacity-80 hover:opacity-100 transition-opacity duration-300'>
-                  About
+                <a href="/apps" className='text-sm opacity-80 hover:opacity-100 transition-opacity duration-300'>
+                  Useful Apps
                 </a>
               </li>
               <li>
-                <a href="#faq" className='text-sm opacity-80 hover:opacity-100 transition-opacity duration-300'>
-                  FAQ
+                <a href="/about" className='text-sm opacity-80 hover:opacity-100 transition-opacity duration-300'>
+                  About
                 </a>
               </li>
             </ul>
@@ -48,8 +48,8 @@ const Footer = () => {
             <ul className='space-y-3'>
               <li className='flex items-center gap-2 text-sm opacity-80'>
                 <Mail className='w-4 h-4' />
-                <a href="mailto:info@example.com" className='hover:opacity-100 transition-opacity duration-300'>
-                  info@example.com
+                <a href="mailto:dawah@macmsa.com" className='hover:opacity-100 transition-opacity duration-300'>
+                  dawah@macmsa.com
                 </a>
               </li>
               <li className='flex items-center gap-2 text-sm opacity-80'>

@@ -1,11 +1,12 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { UserPlus, Mail, Lock, User, Phone, AlertCircle } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 export default function RegisterPage() {
   const router = useRouter();
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -13,23 +14,38 @@ export default function RegisterPage() {
     firstName: '',
     lastName: '',
     phone: '',
-    gender: ''
+    gender: '',
   });
+
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [quizSaveWarning, setQuizSaveWarning] = useState(false);
 
+  /* ---------- Gender dropdown ---------- */
+  const [genderOpen, setGenderOpen] = useState(false);
+  const genderRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (genderRef.current && !genderRef.current.contains(e.target)) {
+        setGenderOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  /* ---------- Submit ---------- */
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
 
-    // Validate passwords match
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match');
       return;
     }
 
-    // Validate password length
     if (formData.password.length < 6) {
       setError('Password must be at least 6 characters');
       return;
@@ -40,17 +56,8 @@ export default function RegisterPage() {
     try {
       const response = await fetch('/api/register', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: formData.email,
-          password: formData.password,
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          phone: formData.phone,
-          gender: formData.gender
-        }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
       });
 
       const data = await response.json();
@@ -61,45 +68,31 @@ export default function RegisterPage() {
         return;
       }
 
-      // Store token and user data in localStorage
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.user));
 
-      // Check if there are pending quiz results to save
       const pendingQuizResults = sessionStorage.getItem('pendingQuizResults');
       if (pendingQuizResults) {
         try {
-          const quizData = JSON.parse(pendingQuizResults);
-          // Save quiz results with the new user's token
-          const quizResponse = await fetch('/api/quiz/submit', {
+          await fetch('/api/quiz/submit', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': `Bearer ${data.token}`
+              Authorization: `Bearer ${data.token}`,
             },
             body: JSON.stringify({
-              ...quizData,
-              isAnonymous: false // Now it's linked to the user
-            })
+              ...JSON.parse(pendingQuizResults),
+              isAnonymous: false,
+            }),
           });
-          
-          if (!quizResponse.ok) {
-            setQuizSaveWarning(true);
-            console.error('Failed to save quiz results');
-          }
-          
-          // Clear the pending results
           sessionStorage.removeItem('pendingQuizResults');
-        } catch (quizError) {
-          console.error('Error saving quiz results:', quizError);
+        } catch {
           setQuizSaveWarning(true);
-          // Don't block registration if quiz save fails
         }
       }
 
-      // Redirect to home page
       router.push('/');
-    } catch (err) {
+    } catch {
       setError('An error occurred. Please try again.');
       setLoading(false);
     }
@@ -113,55 +106,64 @@ export default function RegisterPage() {
           <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/20 rounded-full mb-4">
             <UserPlus className="w-8 h-8 text-primary" />
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold mb-2">CREATE ACCOUNT</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-2">
+            CREATE ACCOUNT
+          </h1>
           <p className="text-foreground/70">Join our community today</p>
         </div>
 
-        {/* Registration Form */}
         <div className="bg-foreground/5 backdrop-blur-sm rounded-2xl p-8">
           {error && (
             <div className="mb-6 p-4 bg-red-500/10 border border-red-500/50 rounded-lg flex items-center gap-2 text-red-500">
               <AlertCircle className="w-5 h-5" />
-              <span>{error}</span>
+              {error}
             </div>
           )}
 
           {quizSaveWarning && (
             <div className="mb-6 p-4 bg-yellow-500/10 border border-yellow-500/50 rounded-lg flex items-center gap-2 text-yellow-600">
               <AlertCircle className="w-5 h-5" />
-              <span>Account created successfully, but there was an issue saving your quiz results. You can retake the quiz anytime.</span>
+              Quiz results couldn’t be saved. You can retake it anytime.
             </div>
           )}
 
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Name Fields */}
+            {/* Name */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-semibold mb-2">First Name *</label>
+                <label className="block text-sm font-semibold mb-2">
+                  First Name *
+                </label>
                 <div className="relative">
                   <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-foreground/40" />
                   <input
+                    required
                     type="text"
                     placeholder="First name"
                     value={formData.firstName}
-                    onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                    required
-                    className="w-full pl-12 pr-6 py-4 bg-foreground/10 text-foreground placeholder-foreground/40 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300"
+                    onChange={(e) =>
+                      setFormData({ ...formData, firstName: e.target.value })
+                    }
+                    className="w-full pl-12 pr-6 py-4 bg-foreground/10 rounded-lg focus:ring-2 focus:ring-primary"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-semibold mb-2">Last Name *</label>
+                <label className="block text-sm font-semibold mb-2">
+                  Last Name *
+                </label>
                 <div className="relative">
                   <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-foreground/40" />
                   <input
+                    required
                     type="text"
                     placeholder="Last name"
                     value={formData.lastName}
-                    onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                    required
-                    className="w-full pl-12 pr-6 py-4 bg-foreground/10 text-foreground placeholder-foreground/40 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300"
+                    onChange={(e) =>
+                      setFormData({ ...formData, lastName: e.target.value })
+                    }
+                    className="w-full pl-12 pr-6 py-4 bg-foreground/10 rounded-lg focus:ring-2 focus:ring-primary"
                   />
                 </div>
               </div>
@@ -169,78 +171,123 @@ export default function RegisterPage() {
 
             {/* Email */}
             <div>
-              <label className="block text-sm font-semibold mb-2">Email *</label>
+              <label className="block text-sm font-semibold mb-2">
+                Email *
+              </label>
               <div className="relative">
                 <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-foreground/40" />
                 <input
-                  type="email"
-                  placeholder="your.email@example.com"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   required
-                  className="w-full pl-12 pr-6 py-4 bg-foreground/10 text-foreground placeholder-foreground/40 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300"
+                  type="email"
+                  placeholder="you@example.com"
+                  value={formData.email}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
+                  className="w-full pl-12 pr-6 py-4 bg-foreground/10 rounded-lg focus:ring-2 focus:ring-primary"
                 />
               </div>
             </div>
 
             {/* Phone */}
             <div>
-              <label className="block text-sm font-semibold mb-2">Phone Number (Optional)</label>
+              <label className="block text-sm font-semibold mb-2">
+                Phone (Optional)
+              </label>
               <div className="relative">
                 <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-foreground/40" />
                 <input
                   type="tel"
                   placeholder="+1 (234) 567-890"
                   value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="w-full pl-12 pr-6 py-4 bg-foreground/10 text-foreground placeholder-foreground/40 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300"
+                  onChange={(e) =>
+                    setFormData({ ...formData, phone: e.target.value })
+                  }
+                  className="w-full pl-12 pr-6 py-4 bg-foreground/10 rounded-lg focus:ring-2 focus:ring-primary"
                 />
               </div>
             </div>
 
-            {/* Gender */}
+            {/* Gender (Custom Dropdown) */}
             <div>
-              <label className="block text-sm font-semibold mb-2">Gender (Optional)</label>
-              <select
-                value={formData.gender}
-                onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
-                className="w-full px-6 py-4 bg-foreground/10 text-foreground rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300"
-              >
-                <option value="">Prefer not to say</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-              </select>
+              <label className="block text-sm font-semibold mb-2">
+                Gender (Optional)
+              </label>
+
+              <div ref={genderRef} className="relative">
+                <button
+                  type="button"
+                  onClick={() => setGenderOpen(!genderOpen)}
+                  className="w-full px-6 py-4 bg-foreground/10 rounded-lg text-left focus:ring-2 focus:ring-primary"
+                >
+                  {formData.gender
+                    ? formData.gender.charAt(0).toUpperCase() +
+                      formData.gender.slice(1)
+                    : 'Prefer not to say'}
+                </button>
+
+                {genderOpen && (
+                  <div className="absolute z-50 mt-2 w-full bg-background border border-foreground/10 rounded-lg shadow-xl overflow-hidden">
+                    {[
+                      { label: 'Prefer not to say', value: '' },
+                      { label: 'Male', value: 'male' },
+                      { label: 'Female', value: 'female' },
+                      { label: 'Other', value: 'other' },
+                    ].map((opt) => (
+                      <button
+                        key={opt.label}
+                        type="button"
+                        onClick={() => {
+                          setFormData({ ...formData, gender: opt.value });
+                          setGenderOpen(false);
+                        }}
+                        className="w-full px-6 py-3 text-left hover:bg-primary/10"
+                      >
+                        {opt.label}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
 
-            {/* Password Fields */}
+            {/* Passwords */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-semibold mb-2">Password *</label>
+                <label className="block text-sm font-semibold mb-2">
+                  Password *
+                </label>
                 <div className="relative">
                   <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-foreground/40" />
                   <input
-                    type="password"
-                    placeholder="••••••••"
-                    value={formData.password}
-                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                     required
-                    className="w-full pl-12 pr-6 py-4 bg-foreground/10 text-foreground placeholder-foreground/40 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300"
+                    type="password"
+                    value={formData.password}
+                    onChange={(e) =>
+                      setFormData({ ...formData, password: e.target.value })
+                    }
+                    className="w-full pl-12 pr-6 py-4 bg-foreground/10 rounded-lg focus:ring-2 focus:ring-primary"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-semibold mb-2">Confirm Password *</label>
+                <label className="block text-sm font-semibold mb-2">
+                  Confirm Password *
+                </label>
                 <div className="relative">
                   <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-foreground/40" />
                   <input
-                    type="password"
-                    placeholder="••••••••"
-                    value={formData.confirmPassword}
-                    onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
                     required
-                    className="w-full pl-12 pr-6 py-4 bg-foreground/10 text-foreground placeholder-foreground/40 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300"
+                    type="password"
+                    value={formData.confirmPassword}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        confirmPassword: e.target.value,
+                      })
+                    }
+                    className="w-full pl-12 pr-6 py-4 bg-foreground/10 rounded-lg focus:ring-2 focus:ring-primary"
                   />
                 </div>
               </div>
@@ -249,28 +296,11 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-primary hover:bg-primary/90 text-foreground px-8 py-4 rounded-lg font-bold transition-all duration-300 hover:scale-105 shadow-xl hover:shadow-2xl flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+              className="w-full bg-primary py-4 rounded-lg font-bold transition hover:scale-105 disabled:opacity-50"
             >
-              {loading ? (
-                <span>CREATING ACCOUNT...</span>
-              ) : (
-                <>
-                  <UserPlus className="w-5 h-5" />
-                  <span>CREATE ACCOUNT</span>
-                </>
-              )}
+              {loading ? 'CREATING ACCOUNT...' : 'CREATE ACCOUNT'}
             </button>
           </form>
-
-          {/* Footer Links */}
-          <div className="mt-6 text-center text-sm">
-            <p className="text-foreground/70">
-              Already have an account?{' '}
-              <a href="/login" className="text-primary hover:underline font-semibold">
-                Sign in here
-              </a>
-            </p>
-          </div>
         </div>
       </div>
     </div>
