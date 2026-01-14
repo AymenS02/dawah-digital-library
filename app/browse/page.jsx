@@ -159,7 +159,7 @@ export default function BrowsePage() {
   }, []);
 
   // Build category data from the resource files
-  const categoryData = {
+  const categoryData = useMemo(() => ({
     'NON-MUSLIMS': {
       sidebar: [
         { 
@@ -234,7 +234,7 @@ export default function BrowsePage() {
         subtopics: section.categories ? section.categories.map(c => c.title) : []
       }))
     }
-  };
+  }), []);
 
   const toggleSidebarItem = (index) => {
     setSelectedSidebarItem(selectedSidebarItem === index ? null : index);
