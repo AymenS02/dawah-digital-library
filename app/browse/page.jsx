@@ -200,7 +200,7 @@ export default function BrowsePage() {
     <div className="min-h-screen bg-background text-foreground mt-16">
 
       {/* Top Tabs */}
-      <div className="sticky top-28 z-40 bg-foreground/90 backdrop-blur-sm py-4">
+      <div className="sticky top-26 z-40 bg-foreground/90 backdrop-blur-sm py-4">
         <div className="flex gap-6 overflow-x-auto px-4 justify-start md:justify-center">
           {['NON-MUSLIMS', 'MUSLIMS', 'NEW REVERTS'].map(cat => (
             <button
