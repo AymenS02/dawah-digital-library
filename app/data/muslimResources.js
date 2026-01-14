@@ -363,8 +363,8 @@ export const muslimResources = {
         title: "AMAU: Stages of seeking knowledge",
         resources: [
           {
-            title: "Stages of Seeking Knowledge Every Muslim Must Know | Ustadh Abdulrehman hassan",
-            author: "Ustadh Abdulrehman hassan",
+            title: "Stages of Seeking Knowledge Every Muslim Must Know | Ustadh Abdulrahman hassan",
+            author: "Ustadh Abdulrahman hassan",
             url: "https://www.youtube.com/watch?v=Lz8hC4C2SWA"
           }
         ]
