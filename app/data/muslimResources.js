@@ -349,7 +349,7 @@ export const muslimResources = {
         resources: [
           {
             title: "A Daily Routine for The Seeker of Knowledge",
-            url: "chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https://www.emaanlibrary.com/wp-content/uploads/2021/11/A-Daily-Routine-for-The-Seeker-of-Knowledge-Sh.-Muhammad-al-Uthaymin.pdf"
+            url: "https://www.emaanlibrary.com/wp-content/uploads/2021/11/A-Daily-Routine-for-The-Seeker-of-Knowledge-Sh.-Muhammad-al-Uthaymin.pdf"
           },
           {
             title: "Important Tip for Students of Knowledge || Ustadh Muhammad Tim Humble #amau",
@@ -409,7 +409,7 @@ export const muslimResources = {
               url: "https://taymiyyah.institute/ebooks/mukhtasar-fi-usul-al-fiqh"
             },
             {
-              title: "NEW COURSE || Usul al-Fiqh Made SUPER EASY أصول الفقه في قفة أبي ابن منظومة",
+              title: "NEW COURSE || Usul al-Fiqh Made SUPER EASY الفقه أصول في قفة أبي ابن منظومة",
               url: "https://www.youtube.com/watch?v=2K4bKPLGYE0"
             },
             {
@@ -604,14 +604,6 @@ export const muslimResources = {
             author: "Imam al-Suyuti",
             description: "AMAU Classic with Summarised Notes",
             url: "https://library.amauacademy.com/videos/risalah-fi-usul-al-tafsir/"
-          },
-          {
-            title: "Raising Righteous Children: Practical Guidance for Today's Parents",
-            url: "https://library.amauacademy.com/podcasts/on-the-road-to-raising-righteous-children/"
-          },
-          {
-            title: "Can Muslims Stand United Despite Differences in Creed? (Sheikh al-Albani's answer!)",
-            url: "https://library.amauacademy.com/qa/can-muslims-unite-to-fight-enemies-without-agreeing-on-fundamentals/"
           },
           {
             title: "Attack on Islam in Europe - The Growing Challenges for Muslims in Europe Podcast | Ust. Abu Taymiayah",
