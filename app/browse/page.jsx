@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Search, ChevronRight } from 'lucide-react';
+import React, { useState, useMemo } from 'react';
+import { Search, ChevronRight, ExternalLink, BookOpen, Video, FileText } from 'lucide-react';
 import { muslimResources } from '../data/muslimResources';
 import { nonMuslimResources } from '../data/nonMuslimResources';
 import { revertResources } from '../data/revertResources';
@@ -9,6 +9,154 @@ import { revertResources } from '../data/revertResources';
 export default function BrowsePage() {
   const [selectedCategory, setSelectedCategory] = useState('MUSLIMS');
   const [selectedSidebarItem, setSelectedSidebarItem] = useState(null);
+  const [selectedSubtopic, setSelectedSubtopic] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  // Helper function to flatten resources from nested structures
+  const flattenResources = (data, category, topic = null, subtopic = null) => {
+    const resources = [];
+    
+    if (Array.isArray(data)) {
+      data.forEach(resource => {
+        if (resource.url || resource.title) {
+          resources.push({
+            ...resource,
+            category,
+            topic,
+            subtopic
+          });
+        }
+      });
+    }
+    
+    return resources;
+  };
+
+  // Extract all resources for each category
+  const getAllResources = useMemo(() => {
+    const allResources = {
+      'MUSLIMS': [],
+      'NON-MUSLIMS': [],
+      'NEW REVERTS': []
+    };
+
+    // Muslims resources
+    // Fiqh Pathway
+    if (muslimResources.generalMuslims.pathways.fiqh.resources) {
+      allResources['MUSLIMS'].push(...flattenResources(
+        muslimResources.generalMuslims.pathways.fiqh.resources,
+        'General Muslims - Fiqh Pathway',
+        'Fiqh Resources'
+      ));
+    }
+
+    // Tazkiyah Pathway
+    muslimResources.generalMuslims.pathways.tazkiyah.topics.forEach(topic => {
+      if (topic.resources) {
+        allResources['MUSLIMS'].push(...flattenResources(
+          topic.resources,
+          'General Muslims - Tazkiyah Pathway',
+          topic.title
+        ));
+      }
+    });
+
+    // Aqidah Pathway
+    muslimResources.generalMuslims.pathways.aqidah.topics.forEach(topic => {
+      if (topic.resources) {
+        allResources['MUSLIMS'].push(...flattenResources(
+          topic.resources,
+          'General Muslims - \'Aqidah Pathway',
+          topic.title
+        ));
+      }
+    });
+
+    // Students of Knowledge
+    muslimResources.studentsOfKnowledge.components.forEach(component => {
+      if (component.resources) {
+        allResources['MUSLIMS'].push(...flattenResources(
+          component.resources,
+          'Students of Knowledge',
+          component.title
+        ));
+      }
+    });
+
+    // Struggling with Faith
+    muslimResources.strugglingWithFaith.sections.forEach(section => {
+      section.topics.forEach(topic => {
+        if (topic.resources) {
+          allResources['MUSLIMS'].push(...flattenResources(
+            topic.resources,
+            `Struggling with Faith - ${section.title}`,
+            topic.title
+          ));
+        }
+      });
+    });
+
+    // Non-Muslims resources
+    Object.entries(nonMuslimResources).forEach(([key, categoryData]) => {
+      if (categoryData.sections) {
+        categoryData.sections.forEach(section => {
+          if (section.resources) {
+            allResources['NON-MUSLIMS'].push(...flattenResources(
+              section.resources,
+              categoryData.title,
+              section.title
+            ));
+          }
+        });
+      }
+      if (categoryData.topics) {
+        categoryData.topics.forEach(topic => {
+          if (topic.resources) {
+            allResources['NON-MUSLIMS'].push(...flattenResources(
+              topic.resources,
+              categoryData.title,
+              topic.title
+            ));
+          }
+        });
+      }
+    });
+
+    // Revert resources
+    revertResources.starterPackage.sections.forEach(section => {
+      if (section.resources) {
+        allResources['NEW REVERTS'].push(...flattenResources(
+          section.resources,
+          section.title
+        ));
+      }
+      if (section.categories) {
+        section.categories.forEach(subcat => {
+          if (subcat.resources) {
+            allResources['NEW REVERTS'].push(...flattenResources(
+              subcat.resources,
+              section.title,
+              subcat.title
+            ));
+          }
+          if (subcat.categories) {
+            subcat.categories.forEach(subsubcat => {
+              if (subsubcat.resources) {
+                allResources['NEW REVERTS'].push(...flattenResources(
+                  subsubcat.resources,
+                  section.title,
+                  subcat.title,
+                  subsubcat.title
+                ));
+              }
+            });
+          }
+        });
+      }
+    });
+
+    return allResources;
+  }, []);
 
   // Build category data from the resource files
   const categoryData = {
@@ -90,6 +238,52 @@ export default function BrowsePage() {
 
   const toggleSidebarItem = (index) => {
     setSelectedSidebarItem(selectedSidebarItem === index ? null : index);
+    setSelectedSubtopic(null); // Reset subtopic when changing sidebar item
+  };
+
+  const selectSubtopic = (subtopic) => {
+    setSelectedSubtopic(subtopic);
+  };
+
+  // Filter resources based on category, sidebar selection, subtopic, and search
+  const filteredResources = useMemo(() => {
+    let resources = getAllResources[selectedCategory] || [];
+
+    // Filter by sidebar item
+    if (selectedSidebarItem !== null) {
+      const sidebarItemName = categoryData[selectedCategory].sidebar[selectedSidebarItem].name;
+      resources = resources.filter(r => r.category === sidebarItemName);
+    }
+
+    // Filter by subtopic
+    if (selectedSubtopic) {
+      resources = resources.filter(r => r.topic === selectedSubtopic);
+    }
+
+    // Filter by search query
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      resources = resources.filter(r => 
+        (r.title && r.title.toLowerCase().includes(query)) ||
+        (r.author && r.author.toLowerCase().includes(query)) ||
+        (r.topic && r.topic.toLowerCase().includes(query)) ||
+        (r.category && r.category.toLowerCase().includes(query))
+      );
+    }
+
+    return resources;
+  }, [selectedCategory, selectedSidebarItem, selectedSubtopic, searchQuery, getAllResources, categoryData]);
+
+  // Get resource type icon
+  const getResourceIcon = (type) => {
+    switch (type) {
+      case 'book':
+        return <BookOpen className="w-5 h-5" />;
+      case 'video':
+        return <Video className="w-5 h-5" />;
+      default:
+        return <FileText className="w-5 h-5" />;
+    }
   };
 
   return (
@@ -98,7 +292,11 @@ export default function BrowsePage() {
       <div className="bg-foreground/90 backdrop-blur-sm py-4 px-4 sticky top-16 z-40">
         <div className="max-w-7xl mx-auto flex justify-center gap-8 md:gap-16">
           <button
-            onClick={() => setSelectedCategory('NON-MUSLIMS')}
+            onClick={() => {
+              setSelectedCategory('NON-MUSLIMS');
+              setSelectedSidebarItem(null);
+              setSelectedSubtopic(null);
+            }}
             className={`text-sm md:text-lg font-semibold transition-all duration-300 ${
               selectedCategory === 'NON-MUSLIMS'
                 ? 'text-background underline underline-offset-8'
@@ -108,7 +306,11 @@ export default function BrowsePage() {
             NON-MUSLIMS
           </button>
           <button
-            onClick={() => setSelectedCategory('MUSLIMS')}
+            onClick={() => {
+              setSelectedCategory('MUSLIMS');
+              setSelectedSidebarItem(null);
+              setSelectedSubtopic(null);
+            }}
             className={`text-sm md:text-lg font-semibold transition-all duration-300 ${
               selectedCategory === 'MUSLIMS'
                 ? 'text-background underline underline-offset-8'
@@ -118,7 +320,11 @@ export default function BrowsePage() {
             MUSLIMS
           </button>
           <button
-            onClick={() => setSelectedCategory('NEW REVERTS')}
+            onClick={() => {
+              setSelectedCategory('NEW REVERTS');
+              setSelectedSidebarItem(null);
+              setSelectedSubtopic(null);
+            }}
             className={`text-sm md:text-lg font-semibold transition-all duration-300 ${
               selectedCategory === 'NEW REVERTS'
                 ? 'text-background underline underline-offset-8'
@@ -142,6 +348,8 @@ export default function BrowsePage() {
             <input
               type="text"
               placeholder="Search a topic or resource..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full px-6 py-4 pr-12 rounded-full bg-foreground text-background placeholder-background/60 focus:outline-none focus:ring-2 focus:ring-primary"
             />
             <Search className="absolute right-4 top-1/2 -translate-y-1/2 w-6 h-6 text-background/60" />
@@ -176,7 +384,12 @@ export default function BrowsePage() {
                       {item.subtopics.map((subtopic, subIndex) => (
                         <button
                           key={subIndex}
-                          className="w-full text-left px-4 py-2 text-sm rounded-lg hover:bg-foreground/20 transition-all duration-300 text-foreground/80 hover:text-primary"
+                          onClick={() => selectSubtopic(subtopic)}
+                          className={`w-full text-left px-4 py-2 text-sm rounded-lg transition-all duration-300 ${
+                            selectedSubtopic === subtopic
+                              ? 'bg-foreground/30 text-primary font-semibold'
+                              : 'hover:bg-foreground/20 text-foreground/80 hover:text-primary'
+                          }`}
                         >
                           {subtopic}
                         </button>
@@ -190,26 +403,70 @@ export default function BrowsePage() {
 
           {/* Content Grid */}
           <div className="flex-1">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-              {/* Resource Cards */}
-              {[...Array(9)].map((_, index) => (
-                <div
-                  key={index}
-                  className="bg-[#c4b5a0] rounded-2xl aspect-square hover:shadow-2xl hover:scale-105 transition-all duration-500 cursor-pointer flex items-center justify-center"
-                >
-                  <div className="text-center p-6">
-                    <p className="text-gray-800 font-semibold text-lg">Resource {index + 1}</p>
-                  </div>
+            {filteredResources.length === 0 ? (
+              <div className="text-center py-16">
+                <p className="text-foreground/60 text-lg">
+                  {searchQuery.trim() 
+                    ? 'No resources found matching your search.' 
+                    : 'Select a category from the sidebar to view resources.'}
+                </p>
+              </div>
+            ) : (
+              <>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                  {filteredResources.map((resource, index) => (
+                    <a
+                      key={index}
+                      href={resource.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-[#c4b5a0] rounded-2xl p-6 hover:shadow-2xl hover:scale-105 transition-all duration-500 cursor-pointer flex flex-col justify-between min-h-[200px]"
+                    >
+                      <div>
+                        <div className="flex items-start justify-between mb-3">
+                          <div className="flex-1">
+                            <h3 className="text-gray-800 font-semibold text-lg mb-2 line-clamp-2">
+                              {resource.title || 'Untitled Resource'}
+                            </h3>
+                            {resource.author && (
+                              <p className="text-gray-600 text-sm mb-2">
+                                by {resource.author}
+                              </p>
+                            )}
+                          </div>
+                          {resource.type && (
+                            <div className="ml-2 text-gray-700">
+                              {getResourceIcon(resource.type)}
+                            </div>
+                          )}
+                        </div>
+                        {resource.topic && (
+                          <p className="text-gray-600 text-xs mb-1 line-clamp-1">
+                            Topic: {resource.topic}
+                          </p>
+                        )}
+                        {resource.category && (
+                          <p className="text-gray-600 text-xs line-clamp-1">
+                            Category: {resource.category}
+                          </p>
+                        )}
+                      </div>
+                      <div className="flex items-center justify-end mt-4 text-gray-700">
+                        <span className="text-sm mr-2">View Resource</span>
+                        <ExternalLink className="w-4 h-4" />
+                      </div>
+                    </a>
+                  ))}
                 </div>
-              ))}
-            </div>
-
-            {/* Load More Button */}
-            <div className="text-center py-8">
-              <button className="text-foreground/80 hover:text-foreground font-semibold text-lg transition-all duration-300 hover:scale-105">
-                LOAD MORE . . .
-              </button>
-            </div>
+                
+                {/* Results count */}
+                <div className="text-center py-4">
+                  <p className="text-foreground/60">
+                    Showing {filteredResources.length} resource{filteredResources.length !== 1 ? 's' : ''}
+                  </p>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>
