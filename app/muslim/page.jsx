@@ -334,36 +334,37 @@ export default function MuslimsPage() {
                       <>
                         <h3 className="text-lg font-bold text-foreground mb-2">{muslimResources.studentsOfKnowledge.title}</h3>
                         <p className="text-sm text-foreground/60 mb-4">{muslimResources.studentsOfKnowledge.subtitle}</p>
-                        
+
                         {muslimResources.studentsOfKnowledge.components.map((component, index) => (
                           <div key={index} className="mb-6">
                             <h4 className="font-bold text-foreground mb-2">{component.title}</h4>
                             {component.subtitle && <p className="text-xs text-foreground/60 mb-2">{component.subtitle}</p>}
-                            
+
                             {component.resources && <ResourceList resources={component.resources} />}
-                            {component.institutions && (
-                              <ul className="space-y-1 ml-4">
-                                {component.institutions.map((inst, i) => (
-                                  <li key={i} className="text-sm text-foreground/80">• {inst}</li>
-                                ))}
-                              </ul>
-                            )}
+
                             {component.usulPathways && (
                               <div className="ml-2">
                                 <h5 className="font-semibold text-sm mb-2">{component.usulPathways.title}</h5>
                                 <ResourceList resources={component.usulPathways.items} />
                               </div>
                             )}
+
                             {component.madhahib && (
                               <div className="ml-2">
                                 <h5 className="font-semibold text-sm mb-2">{component.madhahib.title}</h5>
                                 {component.madhahib.schools.map((school, i) => (
                                   <div key={i} className="mb-2">
                                     <p className="font-medium text-sm">{school.name}</p>
-                                    {school.url && <a href={school.url} target="_blank" rel="noopener noreferrer" className="text-xs text-primary hover:text-primary/80">{school.url}</a>}
+                                    {school.url && (
+                                      <a href={school.url} target="_blank" rel="noopener noreferrer" className="text-xs text-primary hover:text-primary/80">
+                                        {school.url}
+                                      </a>
+                                    )}
                                     {school.texts && (
                                       <ul className="ml-4 text-xs text-foreground/70">
-                                        {school.texts.map((text, j) => <li key={j}>• {text}</li>)}
+                                        {school.texts.map((text, j) => (
+                                          <li key={j}>• <a href={text.url} target="_blank" rel="noopener noreferrer">{text.title}</a></li>
+                                        ))}
                                       </ul>
                                     )}
                                     {school.resources && <ResourceList resources={school.resources} />}
@@ -371,40 +372,12 @@ export default function MuslimsPage() {
                                 ))}
                               </div>
                             )}
-                            {component.commonQuestions && (
-                              <div className="ml-2">
-                                <h5 className="font-semibold text-sm mb-2">{component.commonQuestions.title}</h5>
-                                <ResourceList resources={component.commonQuestions.items} />
-                              </div>
-                            )}
-                            {component.usulResources && (
-                              <div className="ml-2">
-                                <h5 className="font-semibold text-sm mb-2">{component.usulResources.title}</h5>
-                                <ResourceList resources={component.usulResources.items} />
-                              </div>
-                            )}
-                            {component.practicalFiqh && (
-                              <div className="ml-2">
-                                <h5 className="font-semibold text-sm mb-2">{component.practicalFiqh.title}</h5>
-                                <ResourceList resources={component.practicalFiqh.items} />
-                                {component.practicalFiqh.commonQuestions && (
-                                  <div className="mt-3">
-                                    <p className="font-medium text-sm mb-1">Common Questions:</p>
-                                    <ResourceList resources={component.practicalFiqh.commonQuestions} />
-                                  </div>
-                                )}
-                              </div>
-                            )}
-                            {component.differenceOfOpinion && (
-                              <div className="ml-2">
-                                <h5 className="font-semibold text-sm mb-2">{component.differenceOfOpinion.title}</h5>
-                                <ResourceList resources={component.differenceOfOpinion.items} />
-                              </div>
-                            )}
+
                             {component.items && <ResourceList resources={component.items} />}
                           </div>
                         ))}
                       </>
+
                     ) : accessStatus.hasPendingRequest ? (
                       // Has pending request
                       <div className="text-center py-8">
@@ -434,37 +407,43 @@ export default function MuslimsPage() {
 
               {/* Struggling with Faith */}
               <div className="bg-foreground backdrop-blur-sm rounded-2xl overflow-hidden shadow-xl">
-                <button
-                  onClick={() => toggleDropdown('struggling')}
-                  className="w-full px-8 py-6 flex items-center justify-between hover:bg-foreground/90 transition-colors duration-300"
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="text-lg md:text-2xl font-bold text-background">Struggling with Faith?</span>
-                    <ChevronDown 
-                      className={`w-5 h-5 text-background transition-transform duration-300 ${
-                        openDropdown === 'struggling' ? 'rotate-180' : ''
-                      }`}
-                    />
-                  </div>
-                </button>
-                {openDropdown === 'struggling' && (
-                  <div className="px-8 py-6 bg-background border-t border-foreground/20 max-h-[600px] overflow-y-auto">
-                    <h3 className="text-lg font-bold text-foreground mb-4">{muslimResources.strugglingWithFaith.title}</h3>
-                    
-                    {muslimResources.strugglingWithFaith.sections.map((section, sectionIndex) => (
-                      <div key={sectionIndex} className="mb-6">
-                        <h4 className="font-bold text-foreground mb-3">{section.title}</h4>
-                        {section.topics.map((topic, topicIndex) => (
-                          <div key={topicIndex} className="mb-4 ml-2">
-                            <h5 className="font-semibold text-sm text-foreground mb-2">{topic.title}</h5>
-                            {topic.resources.length > 0 && <ResourceList resources={topic.resources} />}
-                          </div>
-                        ))}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
+  <button
+    onClick={() => toggleDropdown('struggling')}
+    className="w-full px-8 py-6 flex items-center justify-between hover:bg-foreground/90 transition-colors duration-300"
+  >
+    <div className="flex items-center gap-3">
+      <span className="text-lg md:text-2xl font-bold text-background">Struggling with Faith?</span>
+      <ChevronDown 
+        className={`w-5 h-5 text-background transition-transform duration-300 ${
+          openDropdown === 'struggling' ? 'rotate-180' : ''
+        }`}
+      />
+    </div>
+  </button>
+
+  {openDropdown === 'struggling' && (
+    <div className="px-8 py-6 bg-background border-t border-foreground/20 max-h-[600px] overflow-y-auto">
+      <h3 className="text-lg font-bold text-foreground mb-4">{muslimResources.strugglingWithFaith.title}</h3>
+      
+      {muslimResources.strugglingWithFaith.sections.map((section, sectionIndex) => (
+        <div key={sectionIndex} className="mb-6">
+          <h4 className="font-bold text-foreground mb-3">{section.title}</h4>
+          {section.topics.map((topic, topicIndex) => (
+            <div key={topicIndex} className="mb-4 ml-2">
+              <h5 className="font-semibold text-sm text-foreground mb-2">{topic.title}</h5>
+              {topic.resources && topic.resources.length > 0 ? (
+                <ResourceList resources={topic.resources} />
+              ) : (
+                <p className="text-xs text-foreground/60">No resources available</p>
+              )}
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  )}
+</div>
+
             </div>
 
             {/* Right Side - Title */}
