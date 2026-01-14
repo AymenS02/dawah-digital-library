@@ -272,7 +272,7 @@ export default function BrowsePage() {
     }
 
     return resources;
-  }, [selectedCategory, selectedSidebarItem, selectedSubtopic, searchQuery, getAllResources, categoryData]);
+  }, [selectedCategory, selectedSidebarItem, selectedSubtopic, searchQuery]);
 
   // Get resource type icon
   const getResourceIcon = (type) => {
