@@ -267,24 +267,28 @@ export const muslimResources = {
         title: "The Importance of Seeking Knowledge",
         resources: [
           {
-            title: "Why Should You Seek Islamic Knowledge?",
-            author: "Ustadh Abdulrahman Hassan"
+            title: "Why Should You Seek Islamic Knowledge? || Ustadh Abdulrahman Hassan #AMAU",
+            author: "Ustadh Abdulrahman Hassan",
+            url: "https://www.youtube.com/watch?v=OVPGxPymnWM"
           },
           {
-            title: "Importance Of Seeking Knowledge",
-            author: "AbdulRahman Hassan"
+            title: "Importance Of Seeking Knowledge - AbdulRahman Hassan",
+            author: "AbdulRahman Hassan",
+            url: "https://www.youtube.com/watch?v=zQpL-1u9YXY"
           },
           {
             title: "6 Gems From A Powerful Hadith On Seeking Knowledge",
-            author: "Islamic College Of Australia"
+            url: "https://www.youtube.com/watch?v=36YBvuvWHDU"
           },
           {
-            title: "Seeking Knowledge Video",
+            title: "Importance Of Seeking Knowledge | Ustadh Abu Taymiyyah",
+            author: "Ustadh Abu Taymiyyah",
             url: "https://www.youtube.com/live/t3Q-aFxbj-I?si=gvt5h3SIWOd_ZC89"
           },
           {
-            title: "Knowing Allah",
-            author: "Shaikh Mostafa Al Shaybani"
+            title: "Knowing Allah | Shaikh Mostafa Al Shaybani",
+            author: "Shaikh Mostafa Al Shaybani",
+            url: "https://www.youtube.com/watch?v=WbKtorxC45g"
           }
         ]
       },
@@ -292,7 +296,7 @@ export const muslimResources = {
         title: "Etiquettes of Talab al-'Ilm",
         resources: [
           {
-            title: "The Etiquette of Seeking Knowledge",
+            title: "The-Etiquette-of-Seeking-Knowledge-Sh.-Bakr-Aboo-Zayd.pdf",
             author: "Sh. Bakr Aboo Zayd",
             description: "DM for access to a private playlist"
           },
@@ -309,10 +313,12 @@ export const muslimResources = {
             url: "https://www.spreaker.com/podcast/the-etiquette-of-seeking-knowledge--6156306"
           },
           {
-            title: "Books Recommended by Shaykh ibn Uthaymeen"
+            title: "Books Recommended by Shaykh ibn Uthaymeen",
+            url: "https://www.youtube.com/watch?v=cEGayMrfTP0"
           },
           {
-            title: "Texts Sheikh Ibn Uthaymeen Recommends For Those Who Wish To Start Seeking"
+            title: "Texts Sheikh Ibn Uthaymeen Recommends For Those Who Wish To Start Seeking Knowledge",
+            url: "https://www.youtube.com/watch?v=xg3FtlWF_1Y"
           }
         ]
       },
@@ -321,33 +327,45 @@ export const muslimResources = {
         subtitle: "Struggles of Seeking Knowledge",
         resources: [
           {
-            title: "Are You Struggling to Seek Knowledge?",
-            author: "Ustadh Abdulrahman Hassan"
+            title: "Are You Struggling to Seek Knowledge? || Ustadh Abdulrahman Hassan #AMAU",
+            author: "Ustadh Abdulrahman Hassan",
+            url: "https://www.youtube.com/watch?v=7T34qQDGdjQ"
           },
           {
-            title: "Why Some Students Of Knowledge Rise Above Others",
-            author: "Ustadh Abdulrahman Hassan"
+            title: "Why Some Students Of Knowledge Rise Above Others || Ustadh Abdulrahman Hassan",
+            author: "Ustadh Abdulrahman Hassan",
+            url: "https://www.youtube.com/watch?v=2QLtq512Mrs"
           },
           {
-            title: "5 Sins That Prevent Knowledge",
-            author: "Ustadh Abu Taymiyyah"
+            title: "5 Sins That Prevent Knowledge || Ustadh Abu Taymiyyah",
+            author: "Ustadh Abu Taymiyyah",
+            url: "https://www.youtube.com/watch?v=5IAdxlZhRjs"
           }
-        ]
+        ],
+        note: "Refer to the common concerns sections for more info"
       },
       {
         title: "Clear Roadmap for New Students",
         resources: [
           {
-            title: "A Daily Routine for The Seeker of Knowledge"
+            title: "A Daily Routine for The Seeker of Knowledge",
+            url: "chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https://www.emaanlibrary.com/wp-content/uploads/2021/11/A-Daily-Routine-for-The-Seeker-of-Knowledge-Sh.-Muhammad-al-Uthaymin.pdf"
           },
           {
-            title: "Important Tip for Students of Knowledge",
-            author: "Ustadh Muhammad Tim Humble"
-          },
+            title: "Important Tip for Students of Knowledge || Ustadh Muhammad Tim Humble #amau",
+            author: "Ustadh Muhammad Tim Humble",
+            url: "https://www.youtube.com/watch?v=c2IxTysBb_g"
+          }
+        ],
+        learningTracks: "Beginner → Intermediate → Advanced learning tracks"
+      },
+      {
+        title: "AMAU: Stages of seeking knowledge",
+        resources: [
           {
-            title: "Stages of Seeking Knowledge Every Muslim Must Know",
-            description: "Beginner → Intermediate → Advanced learning tracks",
-            author: "AMAU"
+            title: "Stages of Seeking Knowledge Every Muslim Must Know | Ustadh Abdulrehman hassan",
+            author: "Ustadh Abdulrehman hassan",
+            url: "https://www.youtube.com/watch?v=Lz8hC4C2SWA"
           }
         ]
       },
@@ -355,16 +373,20 @@ export const muslimResources = {
         title: "Arabic Pathways (Structured Curriculum Options)",
         resources: [
           {
-            title: "Quranic Grammar"
+            title: "Quranic Grammar",
+            url: "https://www.youtube.com/watch?v=9cG88mQDVBY&list=PL6TlMIZ5ylgrIX1jOhl5a67QAb4AQvTIa"
           },
           {
-            title: "Read & Understand Quranic Arabic from 0% - 50% (Stage ONE)"
+            title: "Read & Understand Quranic Arabic from 0% - 50% (Stage ONE)",
+            url: "https://www.youtube.com/watch?v=IuiTV5SEeGw&list=PL6TlMIZ5ylgrYBl5c2LGoc1iwTPyYMMYH"
           },
           {
-            title: "Read & Understand Quranic Arabic from 50% - 65% (Stage TWO)"
+            title: "Read & Understand Quranic Arabic from 50% - 65% (Stage TWO)",
+            url: "https://www.youtube.com/watch?v=4SEHQFpofu0&list=PL6TlMIZ5ylgrtqN60yWKuS6xvPDUx6cNZ"
           },
           {
-            title: "STAGE III: Understand 85% of Quranic Vocabulary"
+            title: "STAGE III: Understand 85% of Quranic Vocabulary",
+            url: "https://www.youtube.com/watch?v=rI4q5GAkqO0&list=PL6TlMIZ5ylgr0FQHVC3yzL6TM9lOXHXc7"
           },
           {
             title: "Arabic Course AMAU",
@@ -387,12 +409,13 @@ export const muslimResources = {
               url: "https://taymiyyah.institute/ebooks/mukhtasar-fi-usul-al-fiqh"
             },
             {
-              title: "NEW COURSE || Usul al-Fiqh Made SUPER EASY",
-              description: "منظومة ابن أبي قفة في أصول الفقه"
+              title: "NEW COURSE || Usul al-Fiqh Made SUPER EASY أصول الفقه في قفة أبي ابن منظومة",
+              url: "https://www.youtube.com/watch?v=2K4bKPLGYE0"
             },
             {
-              title: "Matn Usool min ilm al Usool",
-              author: "Sheikh ibn Uthaymin"
+              title: "0) Matn Usool min ilm al Usool - Sheikh ibn Uthaymin",
+              author: "Sheikh ibn Uthaymin",
+              url: "https://drive.google.com/file/d/1oY9ps_QpAOO2NGsoir2kYJmKqE-p4DqR/view"
             }
           ]
         },
@@ -402,7 +425,12 @@ export const muslimResources = {
             {
               name: "Shafi'i fiqh",
               url: "https://academy.seekersguidance.org/enrol/index.php?id=971",
-              texts: ["Safinat al-naja"]
+              texts: [
+                {
+                  title: "Shafi3i-fiqh_Safinat-al-naja.pdf",
+                  url: "https://drive.google.com/file/d/1f5LXZmJ71YwLH_BHmbs2HFP0nWfyojRC/view"
+                }
+              ]
             },
             {
               name: "Hanafi fiqh",
@@ -411,24 +439,55 @@ export const muslimResources = {
             {
               name: "Maliki",
               texts: [
-                "risala_ibn_abi_zayd.pdf",
-                "akhdari english saidy.pdf",
-                "Al_murshid_Al_muin",
-                "matn_al-ashmawiyyah_en.pdf"
+                {
+                  title: "risala_ibn_abi_zayd.pdf",
+                  url: "https://drive.google.com/file/d/1AgolmlbcBjS45-7SCJLukrvmiiSblwlc/view"
+                },
+                {
+                  title: "akhdari english saidy.pdf",
+                  url: "https://drive.google.com/file/d/1SAGhH-vx046UXkFacWveQwkC-E2r00EM/view"
+                },
+                {
+                  title: "Al_murshid_Al_muin_in_Arabic_with_English_Translation_by_Shaykh Al-Mu'in",
+                  url: "https://drive.google.com/file/d/1bZQ6fcwmM0Q8smP5XFlEmgK27X61VDcm/view"
+                },
+                {
+                  title: "matn_al-ashmawiyyah_en.pdf",
+                  url: "https://drive.google.com/file/d/1E0on07LOU5wj-fxBOYRP-WIlYW7IX3Wd/view"
+                }
               ]
             },
             {
               name: "Hanbali",
               texts: [
-                "Matan Zad Al Mustaqni (Explanation by Sheikh Fawzan Zad al Mustaqni)",
-                "Umdat Al Fiqh",
-                "Akhsar Al Mukhtasarat",
-                "Bidayat Al-Abid",
-                "How to Pray (as per Hanbali madhab)"
+                {
+                  title: "1) Matan Zad Al Mustaqni",
+                  url: "https://drive.google.com/file/d/1PMb2HDKOETr9SpKMTcvPDdyk2_5Cdfku/view",
+                  explanation: {
+                    title: "Exp Sh. Fawzan Zad al Mustaqni",
+                    url: "https://drive.google.com/file/d/1dpZch1zmZ6SxOabLfvvrjdfBklpuIrog/view"
+                  }
+                },
+                {
+                  title: "Umdat Al Fiqh",
+                  url: "https://drive.google.com/file/d/1J3yViokQrgOQ2q-_5URNxSp46PrUhL9Y/view"
+                },
+                {
+                  title: "Akhsar Al Mukhtasarat",
+                  url: "https://drive.google.com/file/d/1PceFxrVojEvVTr2CqSqWYxlgIDFyNEzX/view"
+                },
+                {
+                  title: "Bidayat Al-Abid",
+                  url: "https://drive.google.com/file/d/1m1542gqYng0FsGoPAzlA8mWhqedH_K9q/view"
+                },
+                {
+                  title: "How to Pray (as per Hanbali madhab)",
+                  url: "https://drive.google.com/file/d/1sIn9xwwq6PShXdrzT56kvGDWUODatnq0/view"
+                }
               ],
               resources: [
                 {
-                  title: "Mastering an online lecture series",
+                  title: "Mastering an online lecture series by shaikh Nu'man",
                   author: "shaikh Nu'man",
                   url: "https://www.youtube.com/watch?v=_G7fzkk0J1s&list=PLgwmGI6JwutobV23GrPyXCrT_blvn_ni9&index=1&t=3890s"
                 }
@@ -440,19 +499,24 @@ export const muslimResources = {
           title: "Common Questions/Mistakes/Rulings",
           items: [
             {
-              title: "Can You Combine Maghrib & Isha in the Summer Months?"
+              title: "Can You Combine Maghrib & Isha in the Summer Months? - Ust. Abu Taymiyyah #FiqhSerie",
+              author: "Ust. Abu Taymiyyah",
+              url: "https://www.youtube.com/watch?v=DMKkCM-lYWc"
             },
             {
-              title: "5 Common Mistakes in Umrah",
-              author: "Ust. Abu Taymiyyah"
+              title: "5 Common Mistakes in Umrah - Ust. Abu Taymiyyah #FiqhSeries",
+              author: "Ust. Abu Taymiyyah",
+              url: "https://www.youtube.com/watch?v=w4EdIDcainQ"
             },
             {
-              title: "A Common Mistake in Wudu",
-              author: "Ust. Abu Taymiyyah"
+              title: "A Common Mistake in Wudu - Ust. Abu Taymiyyah #FiqhSeries",
+              author: "Ust. Abu Taymiyyah",
+              url: "https://www.youtube.com/watch?v=dlkrX3JJWwc"
             },
             {
-              title: "Do You STEAL From Your Prayer?",
-              author: "Ust. Abu Taymiyyah"
+              title: "Do You STEAL From Your Prayer? - Ust. Abu Taymiyyah #FiqhSeries",
+              author: "Ust. Abu Taymiyyah",
+              url: "https://www.youtube.com/watch?v=sZ2GIGrAMBg"
             }
           ]
         },
@@ -460,12 +524,17 @@ export const muslimResources = {
           title: "Introductory Usul al-Fiqh Resources",
           items: [
             {
-              title: "Matn Usool min ilm al Usool",
-              author: "Sheikh ibn Uthaymin"
+              title: "0) Matn Usool min ilm al Usool - Sheikh ibn Uthaymin",
+              author: "Sheikh ibn Uthaymin",
+              url: "https://drive.google.com/file/d/1oY9ps_QpAOO2NGsoir2kYJmKqE-p4DqR/view"
             },
             {
-              title: "Usul al-Fiqh Made SUPER EASY",
+              title: "Usul al fiqh course by shaikh Abu Taymiyyah",
               author: "Shaikh Abu Taymiyyah"
+            },
+            {
+              title: "NEW COURSE || Usul al-Fiqh Made SUPER EASY الفقه أصول في قفة أبي ابن منظومة",
+              url: "https://www.youtube.com/watch?v=2K4bKPLGYE0"
             }
           ]
         },
@@ -473,14 +542,14 @@ export const muslimResources = {
           title: "Practical Fiqh Issues (purification, prayer, fasting...)",
           items: [
             {
-              title: "Fiqh of marriage series",
+              title: "Fiqh of marriage series by shaikh Mustafa al Shaybani",
               author: "Shaikh Mustafa al Shaybani",
               url: "https://www.youtube.com/live/1LAFkzAdlDY?si=5YYXdjvh0PPbMmRB"
             },
             {
-              title: "IslamQA",
+              title: "A trustworthy website for quick search IslamQA",
               description: "A trustworthy website for quick search",
-              url: "https://islamqa.org"
+              url: "https://islamqa.info/en"
             }
           ]
         },
@@ -488,12 +557,14 @@ export const muslimResources = {
           title: "How to Approach Difference of Opinion",
           items: [
             {
-              title: "When is Ikhtilaf Regarded as Good and Acceptable?",
-              source: "AMAU Q&A"
+              title: "When is Ikhtilaf Regarded as Good and Acceptable? || AMAU Q&A",
+              source: "AMAU Q&A",
+              url: "https://www.youtube.com/watch?v=q7RTCZsrSks"
             },
             {
               title: "Keeping One's Faith While Navigating Differences of Opinion",
-              source: "SeekersGuidance"
+              source: "SeekersGuidance",
+              url: "https://seekersguidance.org/answers/general-counsel/keeping-ones-faith-while-navigating-differences-of-opinion/"
             }
           ]
         }
@@ -506,8 +577,9 @@ export const muslimResources = {
         title: "Guidance on Specialization and Long-term Development",
         resources: [
           {
-            title: "15 Points on How To Become A Solid Student of Knowledge",
-            author: "Ustadh Abu Taymiyyah"
+            title: "15 Points on How To Become A Solid Student of Knowledge - Ustadh Abu Taymiyah",
+            author: "Ustadh Abu Taymiyyah",
+            url: "https://www.youtube.com/watch?v=J1cEsENRrK0"
           }
         ]
       },
@@ -523,20 +595,29 @@ export const muslimResources = {
             url: "https://library.amauacademy.com/podcasts/on-the-road-to-raising-righteous-children/"
           },
           {
-            title: "Can Muslims Stand United Despite Differences in Creed?",
+            title: "Can Muslims Stand United Despite Differences in Creed? (Sheikh al-Albani's answer!)",
             description: "Sheikh al-Albani's answer",
             url: "https://library.amauacademy.com/qa/can-muslims-unite-to-fight-enemies-without-agreeing-on-fundamentals/"
           },
           {
-            title: "Risalah Fi Usul Al-Tafsir",
+            title: "Risalah Fi Usul Al-Tafsir by Imam al-Suyuti (AMAU Classic with Summarised Notes)",
             author: "Imam al-Suyuti",
             description: "AMAU Classic with Summarised Notes",
             url: "https://library.amauacademy.com/videos/risalah-fi-usul-al-tafsir/"
           },
           {
-            title: "Attack on Islam in Europe",
+            title: "Raising Righteous Children: Practical Guidance for Today's Parents",
+            url: "https://library.amauacademy.com/podcasts/on-the-road-to-raising-righteous-children/"
+          },
+          {
+            title: "Can Muslims Stand United Despite Differences in Creed? (Sheikh al-Albani's answer!)",
+            url: "https://library.amauacademy.com/qa/can-muslims-unite-to-fight-enemies-without-agreeing-on-fundamentals/"
+          },
+          {
+            title: "Attack on Islam in Europe - The Growing Challenges for Muslims in Europe Podcast | Ust. Abu Taymiayah",
             description: "The Growing Challenges for Muslims in Europe Podcast",
-            author: "Ust. Abu Taymiyyah"
+            author: "Ust. Abu Taymiyyah",
+            url: "https://www.youtube.com/watch?v=-yg2AaB_O8k"
           }
         ]
       }
