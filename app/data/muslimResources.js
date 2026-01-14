@@ -499,7 +499,7 @@ export const muslimResources = {
           title: "Common Questions/Mistakes/Rulings",
           items: [
             {
-              title: "Can You Combine Maghrib & Isha in the Summer Months? - Ust. Abu Taymiyyah #FiqhSerie",
+              title: "Can You Combine Maghrib & Isha in the Summer Months? - Ust. Abu Taymiyyah #FiqhSeries",
               author: "Ust. Abu Taymiyyah",
               url: "https://www.youtube.com/watch?v=DMKkCM-lYWc"
             },
@@ -577,7 +577,7 @@ export const muslimResources = {
         title: "Guidance on Specialization and Long-term Development",
         resources: [
           {
-            title: "15 Points on How To Become A Solid Student of Knowledge - Ustadh Abu Taymiyah",
+            title: "15 Points on How To Become A Solid Student of Knowledge - Ustadh Abu Taymiyyah",
             author: "Ustadh Abu Taymiyyah",
             url: "https://www.youtube.com/watch?v=J1cEsENRrK0"
           }
@@ -606,7 +606,7 @@ export const muslimResources = {
             url: "https://library.amauacademy.com/videos/risalah-fi-usul-al-tafsir/"
           },
           {
-            title: "Attack on Islam in Europe - The Growing Challenges for Muslims in Europe Podcast | Ust. Abu Taymiayah",
+            title: "Attack on Islam in Europe - The Growing Challenges for Muslims in Europe Podcast | Ust. Abu Taymiyyah",
             description: "The Growing Challenges for Muslims in Europe Podcast",
             author: "Ust. Abu Taymiyyah",
             url: "https://www.youtube.com/watch?v=-yg2AaB_O8k"
