@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Mail, Globe, Instagram, MapPin, Phone, Send } from 'lucide-react';
+import { Mail, Globe, Instagram, MapPin, Send } from 'lucide-react';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -51,21 +51,14 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h3 className="font-bold text-lg mb-1">Email</h3>
-                  <a href="mailto:contact@example.com" className="text-foreground/70 hover:text-primary transition-colors">
-                    contact@example.com
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4 p-6 bg-foreground/5 rounded-xl hover:bg-foreground/10 transition-all duration-300">
-                <div className="bg-primary/20 p-3 rounded-full">
-                  <Phone className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-lg mb-1">Phone</h3>
-                  <a href="tel:+1234567890" className="text-foreground/70 hover:text-primary transition-colors">
-                    +1 (234) 567-890
-                  </a>
+                  <div className="mb-1 flex flex-col space-y-1">
+                    <a href="mailto:dawah@macmsa.com" className="text-foreground/70 hover:text-primary transition-colors">
+                      dawah@macmsa.com
+                    </a>
+                    <a href="mailto:info@macmsa.com" className="text-foreground/70 hover:text-primary transition-colors">
+                      info@macmsa.com
+                    </a>
+                  </div>
                 </div>
               </div>
 
@@ -75,8 +68,8 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h3 className="font-bold text-lg mb-1">MSA Website</h3>
-                  <a href="https://www.example.com" target="_blank" rel="noopener noreferrer" className="text-foreground/70 hover:text-primary transition-colors">
-                    www.example.com
+                  <a href="https://www.macmsa.com" target="_blank" rel="noopener noreferrer" className="text-foreground/70 hover:text-primary transition-colors">
+                    www.macmsa.com
                   </a>
                 </div>
               </div>
@@ -88,11 +81,11 @@ export default function ContactPage() {
                 <div>
                   <h3 className="font-bold text-lg mb-1">Social Media</h3>
                   <div className="space-y-1">
-                    <a href="https://instagram.com/example_msa" target="_blank" rel="noopener noreferrer" className="block text-foreground/70 hover:text-primary transition-colors">
-                      MSA Instagram: @example_msa
+                    <a href="https://instagram.com/macmsa_dawah" target="_blank" rel="noopener noreferrer" className="block text-foreground/70 hover:text-primary transition-colors">
+                      Da'wah Instagram: @macmsa_dawah
                     </a>
-                    <a href="https://instagram.com/example_dawah" target="_blank" rel="noopener noreferrer" className="block text-foreground/70 hover:text-primary transition-colors">
-                      Da'wah Instagram: @example_dawah
+                    <a href="https://instagram.com/macmsa" target="_blank" rel="noopener noreferrer" className="block text-foreground/70 hover:text-primary transition-colors">
+                      Mac MSA Instagram: @macmsa
                     </a>
                   </div>
                 </div>
@@ -105,8 +98,8 @@ export default function ContactPage() {
                 <div>
                   <h3 className="font-bold text-lg mb-1">Location</h3>
                   <p className="text-foreground/70">
-                    123 Learning Street<br />
-                    City, State 12345
+                    1280 Main St W, Hamilton, ON L8S 4L8<br />
+                    T-13 Building
                   </p>
                 </div>
               </div>

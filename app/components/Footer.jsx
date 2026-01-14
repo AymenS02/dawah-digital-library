@@ -1,5 +1,5 @@
 import React from 'react'
-import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Youtube } from 'lucide-react'
+import { Mail, MapPin, Facebook, Twitter, Instagram, Youtube } from 'lucide-react'
 
 const Footer = () => {
   return (
@@ -52,15 +52,9 @@ const Footer = () => {
                   dawah@macmsa.com
                 </a>
               </li>
-              <li className='flex items-center gap-2 text-sm opacity-80'>
-                <Phone className='w-4 h-4' />
-                <a href="tel:+1234567890" className='hover:opacity-100 transition-opacity duration-300'>
-                  +1 (234) 567-890
-                </a>
-              </li>
               <li className='flex items-start gap-2 text-sm opacity-80'>
                 <MapPin className='w-4 h-4 mt-0.5' />
-                <span>123 Learning Street<br />City, State 12345</span>
+                <span>1280 Main St W, Hamilton, ON L8S 4L8<br />T-13 Building</span>
               </li>
             </ul>
           </div>
@@ -69,17 +63,8 @@ const Footer = () => {
           <div>
             <h3 className='text-xl font-bold mb-4'>Follow Us</h3>
             <div className='flex gap-4'>
-              <a href="#" className='opacity-80 hover:opacity-100 hover:scale-110 transition-all duration-300'>
-                <Facebook className='w-6 h-6' />
-              </a>
-              <a href="#" className='opacity-80 hover:opacity-100 hover:scale-110 transition-all duration-300'>
-                <Twitter className='w-6 h-6' />
-              </a>
-              <a href="#" className='opacity-80 hover:opacity-100 hover:scale-110 transition-all duration-300'>
+              <a href="https://instagram.com/macmsa_dawah" className='opacity-80 hover:opacity-100 hover:scale-110 transition-all duration-300'>
                 <Instagram className='w-6 h-6' />
-              </a>
-              <a href="#" className='opacity-80 hover:opacity-100 hover:scale-110 transition-all duration-300'>
-                <Youtube className='w-6 h-6' />
               </a>
             </div>
             <p className='text-sm opacity-80 mt-4'>
