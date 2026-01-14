@@ -197,7 +197,7 @@ export default function BrowsePage() {
   /* -------------------- UI -------------------- */
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-foreground mt-42">
 
       {/* Top Tabs */}
       <div className="sticky top-16 z-40 bg-foreground/90 backdrop-blur-sm py-4">
