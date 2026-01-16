@@ -191,35 +191,37 @@ export default function ResourcesPage() {
                 <div key={index} className="mb-6 bg-foreground/5 rounded-xl p-6">
                   <h3 className="text-xl font-bold text-foreground mb-3">{component.title}</h3>
                   {component.subtitle && <p className="text-foreground/70 mb-3">{component.subtitle}</p>}
-                  <div className="space-y-2 ml-4">
-                    {component.resources.map((resource, resIndex) => (
-                      <div key={resIndex}>
-                        {resource.url ? (
-                          <a
-                            href={resource.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-start gap-2 text-foreground/80 hover:text-primary transition-colors duration-300 p-2 rounded hover:bg-foreground/5"
-                          >
-                            <ExternalLink className="w-4 h-4 mt-1 flex-shrink-0" />
-                            <div>
-                              <span>{resource.title}</span>
-                              {resource.author && <span className="text-sm"> - {resource.author}</span>}
-                              {resource.description && <p className="text-sm text-foreground/60">{resource.description}</p>}
+                  {component.resources && (
+                    <div className="space-y-2 ml-4">
+                      {component.resources.map((resource, resIndex) => (
+                        <div key={resIndex}>
+                          {resource.url ? (
+                            <a
+                              href={resource.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-start gap-2 text-foreground/80 hover:text-primary transition-colors duration-300 p-2 rounded hover:bg-foreground/5"
+                            >
+                              <ExternalLink className="w-4 h-4 mt-1 flex-shrink-0" />
+                              <div>
+                                <span>{resource.title}</span>
+                                {resource.author && <span className="text-sm"> - {resource.author}</span>}
+                                {resource.description && <p className="text-sm text-foreground/60">{resource.description}</p>}
+                              </div>
+                            </a>
+                          ) : (
+                            <div className="flex items-start gap-2 text-foreground/80 p-2">
+                              <span className="w-4 h-4 mt-1 flex-shrink-0">•</span>
+                              <div>
+                                <span>{resource.title}</span>
+                                {resource.description && <p className="text-sm text-foreground/60">{resource.description}</p>}
+                              </div>
                             </div>
-                          </a>
-                        ) : (
-                          <div className="flex items-start gap-2 text-foreground/80 p-2">
-                            <span className="w-4 h-4 mt-1 flex-shrink-0">•</span>
-                            <div>
-                              <span>{resource.title}</span>
-                              {resource.description && <p className="text-sm text-foreground/60">{resource.description}</p>}
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
