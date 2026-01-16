@@ -1,18 +1,13 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ChevronDown, ExternalLink } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 import { muslimResources } from '../data/muslimResources';
 import { nonMuslimResources } from '../data/nonMuslimResources';
 import { revertResources } from '../data/revertResources';
 
 export default function ResourcesPage() {
   const [selectedCategory, setSelectedCategory] = useState('MUSLIMS');
-  const [expandedSection, setExpandedSection] = useState(null);
-
-  const toggleSection = (section) => {
-    setExpandedSection(expandedSection === section ? null : section);
-  };
 
   return (
     <div className="mt-42 min-h-screen bg-background text-foreground">
