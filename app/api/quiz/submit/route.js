@@ -27,7 +27,7 @@ export async function POST(request) {
       try {
         const token = authHeader.substring(7);
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        userId = decoded.id;
+        userId = decoded.userId;
       } catch (error) {
         console.log("Invalid token, treating as anonymous");
       }
