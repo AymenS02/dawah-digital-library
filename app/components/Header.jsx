@@ -18,7 +18,7 @@ const Header = () => {
 
   return (
     <>
-      <div className='fixed top-0 left-0 right-0 bg-background/80 backdrop-blur-sm text-foreground p-4 z-50'>
+      <div className='font-ovo fixed top-0 left-0 right-0 bg-background/80 backdrop-blur-sm text-foreground p-4 z-50'>
         <div className='max-w-7xl mx-auto flex items-center justify-between'>
           {/* Logo/Brand */}
           <div className='text-xl sm:text-2xl font-bold flex items-center gap-2'>
