@@ -23,6 +23,14 @@ const Header = () => {
           {/* Logo/Brand */}
           <div className='text-xl sm:text-2xl font-bold flex items-center gap-2'>
             <Image
+              src="/homepage/cali-bg2.svg"
+              alt="Da'wah Digital Library Logo"
+              width={28}
+              height={28}
+              onClick={() => window.location.href = '/'}
+              className='hover:scale-110 transition-transform duration-300 cursor-pointer mr-4'
+            />
+            <Image
               src="/homepage/cali-bg.svg"
               alt="Da'wah Digital Library Logo"
               width={28}
