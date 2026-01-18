@@ -1,7 +1,15 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Search, ChevronRight } from 'lucide-react';
+import React, { useState, useMemo } from 'react';
+import {
+  Search,
+  ChevronRight,
+  ExternalLink,
+  BookOpen,
+  Video,
+  FileText
+} from 'lucide-react';
+
 import { muslimResources } from '../data/muslimResources';
 import { nonMuslimResources } from '../data/nonMuslimResources';
 import { revertResources } from '../data/revertResources';
@@ -9,208 +17,304 @@ import { revertResources } from '../data/revertResources';
 export default function BrowsePage() {
   const [selectedCategory, setSelectedCategory] = useState('MUSLIMS');
   const [selectedSidebarItem, setSelectedSidebarItem] = useState(null);
+  const [selectedSubtopic, setSelectedSubtopic] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  // Build category data from the resource files
-  const categoryData = {
+  /* -------------------- Helpers -------------------- */
+
+  const flattenResources = (data, category, topic = null, subtopic = null) => {
+    const resources = [];
+    if (Array.isArray(data)) {
+      data.forEach(resource => {
+        if (resource.url || resource.title) {
+          resources.push({
+            ...resource,
+            category,
+            topic,
+            subtopic
+          });
+        }
+      });
+    }
+    return resources;
+  };
+
+  /* -------------------- All Resources -------------------- */
+
+  const getAllResources = useMemo(() => {
+    const all = {
+      MUSLIMS: [],
+      'NON-MUSLIMS': [],
+      'NEW REVERTS': []
+    };
+
+    if (muslimResources.generalMuslims.pathways.fiqh.resources) {
+      all.MUSLIMS.push(
+        ...flattenResources(
+          muslimResources.generalMuslims.pathways.fiqh.resources,
+          'General Muslims - Fiqh Pathway'
+        )
+      );
+    }
+
+    muslimResources.generalMuslims.pathways.tazkiyah.topics.forEach(t =>
+      t.resources &&
+      all.MUSLIMS.push(
+        ...flattenResources(
+          t.resources,
+          'General Muslims - Tazkiyah Pathway',
+          t.title
+        )
+      )
+    );
+
+    muslimResources.generalMuslims.pathways.aqidah.topics.forEach(t =>
+      t.resources &&
+      all.MUSLIMS.push(
+        ...flattenResources(
+          t.resources,
+          "General Muslims - 'Aqidah Pathway",
+          t.title
+        )
+      )
+    );
+
+    muslimResources.studentsOfKnowledge.components.forEach(c =>
+      c.resources &&
+      all.MUSLIMS.push(
+        ...flattenResources(c.resources, 'Students of Knowledge', c.title)
+      )
+    );
+
+    muslimResources.strugglingWithFaith.sections.forEach(section =>
+      section.topics.forEach(t =>
+        t.resources &&
+        all.MUSLIMS.push(
+          ...flattenResources(
+            t.resources,
+            `Struggling with Faith - ${section.title}`,
+            t.title
+          )
+        )
+      )
+    );
+
+    Object.values(nonMuslimResources).forEach(cat => {
+      cat.sections?.forEach(s =>
+        s.resources &&
+        all['NON-MUSLIMS'].push(
+          ...flattenResources(s.resources, cat.title, s.title)
+        )
+      );
+      cat.topics?.forEach(t =>
+        t.resources &&
+        all['NON-MUSLIMS'].push(
+          ...flattenResources(t.resources, cat.title, t.title)
+        )
+      );
+    });
+
+    revertResources.starterPackage.sections.forEach(section => {
+      section.resources &&
+        all['NEW REVERTS'].push(
+          ...flattenResources(section.resources, section.title)
+        );
+
+      section.categories?.forEach(c =>
+        c.resources &&
+        all['NEW REVERTS'].push(
+          ...flattenResources(c.resources, section.title, c.title)
+        )
+      );
+    });
+
+    return all;
+  }, []);
+
+  /* -------------------- Sidebar Data -------------------- */
+
+  const categoryData = useMemo(() => ({
     'NON-MUSLIMS': {
       sidebar: [
-        { 
-          name: 'Islam', 
-          subtopics: nonMuslimResources.islam.sections.map(s => s.title) 
-        },
-        { 
-          name: 'Christianity', 
-          subtopics: nonMuslimResources.christianity.sections.map(s => s.title) 
-        },
-        { 
-          name: 'Atheism/Agnosticism', 
-          subtopics: nonMuslimResources.atheismAgnosticism.sections.map(s => s.title) 
-        },
-        { 
-          name: 'Popular Misconceptions', 
-          subtopics: nonMuslimResources.misconceptions.sections.map(s => s.title) 
-        },
-        { 
-          name: 'Hinduism/Buddhism', 
-          subtopics: [] 
-        },
-        { 
-          name: 'Judaism', 
-          subtopics: [] 
-        },
-        { 
-          name: 'Spirituality', 
-          subtopics: [] 
-        },
-        { 
-          name: 'Desires/Isms', 
-          subtopics: nonMuslimResources.desiresIdeologies.topics.map(t => t.title) 
-        }
+        { name: 'Islam', subtopics: nonMuslimResources.islam.sections.map(s => s.title) },
+        { name: 'Christianity', subtopics: nonMuslimResources.christianity.sections.map(s => s.title) },
+        { name: 'Atheism/Agnosticism', subtopics: nonMuslimResources.atheismAgnosticism.sections.map(s => s.title) },
+        { name: 'Popular Misconceptions', subtopics: nonMuslimResources.misconceptions.sections.map(s => s.title) },
+        { name: 'Desires/Isms', subtopics: nonMuslimResources.desiresIdeologies.topics.map(t => t.title) }
       ]
     },
-    'MUSLIMS': {
+    MUSLIMS: {
       sidebar: [
-        { 
-          name: 'General Muslims - Fiqh Pathway', 
-          subtopics: [] 
-        },
-        { 
-          name: 'General Muslims - Tazkiyah Pathway', 
-          subtopics: muslimResources.generalMuslims.pathways.tazkiyah.topics.map(t => t.title) 
-        },
-        { 
-          name: 'General Muslims - \'Aqidah Pathway', 
-          subtopics: muslimResources.generalMuslims.pathways.aqidah.topics.map(t => t.title) 
-        },
-        { 
-          name: 'Students of Knowledge', 
-          subtopics: muslimResources.studentsOfKnowledge.components.map(c => c.title) 
-        },
-        { 
-          name: 'Struggling with Faith - Societal Pressure', 
-          subtopics: muslimResources.strugglingWithFaith.sections[0].topics.map(t => t.title) 
-        },
-        { 
-          name: 'Struggling with Faith - Desires & Addictions', 
-          subtopics: muslimResources.strugglingWithFaith.sections[1].topics.map(t => t.title) 
-        },
-        { 
-          name: 'Struggling with Faith - Community', 
-          subtopics: muslimResources.strugglingWithFaith.sections[2].topics.map(t => t.title) 
-        }
+        { name: 'General Muslims - Fiqh Pathway', subtopics: [] },
+        { name: 'General Muslims - Tazkiyah Pathway', subtopics: muslimResources.generalMuslims.pathways.tazkiyah.topics.map(t => t.title) },
+        { name: "General Muslims - 'Aqidah Pathway", subtopics: muslimResources.generalMuslims.pathways.aqidah.topics.map(t => t.title) },
+        { name: 'Students of Knowledge', subtopics: muslimResources.studentsOfKnowledge.components.map(c => c.title) }
       ]
     },
     'NEW REVERTS': {
-      sidebar: revertResources.starterPackage.sections.map(section => ({
-        name: section.title,
-        subtopics: section.categories ? section.categories.map(c => c.title) : []
+      sidebar: revertResources.starterPackage.sections.map(s => ({
+        name: s.title,
+        subtopics: s.categories?.map(c => c.title) || []
       }))
     }
+  }), []);
+
+  /* -------------------- Filters -------------------- */
+
+  const filteredResources = useMemo(() => {
+    let resources = getAllResources[selectedCategory] || [];
+
+    if (selectedSidebarItem !== null) {
+      const name = categoryData[selectedCategory].sidebar[selectedSidebarItem].name;
+      resources = resources.filter(r => r.category === name);
+    }
+
+    if (selectedSubtopic) {
+      resources = resources.filter(r => r.topic === selectedSubtopic);
+    }
+
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      resources = resources.filter(r =>
+        r.title?.toLowerCase().includes(q) ||
+        r.author?.toLowerCase().includes(q) ||
+        r.topic?.toLowerCase().includes(q)
+      );
+    }
+
+    return resources;
+  }, [selectedCategory, selectedSidebarItem, selectedSubtopic, searchQuery]);
+
+  /* -------------------- Icons -------------------- */
+
+  const getResourceIcon = type => {
+    if (type === 'book') return <BookOpen className="w-5 h-5" />;
+    if (type === 'video') return <Video className="w-5 h-5" />;
+    return <FileText className="w-5 h-5" />;
   };
 
-  const toggleSidebarItem = (index) => {
-    setSelectedSidebarItem(selectedSidebarItem === index ? null : index);
-  };
+  /* -------------------- UI -------------------- */
 
   return (
-    <div className="mt-42 min-h-screen bg-background text-foreground">
-      {/* Top Navigation */}
-      <div className="bg-foreground/90 backdrop-blur-sm py-4 px-4 sticky top-16 z-40">
-        <div className="max-w-7xl mx-auto flex justify-center gap-8 md:gap-16">
-          <button
-            onClick={() => setSelectedCategory('NON-MUSLIMS')}
-            className={`text-sm md:text-lg font-semibold transition-all duration-300 ${
-              selectedCategory === 'NON-MUSLIMS'
-                ? 'text-background underline underline-offset-8'
-                : 'text-background/60 hover:text-background'
-            }`}
-          >
-            NON-MUSLIMS
-          </button>
-          <button
-            onClick={() => setSelectedCategory('MUSLIMS')}
-            className={`text-sm md:text-lg font-semibold transition-all duration-300 ${
-              selectedCategory === 'MUSLIMS'
-                ? 'text-background underline underline-offset-8'
-                : 'text-background/60 hover:text-background'
-            }`}
-          >
-            MUSLIMS
-          </button>
-          <button
-            onClick={() => setSelectedCategory('NEW REVERTS')}
-            className={`text-sm md:text-lg font-semibold transition-all duration-300 ${
-              selectedCategory === 'NEW REVERTS'
-                ? 'text-background underline underline-offset-8'
-                : 'text-background/60 hover:text-background'
-            }`}
-          >
-            NEW REVERTS
-          </button>
+    <div className="min-h-screen bg-background text-foreground mt-16">
+
+      {/* Top Tabs */}
+      <div className="sticky top-26 z-40 bg-foreground/90 backdrop-blur-sm py-4">
+        <div className="flex gap-6 overflow-x-auto px-4 justify-start md:justify-center">
+          {['NON-MUSLIMS', 'MUSLIMS', 'NEW REVERTS'].map(cat => (
+            <button
+              key={cat}
+              onClick={() => {
+                setSelectedCategory(cat);
+                setSelectedSidebarItem(null);
+                setSelectedSubtopic(null);
+                setSidebarOpen(false);
+              }}
+              className={`whitespace-nowrap font-semibold transition ${
+                selectedCategory === cat
+                  ? 'text-background underline underline-offset-8'
+                  : 'text-background/60'
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
         </div>
       </div>
 
-      {/* Hero Section */}
-      <div className="relative py-12 md:py-16 px-4">
-        <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-8 tracking-tight text-foreground">
-            BROWSE
-          </h1>
-          
-          {/* Search Bar */}
-          <div className="max-w-2xl mx-auto relative">
-            <input
-              type="text"
-              placeholder="Search a topic or resource..."
-              className="w-full px-6 py-4 pr-12 rounded-full bg-foreground text-background placeholder-background/60 focus:outline-none focus:ring-2 focus:ring-primary"
-            />
-            <Search className="absolute right-4 top-1/2 -translate-y-1/2 w-6 h-6 text-background/60" />
+      {/* Hero */}
+      <div className="py-8 md:py-16 px-4 text-center">
+        <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold mb-6">BROWSE</h1>
+        <div className="max-w-xl mx-auto relative">
+          <input
+            value={searchQuery}
+            onChange={e => setSearchQuery(e.target.value)}
+            placeholder="Search resources..."
+            className="w-full px-6 py-4 rounded-full bg-foreground text-background"
+          />
+          <Search className="absolute right-4 top-1/2 -translate-y-1/2 text-background/60" />
+        </div>
+      </div>
+
+      {/* Mobile Toggle */}
+      <div className="lg:hidden px-4 mb-4">
+        <button
+          onClick={() => setSidebarOpen(true)}
+          className="w-full py-3 rounded-xl bg-foreground text-background font-semibold"
+        >
+          Browse Categories
+        </button>
+      </div>
+
+      {/* Layout */}
+      <div className="max-w-7xl mx-auto px-4 flex gap-8">
+
+        {/* Sidebar */}
+        <aside
+          className={`
+            fixed lg:static inset-y-0 left-0 z-50
+            w-[85%] max-w-sm lg:w-64
+            bg-foreground/10 p-6 rounded-2xl
+            transform transition-transform
+            ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+            lg:translate-x-0
+            overflow-y-auto
+          `}
+        >
+          <div className="flex justify-between lg:hidden mb-4">
+            <h3 className="font-bold">CATEGORIES</h3>
+            <button onClick={() => setSidebarOpen(false)}>×</button>
           </div>
-        </div>
-      </div>
 
-      {/* Main Content Area */}
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="flex flex-col lg:flex-row gap-8">
-          {/* Sidebar */}
-          <aside className="lg:w-64 bg-foreground/10 rounded-2xl p-6 h-fit sticky top-32">
-            <h3 className="text-xl font-bold mb-4 text-foreground">SELECT A CATEGORY</h3>
-            <div className="space-y-2">
-              {categoryData[selectedCategory].sidebar.map((item, index) => (
-                <div key={index}>
-                  <button
-                    onClick={() => toggleSidebarItem(index)}
-                    className="w-full text-left px-4 py-3 rounded-lg hover:bg-foreground/20 transition-all duration-300 flex items-center justify-between group"
-                  >
-                    <span className="font-semibold text-foreground group-hover:text-primary">{item.name}</span>
-                    {item.subtopics.length > 0 && (
-                      <ChevronRight
-                        className={`w-4 h-4 transition-transform duration-300 ${
-                          selectedSidebarItem === index ? 'rotate-90' : ''
-                        }`}
-                      />
-                    )}
-                  </button>
-                  {selectedSidebarItem === index && item.subtopics.length > 0 && (
-                    <div className="ml-4 mt-2 space-y-1">
-                      {item.subtopics.map((subtopic, subIndex) => (
-                        <button
-                          key={subIndex}
-                          className="w-full text-left px-4 py-2 text-sm rounded-lg hover:bg-foreground/20 transition-all duration-300 text-foreground/80 hover:text-primary"
-                        >
-                          {subtopic}
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </aside>
-
-          {/* Content Grid */}
-          <div className="flex-1">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-              {/* Resource Cards */}
-              {[...Array(9)].map((_, index) => (
-                <div
-                  key={index}
-                  className="bg-[#c4b5a0] rounded-2xl aspect-square hover:shadow-2xl hover:scale-105 transition-all duration-500 cursor-pointer flex items-center justify-center"
-                >
-                  <div className="text-center p-6">
-                    <p className="text-gray-800 font-semibold text-lg">Resource {index + 1}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Load More Button */}
-            <div className="text-center py-8">
-              <button className="text-foreground/80 hover:text-foreground font-semibold text-lg transition-all duration-300 hover:scale-105">
-                LOAD MORE . . .
+          {categoryData[selectedCategory].sidebar.map((item, i) => (
+            <div key={i}>
+              <button
+                onClick={() =>
+                  setSelectedSidebarItem(i === selectedSidebarItem ? null : i)
+                }
+                className="w-full flex justify-between py-2 font-semibold"
+              >
+                {item.name}
+                {item.subtopics.length > 0 && <ChevronRight />}
               </button>
+
+              {selectedSidebarItem === i &&
+                item.subtopics.map(sub => (
+                  <button
+                    key={sub}
+                    onClick={() => {
+                      setSelectedSubtopic(sub);
+                      setSidebarOpen(false);
+                    }}
+                    className="ml-4 py-1 text-sm text-left block"
+                  >
+                    {sub}
+                  </button>
+                ))}
             </div>
-          </div>
+          ))}
+        </aside>
+
+        {/* Content */}
+        <div className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredResources.map((r, i) => (
+            <a
+              key={i}
+              href={r.url}
+              target="_blank"
+              className="bg-[#c4b5a0] rounded-2xl p-6 hover:scale-105 transition"
+            >
+              <div className="flex justify-between mb-2">
+                <h3 className="font-semibold">{r.title}</h3>
+                {getResourceIcon(r.type)}
+              </div>
+              <p className="text-sm text-gray-700">{r.author}</p>
+              <div className="flex justify-end mt-4 text-sm">
+                View <ExternalLink className="w-4 h-4 ml-1" />
+              </div>
+            </a>
+          ))}
         </div>
       </div>
     </div>
