@@ -74,10 +74,13 @@ export default function AdminDashboard() {
         const data = await response.json();
         setQuizResponses(data.responses);
       } else {
-        console.error('Failed to fetch quiz responses');
+        const errorData = await response.json().catch(() => ({ message: 'Unknown error' }));
+        console.error('Failed to fetch quiz responses:', errorData.message);
+        alert(`Failed to fetch quiz responses: ${errorData.message}`);
       }
     } catch (error) {
       console.error('Error fetching quiz responses:', error);
+      alert('Network error: Unable to fetch quiz responses. Please check your connection.');
     } finally {
       setQuizLoading(false);
     }

@@ -31,7 +31,7 @@ export async function GET(request) {
     }
 
     // Check if user is admin
-    const user = await User.findById(decoded.id);
+    const user = await User.findById(decoded.userId);
     if (!user || user.role !== 'ADMIN') {
       return NextResponse.json(
         { message: "Forbidden: Admin access required" },
