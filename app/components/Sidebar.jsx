@@ -7,14 +7,19 @@ const Sidebar = ({ isOpen, onClose, user }) => {
     <>
       {/* Overlay */}
       {isOpen && (
-        <div 
-          className='fixed inset-0 bg-black/50 z-40 md:hidden'
+        <div
+          className="fixed inset-0 bg-black/50 z-[9999998] md:hidden"
           onClick={onClose}
         />
       )}
-      
+
       {/* Sidebar */}
-      <div className={`fixed top-0 right-0 h-full w-64 bg-background text-foreground z-50 transform transition-transform duration-300 ease-in-out md:hidden ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+      <div
+        className={`fixed top-0 right-0 h-full w-64 bg-background text-foreground
+        z-[9999999] transform transition-transform duration-300 ease-in-out
+        md:hidden ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}
+      >
+
         <div className='flex flex-col h-full p-6'>
           {/* Close button */}
           <button onClick={onClose} className='self-end mb-8'>
@@ -22,7 +27,7 @@ const Sidebar = ({ isOpen, onClose, user }) => {
           </button>
 
           {/* Navigation links */}
-          <nav className='flex flex-col gap-6'>
+          <nav className='flex flex-col gap-6 mt-8'>
             <a href="/browse" onClick={onClose} className='text-lg hover: text-primary transition-colors duration-300'>
               Browse
             </a>
