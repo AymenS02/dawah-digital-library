@@ -199,27 +199,39 @@ export default function BrowsePage() {
   return (
     <div className="min-h-screen bg-background text-foreground mt-16">
 
-      {/* Top Tabs */}
-      <div className="sticky top-26 z-40 bg-foreground/90 backdrop-blur-sm py-4">
-        <div className="flex gap-6 overflow-x-auto px-4 justify-start md:justify-center">
-          {['NON-MUSLIMS', 'MUSLIMS', 'NEW REVERTS'].map(cat => (
-            <button
-              key={cat}
-              onClick={() => {
-                setSelectedCategory(cat);
-                setSelectedSidebarItem(null);
-                setSelectedSubtopic(null);
-                setSidebarOpen(false);
-              }}
-              className={`whitespace-nowrap font-semibold transition ${
-                selectedCategory === cat
-                  ? 'text-background underline underline-offset-8'
-                  : 'text-background/60'
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
+      {/* Top Navigation */}
+      <div className="bg-foreground/90 backdrop-blur-sm py-4 px-4 sticky top-20 z-40">
+        <div className="max-w-7xl mx-auto flex justify-center gap-8 md:gap-16">
+          <button
+            onClick={() => setSelectedCategory('NON-MUSLIMS')}
+            className={`text-sm md:text-lg font-semibold transition-all duration-300 ${
+              selectedCategory === 'NON-MUSLIMS'
+                ? 'text-background underline underline-offset-8'
+                : 'text-background/60 hover:text-background'
+            }`}
+          >
+            NON-MUSLIMS
+          </button>
+          <button
+            onClick={() => setSelectedCategory('MUSLIMS')}
+            className={`text-sm md:text-lg font-semibold transition-all duration-300 ${
+              selectedCategory === 'MUSLIMS'
+                ? 'text-background underline underline-offset-8'
+                : 'text-background/60 hover:text-background'
+            }`}
+          >
+            MUSLIMS
+          </button>
+          <button
+            onClick={() => setSelectedCategory('NEW REVERTS')}
+            className={`text-sm md:text-lg font-semibold transition-all duration-300 ${
+              selectedCategory === 'NEW REVERTS'
+                ? 'text-background underline underline-offset-8'
+                : 'text-background/60 hover:text-background'
+            }`}
+          >
+            NEW REVERTS
+          </button>
         </div>
       </div>
 

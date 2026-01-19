@@ -40,7 +40,7 @@ export default function ResourcesPage() {
   return (
     <div className="mt-42 min-h-screen bg-background text-foreground">
       {/* Top Navigation */}
-      <div className="bg-foreground/90 backdrop-blur-sm py-4 px-4 sticky top-26 z-40">
+      <div className="bg-foreground/90 backdrop-blur-sm py-4 px-4 sticky top-20 z-40">
         <div className="max-w-7xl mx-auto flex justify-center gap-8 md:gap-16">
           <button
             onClick={() => setSelectedCategory('NON-MUSLIMS')}

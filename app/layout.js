@@ -70,7 +70,7 @@ export default function RootLayout({ children }) {
         ${proximaNova.variable}
       `}
     >
-      <body className="font-old-standard">
+      <body className="font-ovo">
         <Header />
         <Sidebar />
         <SmoothScrollProvider>

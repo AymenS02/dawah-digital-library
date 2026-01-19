@@ -407,43 +407,42 @@ export default function MuslimsPage() {
 
               {/* Struggling with Faith */}
               <div className="bg-foreground backdrop-blur-sm rounded-2xl overflow-hidden shadow-xl">
-  <button
-    onClick={() => toggleDropdown('struggling')}
-    className="w-full px-8 py-6 flex items-center justify-between hover:bg-foreground/90 transition-colors duration-300"
-  >
-    <div className="flex items-center gap-3">
-      <span className="text-lg md:text-2xl font-bold text-background">Struggling with Faith?</span>
-      <ChevronDown 
-        className={`w-5 h-5 text-background transition-transform duration-300 ${
-          openDropdown === 'struggling' ? 'rotate-180' : ''
-        }`}
-      />
-    </div>
-  </button>
+                <button
+                  onClick={() => toggleDropdown('struggling')}
+                  className="w-full px-8 py-6 flex items-center justify-between hover:bg-foreground/90 transition-colors duration-300"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="text-lg md:text-2xl font-bold text-background">Struggling with Faith?</span>
+                    <ChevronDown 
+                      className={`w-5 h-5 text-background transition-transform duration-300 ${
+                        openDropdown === 'struggling' ? 'rotate-180' : ''
+                      }`}
+                    />
+                  </div>
+                </button>
 
-  {openDropdown === 'struggling' && (
-    <div className="px-8 py-6 bg-background border-t border-foreground/20 max-h-[600px] overflow-y-auto">
-      <h3 className="text-lg font-bold text-foreground mb-4">{muslimResources.strugglingWithFaith.title}</h3>
-      
-      {muslimResources.strugglingWithFaith.sections.map((section, sectionIndex) => (
-        <div key={sectionIndex} className="mb-6">
-          <h4 className="font-bold text-foreground mb-3">{section.title}</h4>
-          {section.topics.map((topic, topicIndex) => (
-            <div key={topicIndex} className="mb-4 ml-2">
-              <h5 className="font-semibold text-sm text-foreground mb-2">{topic.title}</h5>
-              {topic.resources && topic.resources.length > 0 ? (
-                <ResourceList resources={topic.resources} />
-              ) : (
-                <p className="text-xs text-foreground/60">No resources available</p>
-              )}
-            </div>
-          ))}
-        </div>
-      ))}
-    </div>
-  )}
-</div>
-
+                {openDropdown === 'struggling' && (
+                  <div className="px-8 py-6 bg-background border-t border-foreground/20 max-h-[600px] overflow-y-auto">
+                    <h3 className="text-lg font-bold text-foreground mb-4">{muslimResources.strugglingWithFaith.title}</h3>
+                    
+                    {muslimResources.strugglingWithFaith.sections.map((section, sectionIndex) => (
+                      <div key={sectionIndex} className="mb-6">
+                        <h4 className="font-bold text-foreground mb-3">{section.title}</h4>
+                        {section.topics.map((topic, topicIndex) => (
+                          <div key={topicIndex} className="mb-4 ml-2">
+                            <h5 className="font-semibold text-sm text-foreground mb-2">{topic.title}</h5>
+                            {topic.resources && topic.resources.length > 0 ? (
+                              <ResourceList resources={topic.resources} />
+                            ) : (
+                              <p className="text-xs text-foreground/60">No resources available</p>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Right Side - Title */}
