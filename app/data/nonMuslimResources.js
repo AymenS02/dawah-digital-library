@@ -186,33 +186,35 @@ export const nonMuslimResources = {
 
   otherReligions: {
     title: "Other Religions",
-    hinduism: {
-      title: "Hinduism / Buddhism",
-      resources: [
-        { title: "Video 1", url: "https://youtu.be/Hn9PlzwmD8U?si=Ds6f-lfYEjZXLVRj" },
-        { title: "Video 2", url: "https://www.youtube.com/watch?v=nfHDmMiHCmA" },
-        { title: "IslamHouse Article 1", url: "https://islamhouse.com/en/articles/428545" },
-        { title: "Hinduism in the Balance of Its Original Teachings, Reason, and Sound Natural Disposition - IslamHouse", url: "https://islamhouse.com/read/en/hinduism-in-the-balance-of-its-original-teachings-reason-and-sound-natural-disposition-2834348" },
-        { title: "IslamHouse Article 2", url: "https://islamhouse.com/en/articles/428547" },
-        { title: "IslamHouse Video", url: "https://islamhouse.com/en/videos/322138" },
-        { title: "Video 3", url: "https://youtu.be/R24vSuvkiiM?si=ORAoH7C0Hb-wI_3i" }
-      ]
-    },
-    spirituality: {
-      title: "Spirituality",
-      resources: [
-        { title: "What Is The Role of SPIRITUALITY In Islam? | Imam Tom Facchine", url: "https://www.youtube.com/watch?v=I42MY-0_iEk" },
-        { title: "Spirituality From Al Ghazali's Works", url: "https://www.youtube.com/watch?v=Odm4G17GU6Y" }
-      ]
-    },
-    judaism: {
-      title: "Judaism",
-      resources: [
-        { title: "Dawah To Jews | PDF | Book Of Deuteronomy | Prophet", url: "https://www.scribd.com/document/26851393/dawah-to-jews" },
-        { title: "Frequently Asked Questions (FAQ) in Dawah - Judaism", url: "https://www.londoni.co/islam?view=article&id=797:frequently-asked-questions-faq-in-dawah&catid=93" },
-        { title: "YouTube Video", url: "https://www.youtube.com/watch?v=ntDTynWNoAw" }
-      ]
-    }
+    topics: [
+      {
+        title: "Hinduism / Buddhism",
+        resources: [
+          { title: "Video 1", url: "https://youtu.be/Hn9PlzwmD8U?si=Ds6f-lfYEjZXLVRj" },
+          { title: "Video 2", url: "https://www.youtube.com/watch?v=nfHDmMiHCmA" },
+          { title: "IslamHouse Article 1", url: "https://islamhouse.com/en/articles/428545" },
+          { title: "Hinduism in the Balance of Its Original Teachings, Reason, and Sound Natural Disposition - IslamHouse", url: "https://islamhouse.com/read/en/hinduism-in-the-balance-of-its-original-teachings-reason-and-sound-natural-disposition-2834348" },
+          { title: "IslamHouse Article 2", url: "https://islamhouse.com/en/articles/428547" },
+          { title: "IslamHouse Video", url: "https://islamhouse.com/en/videos/322138" },
+          { title: "Video 3", url: "https://youtu.be/R24vSuvkiiM?si=ORAoH7C0Hb-wI_3i" }
+        ]
+      },
+      {
+        title: "Spirituality",
+        resources: [
+          { title: "What Is The Role of SPIRITUALITY In Islam? | Imam Tom Facchine", url: "https://www.youtube.com/watch?v=I42MY-0_iEk" },
+          { title: "Spirituality From Al Ghazali's Works", url: "https://www.youtube.com/watch?v=Odm4G17GU6Y" }
+        ]
+      },
+      {
+        title: "Judaism",
+        resources: [
+          { title: "Dawah To Jews | PDF | Book Of Deuteronomy | Prophet", url: "https://www.scribd.com/document/26851393/dawah-to-jews" },
+          { title: "Frequently Asked Questions (FAQ) in Dawah - Judaism", url: "https://www.londoni.co/islam?view=article&id=797:frequently-asked-questions-faq-in-dawah&catid=93" },
+          { title: "YouTube Video", url: "https://www.youtube.com/watch?v=ntDTynWNoAw" }
+        ]
+      }
+    ]
   },
 
   desiresIdeologies: {

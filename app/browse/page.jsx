@@ -141,7 +141,9 @@ export default function BrowsePage() {
         { name: 'Christianity', subtopics: nonMuslimResources.christianity.sections.map(s => s.title) },
         { name: 'Atheism/Agnosticism', subtopics: nonMuslimResources.atheismAgnosticism.sections.map(s => s.title) },
         { name: 'Popular Misconceptions', subtopics: nonMuslimResources.misconceptions.sections.map(s => s.title) },
-        { name: 'Desires/Isms', subtopics: nonMuslimResources.desiresIdeologies.topics.map(t => t.title) }
+        { name: 'Other Religions', subtopics: nonMuslimResources.otherReligions.topics.map(t => t.title) },
+        { name: 'Desires/Isms', subtopics: nonMuslimResources.desiresIdeologies.topics.map(t => t.title) },
+        { name: 'Guided Reading List for Seekers', subtopics: nonMuslimResources.guidedReading.sections.map(s => s.title) }
       ]
     },
     MUSLIMS: {
@@ -243,90 +245,181 @@ export default function BrowsePage() {
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
             placeholder="Search resources..."
-            className="w-full px-6 py-4 rounded-full bg-foreground text-background"
+            className="w-full px-6 py-4 rounded-full bg-foreground text-background placeholder:text-background/50 focus:outline-none focus:ring-2 focus:ring-foreground/50 transition-all"
           />
-          <Search className="absolute right-4 top-1/2 -translate-y-1/2 text-background/60" />
+          <Search className="absolute right-6 top-1/2 -translate-y-1/2 text-background/60" />
         </div>
       </div>
 
+      {/* Active Filters Display */}
+      {(selectedSidebarItem !== null || selectedSubtopic) && (
+        <div className="max-w-7xl mx-auto px-4 mb-6">
+          <div className="flex items-center gap-3 flex-wrap">
+            <span className="text-sm font-semibold text-foreground/70">Active Filters:</span>
+            {selectedSidebarItem !== null && (
+              <button
+                onClick={() => {
+                  setSelectedSidebarItem(null);
+                  setSelectedSubtopic(null);
+                }}
+                className="px-4 py-2 bg-foreground text-background rounded-full text-sm font-medium hover:bg-foreground/90 transition-colors flex items-center gap-2"
+              >
+                {categoryData[selectedCategory].sidebar[selectedSidebarItem].name}
+                <span className="text-lg leading-none">×</span>
+              </button>
+            )}
+            {selectedSubtopic && (
+              <button
+                onClick={() => setSelectedSubtopic(null)}
+                className="px-4 py-2 bg-foreground/80 text-background rounded-full text-sm font-medium hover:bg-foreground/70 transition-colors flex items-center gap-2"
+              >
+                {selectedSubtopic}
+                <span className="text-lg leading-none">×</span>
+              </button>
+            )}
+          </div>
+        </div>
+      )}
+
       {/* Mobile Toggle */}
-      <div className="lg:hidden px-4 mb-4">
+      <div className="lg:hidden px-4 mb-6">
         <button
           onClick={() => setSidebarOpen(true)}
-          className="w-full py-3 rounded-xl bg-foreground text-background font-semibold"
+          className="w-full py-3 rounded-xl bg-foreground text-background font-semibold hover:bg-foreground/90 transition-colors shadow-md"
         >
           Browse Categories
         </button>
       </div>
 
       {/* Layout */}
-      <div className="max-w-7xl mx-auto px-4 flex gap-8">
+      <div className="max-w-7xl mx-auto px-4 pb-12 flex gap-8">
 
         {/* Sidebar */}
         <aside
           className={`
             fixed lg:static inset-y-0 left-0 z-50
-            w-[85%] max-w-sm lg:w-64
-            bg-foreground/10 p-6 rounded-2xl
+            w-[85%] max-w-sm lg:w-72
+            bg-foreground/5 backdrop-blur-sm p-6 rounded-2xl
             transform transition-transform
             ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
             lg:translate-x-0
             overflow-y-auto
+            border border-foreground/10
+            shadow-lg lg:shadow-none
           `}
         >
-          <div className="flex justify-between lg:hidden mb-4">
-            <h3 className="font-bold">CATEGORIES</h3>
-            <button onClick={() => setSidebarOpen(false)}>×</button>
+          <div className="flex justify-between items-center lg:hidden mb-6">
+            <h3 className="font-bold text-lg">CATEGORIES</h3>
+            <button 
+              onClick={() => setSidebarOpen(false)}
+              className="text-2xl hover:text-foreground/70 transition-colors"
+            >
+              ×
+            </button>
           </div>
 
-          {categoryData[selectedCategory].sidebar.map((item, i) => (
-            <div key={i}>
-              <button
-                onClick={() =>
-                  setSelectedSidebarItem(i === selectedSidebarItem ? null : i)
-                }
-                className="w-full flex justify-between py-2 font-semibold"
-              >
-                {item.name}
-                {item.subtopics.length > 0 && <ChevronRight />}
-              </button>
+          <div className="space-y-2">
+            {categoryData[selectedCategory].sidebar.map((item, i) => (
+              <div key={i} className="border-b border-foreground/5 pb-2 last:border-0">
+                <button
+                  onClick={() =>
+                    setSelectedSidebarItem(i === selectedSidebarItem ? null : i)
+                  }
+                  className={`w-full flex justify-between items-center py-3 px-3 rounded-lg font-semibold transition-all ${
+                    selectedSidebarItem === i 
+                      ? 'bg-foreground text-background' 
+                      : 'hover:bg-foreground/5'
+                  }`}
+                >
+                  <span className="text-left text-sm">{item.name}</span>
+                  {item.subtopics.length > 0 && (
+                    <ChevronRight className={`w-4 h-4 transition-transform ${
+                      selectedSidebarItem === i ? 'rotate-90' : ''
+                    }`} />
+                  )}
+                </button>
 
-              {selectedSidebarItem === i &&
-                item.subtopics.map(sub => (
-                  <button
-                    key={sub}
-                    onClick={() => {
-                      setSelectedSubtopic(sub);
-                      setSidebarOpen(false);
-                    }}
-                    className="ml-4 py-1 text-sm text-left block"
-                  >
-                    {sub}
-                  </button>
-                ))}
-            </div>
-          ))}
+                {selectedSidebarItem === i && item.subtopics.length > 0 && (
+                  <div className="mt-2 ml-3 space-y-1">
+                    {item.subtopics.map(sub => (
+                      <button
+                        key={sub}
+                        onClick={() => {
+                          setSelectedSubtopic(sub);
+                          setSidebarOpen(false);
+                        }}
+                        className={`w-full text-left py-2 px-3 text-sm rounded-md transition-colors ${
+                          selectedSubtopic === sub
+                            ? 'bg-foreground/10 font-medium'
+                            : 'hover:bg-foreground/5'
+                        }`}
+                      >
+                        {sub}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
         </aside>
 
         {/* Content */}
-        <div className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredResources.map((r, i) => (
-            <a
-              key={i}
-              href={r.url}
-              target="_blank"
-              className="bg-[#c4b5a0] rounded-2xl p-6 hover:scale-105 transition"
-            >
-              <div className="flex justify-between mb-2">
-                <h3 className="font-semibold">{r.title}</h3>
-                {getResourceIcon(r.type)}
+        <div className="flex-1">
+          {/* Results Count */}
+          <div className="mb-6">
+            <p className="text-sm text-foreground/70 font-medium">
+              {filteredResources.length} {filteredResources.length === 1 ? 'resource' : 'resources'} found
+            </p>
+          </div>
+
+          {/* Resource Grid */}
+          {filteredResources.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredResources.map((r, i) => (
+                <a
+                  key={i}
+                  href={r.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group bg-[#c4b5a0] rounded-xl p-6 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col"
+                >
+                  <div className="flex justify-between items-start gap-3 mb-3">
+                    <h3 className="font-semibold text-gray-900 leading-tight flex-1 group-hover:text-gray-700 transition-colors">
+                      {r.title}
+                    </h3>
+                    <div className="text-gray-700 flex-shrink-0">
+                      {getResourceIcon(r.type)}
+                    </div>
+                  </div>
+                  
+                  {r.author && (
+                    <p className="text-sm text-gray-700 mb-2">{r.author}</p>
+                  )}
+                  
+                  {(r.category || r.topic) && (
+                    <div className="text-xs text-gray-600 mb-4 space-y-1">
+                      {r.category && <div className="font-medium">{r.category}</div>}
+                      {r.topic && <div>{r.topic}</div>}
+                    </div>
+                  )}
+                  
+                  <div className="flex items-center justify-end mt-auto text-sm text-gray-800 font-medium group-hover:gap-2 transition-all">
+                    <span>View Resource</span>
+                    <ExternalLink className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </a>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-16">
+              <div className="text-foreground/30 mb-4">
+                <FileText className="w-16 h-16 mx-auto" />
               </div>
-              <p className="text-sm text-gray-700">{r.author}</p>
-              <div className="flex justify-end mt-4 text-sm">
-                View <ExternalLink className="w-4 h-4 ml-1" />
-              </div>
-            </a>
-          ))}
+              <h3 className="text-xl font-semibold mb-2">No resources found</h3>
+              <p className="text-foreground/60">Try adjusting your search or filters</p>
+            </div>
+          )}
         </div>
       </div>
     </div>
