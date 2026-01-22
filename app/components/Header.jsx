@@ -69,7 +69,7 @@ const Header = () => {
                 priority
               />
             </div> */}
-            <Book />
+            Dawah Digital Library
           </div>
 
           {/* Navigation Menu */}
