@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import { Menu, User } from 'lucide-react';
+import { Menu, User, Book } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
@@ -56,7 +56,7 @@ const Header = () => {
         <div className='max-w-7xl mx-auto flex items-center justify-between p-2'>
           {/* Logo / Brand */}
           <div className="flex items-center">
-            <div
+            {/* <div
               className="mr-3 cursor-pointer hover:scale-105 transition-transform"
               onClick={() => (window.location.href = '/')}
             >
@@ -68,7 +68,8 @@ const Header = () => {
                 className="object-contain"
                 priority
               />
-            </div>
+            </div> */}
+            <Book />
           </div>
 
           {/* Navigation Menu */}
