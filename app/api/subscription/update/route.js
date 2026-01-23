@@ -46,12 +46,11 @@ export async function POST(request) {
         activeSubscription: subscription._id
       });
     } else if (status === 'expired' || status === 'cancelled') {
-      // Remove active subscription from user
-      const user = await User.findById(subscription.user);
-      if (user && user.activeSubscription && user.activeSubscription.toString() === subscriptionId) {
-        user.activeSubscription = null;
-        await user.save();
-      }
+      // Remove active subscription from user if this was their active subscription
+      await User.findOneAndUpdate(
+        { _id: subscription.user, activeSubscription: subscriptionId },
+        { activeSubscription: null }
+      );
     }
 
     await subscription.save();

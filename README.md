@@ -20,6 +20,33 @@ You can start editing the page by modifying `app/page.js`. The page auto-updates
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Features
+
+### Subscription Service
+
+The application includes a comprehensive subscription service that allows users to support the library:
+
+#### For Users
+- Visit `/subscription` to choose your monthly subscription amount
+- Minimum subscription is $1, with suggested amounts of $5, $10, $25, or $50
+- View your current subscription status and renewal dates
+- Submit optional notes with your subscription request
+
+#### For Administrators
+- Access the subscription management panel in the Admin Dashboard
+- View all subscriptions filtered by status (pending, active, expired, cancelled)
+- Receive automatic reminders for subscriptions expiring within 7 days
+- Urgent notifications for subscriptions expiring in 3 days or less
+- Update subscription details including status, dates, and notes
+- Quick actions to activate, expire, or cancel subscriptions
+
+#### API Endpoints
+- `POST /api/subscription/submit` - Submit a new subscription request (requires authentication)
+- `GET /api/subscription/status` - Get current user's subscription status (requires authentication)
+- `GET /api/subscription/list` - List all subscriptions with optional status filter (admin only)
+- `POST /api/subscription/update` - Update subscription details (admin only)
+- `GET /api/subscription/reminders` - Get subscriptions due for renewal (admin only)
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
