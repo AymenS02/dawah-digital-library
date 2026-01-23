@@ -436,7 +436,7 @@ export default function AdminDashboard() {
               </div>
             )}
           </>
-        ) : (
+        ) : view === 'quiz' ? (
           <>
             {/* Quiz Responses View */}
             {quizLoading ? (

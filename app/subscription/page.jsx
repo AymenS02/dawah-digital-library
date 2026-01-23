@@ -257,7 +257,7 @@ export default function SubscriptionPage() {
             <Clock className="w-12 h-12 text-yellow-500 mx-auto mb-3" />
             <h3 className="text-xl font-bold mb-2">Subscription Pending</h3>
             <p className="text-foreground/70">
-              Your subscription request is being reviewed by an administrator. You'll be notified once it's approved.
+              Your subscription request is being reviewed by an administrator. You&apos;ll be notified once it&apos;s approved.
             </p>
           </div>
         ) : null}
