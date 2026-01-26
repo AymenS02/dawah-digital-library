@@ -125,12 +125,12 @@ export default function ResourcesPage() {
                 @macmsa_dawah
               </a>
             </p>
-            <p className="text-lg">
+            {/* <p className="text-lg">
               <span className="font-semibold">Tazkiyah Instagram:</span>{' '}
               <a href="https://www.instagram.com/tazkiyah_/" className="text-primary hover:underline">
                 @tazkiyah_
               </a>
-            </p>
+            </p> */}
           </div>
         </div>
       </div>
