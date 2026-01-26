@@ -55,7 +55,7 @@ const Header = () => {
       >
         <div className='max-w-7xl mx-auto flex items-center justify-between p-2'>
           {/* Logo / Brand */}
-          <div className="flex items-center">
+          <div onClick={() => (window.location.href = '/')} className="cursor-pointer hover:scale-105 transition-transform flex items-center">
             {/* <div
               className="mr-3 cursor-pointer hover:scale-105 transition-transform"
               onClick={() => (window.location.href = '/')}

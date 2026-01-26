@@ -19,9 +19,9 @@ export default function ResourcesPage() {
     },
     MUSLIMS: {
       resources: [
-        { icon: <Users className="w-16 h-16" />, title: 'Finding Muslim Friends' },
-        { icon: <Hand className="w-16 h-16" />, title: "Simple Du'a Collection" },
-        { icon: <BookOpen className="w-16 h-16" />, title: 'Local Community Directory' },
+        // { icon: <Users className="w-16 h-16" />, title: 'Finding Muslim Friends', href: '/muslim-friends' },
+        // { icon: <Hand className="w-16 h-16" />, title: "Simple Du'a Collection", href: '/duas' },
+        // { icon: <BookOpen className="w-16 h-16" />, title: 'Local Community Directory', href: '/community' },
         { icon: <Smartphone className="w-16 h-16" />, title: 'Helpful Apps to Download', href: '/apps' },
         { icon: <UserPlus className="w-16 h-16" />, title: 'Book a private info meeting?', href: '/contact' },
         { icon: <BookOpen className="w-16 h-16" />, title: 'Guided Reading List', href: '/muslim' },
@@ -139,7 +139,7 @@ export default function ResourcesPage() {
       <div className="max-w-7xl mx-auto px-4 pb-16 font-palanquin">
         {/* Resource cards grid driven by selectedCategory */}
         <div className="bg-foreground/10 backdrop-blur-sm rounded-2xl p-8 md:p-12 mb-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 s1m:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {resourceData[selectedCategory].resources.map((resource, index) => (
               <div
                 key={index}
