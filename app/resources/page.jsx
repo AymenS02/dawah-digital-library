@@ -16,18 +16,7 @@ export default function ResourcesPage() {
   });
   const [checkingAccess, setCheckingAccess] = useState(true);
 
-  useEffect(() => {
-    const storedUser =
-      typeof window !== 'undefined' ? localStorage.getItem('user') : null;
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-      checkAccessStatus();
-    } else {
-      setCheckingAccess(false);
-    }
-  }, []);
-
-  const checkAccessStatus = async () => {
+  const checkAccessStatus = React.useCallback(async () => {
     try {
       const token = localStorage.getItem('token');
       const response = await fetch('/api/access-request/status', {
@@ -45,7 +34,23 @@ export default function ResourcesPage() {
     } finally {
       setCheckingAccess(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    const storedUser =
+      typeof window !== 'undefined' ? localStorage.getItem('user') : null;
+    if (storedUser) {
+      try {
+        setUser(JSON.parse(storedUser));
+        checkAccessStatus();
+      } catch (error) {
+        console.error('Failed to parse user data:', error);
+        setCheckingAccess(false);
+      }
+    } else {
+      setCheckingAccess(false);
+    }
+  }, [checkAccessStatus]);
 
   const resourceData = {
     'NON-MUSLIMS': {

@@ -27,11 +27,7 @@ export default function BrowsePage() {
   });
   const [checkingAccess, setCheckingAccess] = useState(true);
 
-  useEffect(() => {
-    checkAccessStatus();
-  }, []);
-
-  const checkAccessStatus = async () => {
+  const checkAccessStatus = React.useCallback(async () => {
     try {
       const token = localStorage.getItem('token');
       if (!token) {
@@ -54,7 +50,11 @@ export default function BrowsePage() {
     } finally {
       setCheckingAccess(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    checkAccessStatus();
+  }, [checkAccessStatus]);
 
   /* -------------------- Helpers -------------------- */
 
@@ -235,7 +235,7 @@ export default function BrowsePage() {
     }
 
     return resources;
-  }, [getAllResources, categoryData, selectedCategory, selectedSidebarItem, selectedSubtopic, searchQuery]);
+  }, [getAllResources, categoryData, selectedCategory, selectedSidebarItem, selectedSubtopic, searchQuery, accessStatus.hasAccess]);
 
   /* -------------------- Icons -------------------- */
 
