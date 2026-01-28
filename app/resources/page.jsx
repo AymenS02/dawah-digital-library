@@ -1,13 +1,51 @@
 'use client';
 
-import React, { useState } from 'react';
-import { ExternalLink, UserPlus, BookOpen, Smartphone, Users, Hand } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ExternalLink, UserPlus, BookOpen, Smartphone, Users, Hand, Lock, AlertCircle } from 'lucide-react';
 import { muslimResources } from '../data/muslimResources';
 import { nonMuslimResources } from '../data/nonMuslimResources';
 import { revertResources } from '../data/revertResources';
 
 export default function ResourcesPage() {
   const [selectedCategory, setSelectedCategory] = useState('MUSLIMS');
+  const [user, setUser] = useState(null);
+  const [accessStatus, setAccessStatus] = useState({
+    hasAccess: false,
+    hasPendingRequest: false,
+    latestRequest: null,
+  });
+  const [checkingAccess, setCheckingAccess] = useState(true);
+
+  useEffect(() => {
+    const storedUser =
+      typeof window !== 'undefined' ? localStorage.getItem('user') : null;
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+      checkAccessStatus();
+    } else {
+      setCheckingAccess(false);
+    }
+  }, []);
+
+  const checkAccessStatus = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch('/api/access-request/status', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setAccessStatus(data);
+      }
+    } catch (error) {
+      console.error('Failed to check access status:', error);
+    } finally {
+      setCheckingAccess(false);
+    }
+  };
 
   const resourceData = {
     'NON-MUSLIMS': {
@@ -233,61 +271,147 @@ export default function ResourcesPage() {
             )}
 
             {/* Students of Knowledge Section */}
-            <div className="bg-foreground/10 backdrop-blur-sm rounded-2xl p-8 md:p-12">
-              <h2 className="text-3xl sm:text-4xl mb-2 font-barlow text-primary">
-                {muslimResources.studentsOfKnowledge.title}
-              </h2>
-              <p className="text-foreground/70 mb-6">{muslimResources.studentsOfKnowledge.subtitle}</p>
-              {muslimResources.studentsOfKnowledge.components.map((component, index) => (
-                <div key={index} className="mb-6 bg-foreground/5 rounded-xl p-6">
-                  <h3 className="text-xl font-bold text-foreground mb-3">{component.title}</h3>
-                  {component.subtitle && (
-                    <p className="text-foreground/70 mb-3">{component.subtitle}</p>
-                  )}
-                  {component.resources && (
-                    <div className="space-y-2 ml-4">
-                      {component.resources.map((resource, resIndex) => (
-                        <div key={resIndex}>
-                          {resource.url ? (
-                            <a
-                              href={resource.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex items-start gap-2 text-foreground/80 hover:text-primary transition-colors duration-300 p-2 rounded hover:bg-foreground/5"
-                            >
-                              <ExternalLink className="w-4 h-4 mt-1 flex-shrink-0" />
-                              <div>
-                                <span>{resource.title}</span>
-                                {resource.author && (
-                                  <span className="text-sm"> - {resource.author}</span>
-                                )}
-                                {resource.description && (
-                                  <p className="text-sm text-foreground/60">
-                                    {resource.description}
-                                  </p>
-                                )}
+            {!user ? (
+              // Not logged in - Show sign-up prompt
+              <div className="bg-foreground/10 backdrop-blur-sm rounded-2xl p-8 md:p-12">
+                <div className="flex items-center gap-2 mb-4">
+                  <Lock className="w-6 h-6 text-primary" />
+                  <h2 className="text-3xl sm:text-4xl font-barlow text-primary">
+                    {muslimResources.studentsOfKnowledge.title}
+                  </h2>
+                </div>
+                <p className="text-foreground/70 mb-6">{muslimResources.studentsOfKnowledge.subtitle}</p>
+                <div className="text-center py-8 bg-foreground/5 rounded-xl">
+                  <Lock className="w-12 h-12 text-primary/50 mx-auto mb-4" />
+                  <h3 className="text-lg font-bold text-foreground mb-2">
+                    Sign Up to Request Access
+                  </h3>
+                  <p className="text-foreground/70 mb-4">
+                    These advanced resources are restricted. Create an account and request access to view this content.
+                  </p>
+                  <a
+                    href="/login"
+                    className="inline-block bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors"
+                  >
+                    Sign Up / Login
+                  </a>
+                </div>
+              </div>
+            ) : accessStatus.hasAccess ? (
+              // User has access - Show full content
+              <div className="bg-foreground/10 backdrop-blur-sm rounded-2xl p-8 md:p-12">
+                <h2 className="text-3xl sm:text-4xl mb-2 font-barlow text-primary">
+                  {muslimResources.studentsOfKnowledge.title}
+                </h2>
+                <p className="text-foreground/70 mb-6">{muslimResources.studentsOfKnowledge.subtitle}</p>
+                {muslimResources.studentsOfKnowledge.components.map((component, index) => (
+                  <div key={index} className="mb-6 bg-foreground/5 rounded-xl p-6">
+                    <h3 className="text-xl font-bold text-foreground mb-3">{component.title}</h3>
+                    {component.subtitle && (
+                      <p className="text-foreground/70 mb-3">{component.subtitle}</p>
+                    )}
+                    {component.resources && (
+                      <div className="space-y-2 ml-4">
+                        {component.resources.map((resource, resIndex) => (
+                          <div key={resIndex}>
+                            {resource.url ? (
+                              <a
+                                href={resource.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-start gap-2 text-foreground/80 hover:text-primary transition-colors duration-300 p-2 rounded hover:bg-foreground/5"
+                              >
+                                <ExternalLink className="w-4 h-4 mt-1 flex-shrink-0" />
+                                <div>
+                                  <span>{resource.title}</span>
+                                  {resource.author && (
+                                    <span className="text-sm"> - {resource.author}</span>
+                                  )}
+                                  {resource.description && (
+                                    <p className="text-sm text-foreground/60">
+                                      {resource.description}
+                                    </p>
+                                  )}
+                                </div>
+                              </a>
+                            ) : (
+                              <div className="flex items-start gap-2 text-foreground/80 p-2">
+                                <span className="w-4 h-4 mt-1 flex-shrink-0">•</span>
+                                <div>
+                                  <span>{resource.title}</span>
+                                  {resource.description && (
+                                    <p className="text-sm text-foreground/60">
+                                      {resource.description}
+                                    </p>
+                                  )}
+                                </div>
                               </div>
-                            </a>
-                          ) : (
-                            <div className="flex items-start gap-2 text-foreground/80 p-2">
-                              <span className="w-4 h-4 mt-1 flex-shrink-0">•</span>
-                              <div>
-                                <span>{resource.title}</span>
-                                {resource.description && (
-                                  <p className="text-sm text-foreground/60">
-                                    {resource.description}
-                                  </p>
-                                )}
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      ))}
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            ) : accessStatus.hasPendingRequest ? (
+              // User has pending request
+              <div className="bg-foreground/10 backdrop-blur-sm rounded-2xl p-8 md:p-12">
+                <div className="flex items-center gap-2 mb-4">
+                  <Lock className="w-6 h-6 text-primary" />
+                  <h2 className="text-3xl sm:text-4xl font-barlow text-primary">
+                    {muslimResources.studentsOfKnowledge.title}
+                  </h2>
+                </div>
+                <p className="text-foreground/70 mb-6">{muslimResources.studentsOfKnowledge.subtitle}</p>
+                <div className="text-center py-8 bg-foreground/5 rounded-xl">
+                  <AlertCircle className="w-12 h-12 text-yellow-500 mx-auto mb-4" />
+                  <h3 className="text-lg font-bold text-foreground mb-2">
+                    Access Request Pending
+                  </h3>
+                  <p className="text-foreground/70">
+                    Your access request is currently being reviewed by an administrator.
+                  </p>
+                  {accessStatus.latestRequest && (
+                    <div className="bg-foreground/5 rounded-lg p-4 mt-4 max-w-md mx-auto text-left">
+                      <p className="text-sm text-foreground/70">
+                        <strong>Subject:</strong> {accessStatus.latestRequest.subject}
+                      </p>
+                      <p className="text-sm text-foreground/70 mt-2">
+                        <strong>Submitted:</strong>{' '}
+                        {new Date(accessStatus.latestRequest.createdAt).toLocaleDateString()}
+                      </p>
                     </div>
                   )}
                 </div>
-              ))}
-            </div>
+              </div>
+            ) : (
+              // User logged in but no access - Show request form link
+              <div className="bg-foreground/10 backdrop-blur-sm rounded-2xl p-8 md:p-12">
+                <div className="flex items-center gap-2 mb-4">
+                  <Lock className="w-6 h-6 text-primary" />
+                  <h2 className="text-3xl sm:text-4xl font-barlow text-primary">
+                    {muslimResources.studentsOfKnowledge.title}
+                  </h2>
+                </div>
+                <p className="text-foreground/70 mb-6">{muslimResources.studentsOfKnowledge.subtitle}</p>
+                <div className="text-center py-8 bg-foreground/5 rounded-xl">
+                  <Lock className="w-12 h-12 text-primary/50 mx-auto mb-4" />
+                  <h3 className="text-lg font-bold text-foreground mb-2">
+                    Access Restricted
+                  </h3>
+                  <p className="text-foreground/70 mb-4">
+                    These resources are restricted to approved students of knowledge. Visit the Muslims page to request access.
+                  </p>
+                  <a
+                    href="/muslim"
+                    className="inline-block bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors"
+                  >
+                    Request Access
+                  </a>
+                </div>
+              </div>
+            )}
 
             {/* Muslims Struggling with Faith Section */}
             <div className="bg-foreground/10 backdrop-blur-sm rounded-2xl p-8 md:p-12">

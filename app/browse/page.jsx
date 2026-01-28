@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import {
   Search,
   ChevronRight,
@@ -20,6 +20,41 @@ export default function BrowsePage() {
   const [selectedSubtopic, setSelectedSubtopic] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [accessStatus, setAccessStatus] = useState({
+    hasAccess: false,
+    hasPendingRequest: false,
+    latestRequest: null,
+  });
+  const [checkingAccess, setCheckingAccess] = useState(true);
+
+  useEffect(() => {
+    checkAccessStatus();
+  }, []);
+
+  const checkAccessStatus = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        setCheckingAccess(false);
+        return;
+      }
+      
+      const response = await fetch('/api/access-request/status', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setAccessStatus(data);
+      }
+    } catch (error) {
+      console.error('Failed to check access status:', error);
+    } finally {
+      setCheckingAccess(false);
+    }
+  };
 
   /* -------------------- Helpers -------------------- */
 
@@ -80,12 +115,15 @@ export default function BrowsePage() {
       )
     );
 
-    muslimResources.studentsOfKnowledge.components.forEach(c =>
-      c.resources &&
-      all.MUSLIMS.push(
-        ...flattenResources(c.resources, 'Students of Knowledge', c.title)
-      )
-    );
+    // Only include Students of Knowledge resources if user has access
+    if (accessStatus.hasAccess) {
+      muslimResources.studentsOfKnowledge.components.forEach(c =>
+        c.resources &&
+        all.MUSLIMS.push(
+          ...flattenResources(c.resources, 'Students of Knowledge', c.title)
+        )
+      );
+    }
 
     muslimResources.strugglingWithFaith.sections.forEach(section =>
       section.topics.forEach(t =>
@@ -130,37 +168,48 @@ export default function BrowsePage() {
     });
 
     return all;
-  }, []);
+  }, [accessStatus.hasAccess]);
 
   /* -------------------- Sidebar Data -------------------- */
 
-  const categoryData = useMemo(() => ({
-    'NON-MUSLIMS': {
-      sidebar: [
-        { name: 'Islam', subtopics: nonMuslimResources.islam.sections.map(s => s.title) },
-        { name: 'Christianity', subtopics: nonMuslimResources.christianity.sections.map(s => s.title) },
-        { name: 'Atheism/Agnosticism', subtopics: nonMuslimResources.atheismAgnosticism.sections.map(s => s.title) },
-        { name: 'Popular Misconceptions', subtopics: nonMuslimResources.misconceptions.sections.map(s => s.title) },
-        { name: 'Other Religions', subtopics: nonMuslimResources.otherReligions.topics.map(t => t.title) },
-        { name: 'Desires/Isms', subtopics: nonMuslimResources.desiresIdeologies.topics.map(t => t.title) },
-        { name: 'Guided Reading List for Seekers', subtopics: nonMuslimResources.guidedReading.sections.map(s => s.title) }
-      ]
-    },
-    MUSLIMS: {
-      sidebar: [
-        { name: 'General Muslims - Fiqh Pathway', subtopics: [] },
-        { name: 'General Muslims - Tazkiyah Pathway', subtopics: muslimResources.generalMuslims.pathways.tazkiyah.topics.map(t => t.title) },
-        { name: "General Muslims - 'Aqidah Pathway", subtopics: muslimResources.generalMuslims.pathways.aqidah.topics.map(t => t.title) },
-        { name: 'Students of Knowledge', subtopics: muslimResources.studentsOfKnowledge.components.map(c => c.title) }
-      ]
-    },
-    'NEW REVERTS': {
-      sidebar: revertResources.starterPackage.sections.map(s => ({
-        name: s.title,
-        subtopics: s.categories?.map(c => c.title) || []
-      }))
+  const categoryData = useMemo(() => {
+    const muslimsSidebar = [
+      { name: 'General Muslims - Fiqh Pathway', subtopics: [] },
+      { name: 'General Muslims - Tazkiyah Pathway', subtopics: muslimResources.generalMuslims.pathways.tazkiyah.topics.map(t => t.title) },
+      { name: "General Muslims - 'Aqidah Pathway", subtopics: muslimResources.generalMuslims.pathways.aqidah.topics.map(t => t.title) }
+    ];
+
+    // Only include Students of Knowledge in sidebar if user has access
+    if (accessStatus.hasAccess) {
+      muslimsSidebar.push({
+        name: 'Students of Knowledge',
+        subtopics: muslimResources.studentsOfKnowledge.components.map(c => c.title)
+      });
     }
-  }), []);
+
+    return {
+      'NON-MUSLIMS': {
+        sidebar: [
+          { name: 'Islam', subtopics: nonMuslimResources.islam.sections.map(s => s.title) },
+          { name: 'Christianity', subtopics: nonMuslimResources.christianity.sections.map(s => s.title) },
+          { name: 'Atheism/Agnosticism', subtopics: nonMuslimResources.atheismAgnosticism.sections.map(s => s.title) },
+          { name: 'Popular Misconceptions', subtopics: nonMuslimResources.misconceptions.sections.map(s => s.title) },
+          { name: 'Other Religions', subtopics: nonMuslimResources.otherReligions.topics.map(t => t.title) },
+          { name: 'Desires/Isms', subtopics: nonMuslimResources.desiresIdeologies.topics.map(t => t.title) },
+          { name: 'Guided Reading List for Seekers', subtopics: nonMuslimResources.guidedReading.sections.map(s => s.title) }
+        ]
+      },
+      MUSLIMS: {
+        sidebar: muslimsSidebar
+      },
+      'NEW REVERTS': {
+        sidebar: revertResources.starterPackage.sections.map(s => ({
+          name: s.title,
+          subtopics: s.categories?.map(c => c.title) || []
+        }))
+      }
+    };
+  }, [accessStatus.hasAccess]);
 
   /* -------------------- Filters -------------------- */
 
@@ -186,7 +235,7 @@ export default function BrowsePage() {
     }
 
     return resources;
-  }, [selectedCategory, selectedSidebarItem, selectedSubtopic, searchQuery]);
+  }, [getAllResources, categoryData, selectedCategory, selectedSidebarItem, selectedSubtopic, searchQuery]);
 
   /* -------------------- Icons -------------------- */
 
