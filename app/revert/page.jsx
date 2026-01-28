@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Users, Hand, Book, Smartphone, ArrowDown, ChevronDown, ExternalLink } from 'lucide-react';
 import { revertResources } from '../data/revertResources';
 import Image from 'next/image';
@@ -39,10 +39,36 @@ const ResourceList = ({ resources }) => (
 
 export default function NewRevertsPage() {
   const [expandedSection, setExpandedSection] = useState(null);
+  const sectionRefs = useRef([]);
+
+  // Initialize refs array
+  useEffect(() => {
+    sectionRefs.current = sectionRefs.current.slice(0, revertResources.starterPackage.sections.length);
+  }, []);
+
+  const scrollToSection = (sectionIndex) => {
+    setExpandedSection(sectionIndex);
+    
+    // Wait for the section to expand before scrolling
+    setTimeout(() => {
+      if (sectionRefs.current[sectionIndex]) {
+        const element = sectionRefs.current[sectionIndex];
+        const offset = 100; // Offset from top of viewport
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    }, 100);
+  };
 
   const toggleSection = (sectionIndex) => {
     setExpandedSection(expandedSection === sectionIndex ? null : sectionIndex);
   };
+
   return (
     <div className="font-palanquin mt-42 min-h-screen text-white">
           {/* Background calligraphy image */}
@@ -69,6 +95,57 @@ export default function NewRevertsPage() {
         </div>
       </div>
 
+      {/* Quick Reference Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 m-12">
+        {/* Foundation of Tawhid */}
+        <div onClick={() => scrollToSection(0)} className="group">
+          <div className="bg-foreground backdrop-blur-sm p-8 rounded-2xl hover:shadow-2xl hover:scale-105 transition-all duration-500 border border-gray-500/30 h-full flex flex-col justify-center items-center text-center cursor-pointer">
+            <div className="w-16 h-16 bg-[#c4b5a0] rounded-full flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform duration-300">
+              <span className="text-3xl font-bold text-gray-800">1</span>
+            </div>
+            <h3 className="text-xl text-background font-bold mb-3">Foundations of Tawhid</h3>
+            <p className="text-sm text-background">Understanding the oneness of Allah</p>
+          </div>
+        </div>
+
+        {/* Fiqh Basics */}
+        <div onClick={() => scrollToSection(2)} className="group">
+          <div className="bg-foreground backdrop-blur-sm p-8 rounded-2xl hover:shadow-2xl hover:scale-105 transition-all duration-500 border border-gray-500/30 h-full flex flex-col justify-center items-center text-center cursor-pointer">
+            <div className="w-16 h-16 bg-[#c4b5a0] rounded-full flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform duration-300">
+              <span className="text-3xl font-bold text-gray-800">2</span>
+            </div>
+            <h3 className="text-xl text-background font-bold mb-3">Fiqh Basics</h3>
+            <p className="text-sm text-background">Essential Islamic jurisprudence</p>
+          </div>
+        </div>
+
+        {/* Learning Salah */}
+        <div onClick={() => scrollToSection(2)} className="group">
+          <div className="bg-foreground backdrop-blur-sm p-8 rounded-2xl hover:shadow-2xl hover:scale-105 transition-all duration-500 border border-gray-500/30 h-full flex flex-col justify-center items-center text-center cursor-pointer">
+            <div className="w-16 h-16 bg-[#c4b5a0] rounded-full flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform duration-300">
+              <span className="text-3xl font-bold text-gray-800">3</span>
+            </div>
+            <h3 className="text-xl text-background font-bold mb-3">Learning Salah</h3>
+            <p className="text-sm text-background mb-4">Master the daily prayer</p>
+            <div className="flex gap-2 mt-auto">
+              <span className="bg-background px-3 py-1 rounded-full text-xs">For Men</span>
+              <span className="bg-background px-3 py-1 rounded-full text-xs">For Women</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Prophetic Character */}
+        <div onClick={() => scrollToSection(3)} className="group">
+          <div className="bg-foreground backdrop-blur-sm p-8 rounded-2xl hover:shadow-2xl hover:scale-105 transition-all duration-500 border border-gray-500/30 h-full flex flex-col justify-center items-center text-center cursor-pointer">
+            <div className="w-16 h-16 bg-[#c4b5a0] rounded-full flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform duration-300">
+              <span className="text-3xl font-bold text-gray-800">4</span>
+            </div>
+            <h3 className="text-xl text-background font-bold mb-3">Prophetic Character</h3>
+            <p className="text-sm text-background">Learn from the best example</p>
+          </div>
+        </div>
+      </div>
+
       {/* Section Overview */}
       <div className="relative py-12 px-4">
         <div className="max-w-7xl mx-auto">
@@ -82,7 +159,11 @@ export default function NewRevertsPage() {
           {/* Detailed Resources Section */}
           <div className="max-w-5xl mx-auto space-y-4 mb-12">
             {revertResources.starterPackage.sections.map((section, sectionIndex) => (
-              <div key={sectionIndex} className="bg-foreground/5 rounded-lg overflow-hidden border border-foreground/10">
+              <div 
+                key={sectionIndex} 
+                ref={(el) => (sectionRefs.current[sectionIndex] = el)}
+                className="bg-foreground/5 rounded-lg overflow-hidden border border-foreground/10"
+              >
                 <button
                   onClick={() => toggleSection(sectionIndex)}
                   className="w-full px-6 py-5 flex items-start justify-between hover:bg-foreground/10 transition-all duration-300 text-left"
@@ -115,56 +196,6 @@ export default function NewRevertsPage() {
             ))}
           </div>
 
-          {/* Quick Reference Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            {/* Foundation of Tawhid */}
-            <div className="group">
-              <div className="bg-foreground backdrop-blur-sm p-8 rounded-2xl hover:shadow-2xl hover:scale-105 transition-all duration-500 border border-gray-500/30 h-full flex flex-col justify-center items-center text-center cursor-pointer">
-                <div className="w-16 h-16 bg-[#c4b5a0] rounded-full flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform duration-300">
-                  <span className="text-3xl font-bold text-gray-800">1</span>
-                </div>
-                <h3 className="text-xl text-background font-bold mb-3">Foundations of Tawhid</h3>
-                <p className="text-sm text-background">Understanding the oneness of Allah</p>
-              </div>
-            </div>
-
-            {/* Fiqh Basics */}
-            <div className="group">
-              <div className="bg-foreground backdrop-blur-sm p-8 rounded-2xl hover:shadow-2xl hover:scale-105 transition-all duration-500 border border-gray-500/30 h-full flex flex-col justify-center items-center text-center cursor-pointer">
-                <div className="w-16 h-16 bg-[#c4b5a0] rounded-full flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform duration-300">
-                  <span className="text-3xl font-bold text-gray-800">2</span>
-                </div>
-                <h3 className="text-xl text-background font-bold mb-3">Fiqh Basics</h3>
-                <p className="text-sm text-background">Essential Islamic jurisprudence</p>
-              </div>
-            </div>
-
-            {/* Learning Salah */}
-            <div className="group">
-              <div className="bg-foreground backdrop-blur-sm p-8 rounded-2xl hover:shadow-2xl hover:scale-105 transition-all duration-500 border border-gray-500/30 h-full flex flex-col justify-center items-center text-center cursor-pointer">
-                <div className="w-16 h-16 bg-[#c4b5a0] rounded-full flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform duration-300">
-                  <span className="text-3xl font-bold text-gray-800">3</span>
-                </div>
-                <h3 className="text-xl text-background font-bold mb-3">Learning Salah</h3>
-                <p className="text-sm text-background mb-4">Master the daily prayer</p>
-                <div className="flex gap-2 mt-auto">
-                  <span className="bg-background px-3 py-1 rounded-full text-xs">For Men</span>
-                  <span className="bg-background px-3 py-1 rounded-full text-xs">For Women</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Prophetic Character */}
-            <div className="group">
-              <div className="bg-foreground backdrop-blur-sm p-8 rounded-2xl hover:shadow-2xl hover:scale-105 transition-all duration-500 border border-gray-500/30 h-full flex flex-col justify-center items-center text-center cursor-pointer">
-                <div className="w-16 h-16 bg-[#c4b5a0] rounded-full flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform duration-300">
-                  <span className="text-3xl font-bold text-gray-800">4</span>
-                </div>
-                <h3 className="text-xl text-background font-bold mb-3">Prophetic Character</h3>
-                <p className="text-sm text-background">Learn from the best example</p>
-              </div>
-            </div>
-          </div>
 
           {/* CTA Section */}
           <div className="text-center py-8">
