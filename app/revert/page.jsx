@@ -73,7 +73,7 @@ export default function NewRevertsPage() {
     <div className="font-palanquin mt-42 min-h-screen text-white">
           {/* Background calligraphy image */}
           <div className="absolute top-3/4 left-1/2 -translate-y-[60%] pointer-events-none opacity-10 z-[-10]">
-            <Image src="/homepage/cali-bg.svg" alt="Decorative calligraphy" width={800} height={800} className="object-contain" />
+            <Image src="/homepage/allah.svg" alt="Decorative calligraphy" width={800} height={800} className="object-contain" />
           </div>
       {/* Hero Section */}
       <div className="relative py-16 md:py-24 px-4">
@@ -220,18 +220,18 @@ export default function NewRevertsPage() {
             <div className="w-24 h-1 bg-[#c4b5a0] mx-auto"></div>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
             {/* Finding Muslim Friends */}
-            <div className="bg-foreground backdrop-blur-sm p-10 rounded-2xl hover:shadow-2xl transition-all duration-500 flex flex-col items-center text-center group cursor-pointer border border-gray-600/30 hover:border-[#c4b5a0]/50">
+            {/* <div className="bg-foreground backdrop-blur-sm p-10 rounded-2xl hover:shadow-2xl transition-all duration-500 flex flex-col items-center text-center group cursor-pointer border border-gray-600/30 hover:border-[#c4b5a0]/50">
               <div className="bg-[#c4b5a0]/20 p-6 rounded-full mb-6 group-hover:bg-[#c4b5a0]/30 transition-all duration-300">
                 <Users className="w-16 h-16 text-[#c4b5a0] group-hover:scale-110 transition-transform duration-300" />
               </div>
               <h3 className="text-xl text-background font-bold mb-2">Finding Muslim Friends</h3>
               <p className="text-sm text-background">Connect with your local community</p>
-            </div>
+            </div> */}
 
             {/* Simple Du'a Collection */}
-            <div className="bg-foreground backdrop-blur-sm p-10 rounded-2xl hover:shadow-2xl transition-all duration-500 flex flex-col items-center text-center group cursor-pointer border border-gray-600/30 hover:border-[#c4b5a0]/50">
+            <div onClick={() => (window.location.href = '/browse')} className="bg-foreground backdrop-blur-sm p-10 rounded-2xl hover:shadow-2xl transition-all duration-500 flex flex-col items-center text-center group cursor-pointer border border-gray-600/30 hover:border-[#c4b5a0]/50">
               <div className="bg-[#c4b5a0]/20 p-6 rounded-full mb-6 group-hover:bg-[#c4b5a0]/30 transition-all duration-300">
                 <Hand className="w-16 h-16 text-[#c4b5a0] group-hover:scale-110 transition-transform duration-300" />
               </div>
@@ -240,16 +240,16 @@ export default function NewRevertsPage() {
             </div>
 
             {/* Local Community Directory */}
-            <div className="bg-foreground backdrop-blur-sm p-10 rounded-2xl hover:shadow-2xl transition-all duration-500 flex flex-col items-center text-center group cursor-pointer border border-gray-600/30 hover:border-[#c4b5a0]/50">
+            {/* <div className="bg-foreground backdrop-blur-sm p-10 rounded-2xl hover:shadow-2xl transition-all duration-500 flex flex-col items-center text-center group cursor-pointer border border-gray-600/30 hover:border-[#c4b5a0]/50">
               <div className="bg-[#c4b5a0]/20 p-6 rounded-full mb-6 group-hover:bg-[#c4b5a0]/30 transition-all duration-300">
                 <Book className="w-16 h-16 text-[#c4b5a0] group-hover:scale-110 transition-transform duration-300" />
               </div>
               <h3 className="text-xl text-background font-bold mb-2">Local Community Directory</h3>
               <p className="text-sm text-background">Find mosques and Islamic centers</p>
-            </div>
+            </div> */}
 
             {/* Helpful Apps to Download */}
-            <div className="bg-foreground backdrop-blur-sm p-10 rounded-2xl hover:shadow-2xl transition-all duration-500 flex flex-col items-center text-center group cursor-pointer border border-gray-600/30 hover:border-[#c4b5a0]/50">
+            <div onClick={() => (window.location.href = '/apps')} className="bg-foreground backdrop-blur-sm p-10 rounded-2xl hover:shadow-2xl transition-all duration-500 flex flex-col items-center text-center group cursor-pointer border border-gray-600/30 hover:border-[#c4b5a0]/50">
               <div className="bg-[#c4b5a0]/20 p-6 rounded-full mb-6 group-hover:bg-[#c4b5a0]/30 transition-all duration-300">
                 <Smartphone className="w-16 h-16 text-[#c4b5a0] group-hover:scale-110 transition-transform duration-300" />
               </div>

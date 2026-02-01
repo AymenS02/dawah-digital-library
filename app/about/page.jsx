@@ -98,10 +98,10 @@ export default function AboutPage() {
     <div className="mt-16 min-h-screen bg-background text-foreground overflow-hidden">
       {/* Decorative Background */}
       <div className="fixed top-20 right-10 opacity-5 pointer-events-none parallax-slow z-0">
-        <Image src="/homepage/cali-bg.svg" alt="Decorative" width={400} height={400} className="object-contain" />
+        <Image src="/homepage/allah.svg" alt="Decorative" width={400} height={400} className="object-contain" />
       </div>
       <div className="fixed bottom-20 left-10 opacity-5 pointer-events-none parallax-medium z-0">
-        <Image src="/homepage/cali-bg.svg" alt="Decorative" width={300} height={300} className="object-contain" />
+        <Image src="/homepage/allah.svg" alt="Decorative" width={300} height={300} className="object-contain" />
       </div>
 
       {/* Hero */}

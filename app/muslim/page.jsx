@@ -219,7 +219,7 @@ export default function MuslimsPage() {
       {/* Background calligraphy image */}
       <div className="absolute top-3/4 left-1/2 -translate-y-[60%] pointer-events-none opacity-10 z-[-10]">
         <Image
-          src="/homepage/cali-bg.svg"
+          src="/homepage/allah.svg"
           alt="Decorative calligraphy"
           width={800}
           height={800}

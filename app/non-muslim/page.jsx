@@ -53,7 +53,7 @@ export default function NonMuslimsPage() {
     <div className="mt-42 min-h-screen text-foreground">
           {/* Background calligraphy image */}
           <div className="absolute top-3/4 left-1/2 -translate-y-[60%] pointer-events-none opacity-10 z-[-10]">
-            <Image src="/homepage/cali-bg.svg" alt="Decorative calligraphy" width={800} height={800} className="object-contain" />
+            <Image src="/homepage/allah.svg" alt="Decorative calligraphy" width={800} height={800} className="object-contain" />
           </div>
       {/* Hero Section */}
       <div className="relative py-16 md:py-24 px-4">

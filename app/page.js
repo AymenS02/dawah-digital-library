@@ -44,7 +44,7 @@ export default function Home() {
 
         {/* Background calligraphy image */}
         <div className="absolute top-1/2 left-1/2 -translate-x-[125%] -translate-y-[60%] pointer-events-none opacity-10 z-[-10]">
-          <Image src="/homepage/cali-bg.svg" alt="Decorative calligraphy" width={800} height={800} className="object-contain" />
+          <Image src="/homepage/allah.svg" alt="Decorative calligraphy" width={800} height={800} className="object-contain" />
         </div>
 
         {/* All content now has relative positioning to appear above background */}
