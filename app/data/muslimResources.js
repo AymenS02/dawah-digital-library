@@ -191,6 +191,7 @@ export const muslimResources = {
               },
               {
                 title: "Blessed is the One Who Knows His Lord",
+                author: "Shaikh Mostafa Al-Shaybani",
                 url: "https://www.youtube.com/watch?v=EVtHwO4GvDo"
               }
             ]
@@ -213,6 +214,59 @@ export const muslimResources = {
           },
 
           {
+            title: "Qur’an",
+            resources: [
+              {
+                title: "Gems of Qur’an series",
+                author: "Shaikh Mostafa Al-Shaybani",
+                url: "https://www.youtube.com/watch?v=WM8zN5e_7X0"
+              },
+              {
+                title: "Let the Qur'an Impact Your Life",
+                author: "Shaikh Mostafa Al-Shaybani",
+                url: "https://www.youtube.com/watch?v=Ntd4ZYw0bwo"
+              },
+              {
+                title: "The Parables Of The Quran",
+                author: "Shaikh Mostafa Al-Shaybani",
+                url: "https://www.youtube.com/live/gFwnVDVGKGg"
+              }
+            ]
+          },
+
+          {
+            title: "Problem of Evil",
+            resources: [
+              {
+                title: "Why Does Allah Let Bad Things Happen? Finding Peace in a World of Pain",
+                url: "https://kunooz-ul-ilm.com/why-does-allah-let-bad-things-happen-finding-peace-in-a-world-of-pain/#google_vignette"
+              },
+            ]
+          },
+
+          {
+            title: "Why Islam is Theologically Coherent",
+            resources: [
+              {
+                title: "Dardir's Kharida al-Bahiyya explained",
+                author: " Shaykh Faraz Rabbani",
+                url: "https://academy.seekersguidance.org/enrol/index.php?id=113"
+              },
+            ]
+          },
+
+          {
+            title: "Epistemology: How Muslims Know What is True",
+            resources: [
+              {
+                title: "Epistemology - How Do We Acquire Knowledge",
+                author: "Mohammed Hijab",
+                url: "https://www.youtube.com/watch?v=H-E5fB1kcEI"
+              },
+            ]
+          },
+
+          {
             title: "Doubt Management",
             resources: [
               {
@@ -221,7 +275,18 @@ export const muslimResources = {
                 url: "https://www.youtube.com/watch?v=v0tVWbiHW1I"
               },
               {
+                title: "Still Doubting What’s About to Come?",
+                author: "Ustadh Abdulrahman Hassan",
+                url: "https://www.youtube.com/watch?v=OxuBR9WY7g8"
+              },
+              {
+                title: "How To Truly Have Tawakkul",
+                author: "Hisham Abu Yusuf",
+                url: "https://www.youtube.com/watch?v=ztZazBAFhJ4"
+              },
+              {
                 title: "Advice to Those Afflicted with Waswaas",
+                author: "Shaykh Sulaymaan ar-Ruhaylee",
                 url: "https://abdurrahman.org/2017/01/22/advice-to-those-afflicted-with-waswaas-whisperings/"
               }
             ]
