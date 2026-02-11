@@ -9,7 +9,6 @@ export const revertResources = {
             title: "Shahada & Introduction to Faith",
             resources: [
               { title: "Shahada", url: "https://abdurrahman.org/2014/01/27/faithmuttaqun/" },
-              { title: "Ezamplew", url: "hhtpsrfdsf" },
               { title: "Islam For The Newly Converted Muslims (New Shahadah) – Dawud Adib", url: "https://abdurrahman.org/2012/01/06/mp3-islaam-for-the-new-shahaadah-dawud-adib/" },
               { title: "Obstacles Of The Newly Converted Muslims – Br. Abu Tasneed Dawood Adib", url: "https://abdurrahman.org/2011/06/13/mp3-obstacles-of-the-new-shahaadah-br-abu-tasneed-dawood-adib/" },
               { title: "The Meaning, Pillars and Conditions of Laa Ilaaha illa-Allaah & Muhammad-Rasoolullaah", url: "https://abdurrahman.org/2014/01/27/condition-of-iman-wasabi/" },
